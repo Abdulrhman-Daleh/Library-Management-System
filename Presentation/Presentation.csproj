@@ -1,0 +1,1321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4A9CCCDE-F88D-41C5-B8FE-5C41FB307395}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WindowsFormsApp1</RootNamespace>
+    <AssemblyName>WindowsFormsApp1</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaseUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaseUserControl.Designer.cs">
+      <DependentUpon>BaseUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookCopies\AddUpdateBookCopyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookCopies\AddUpdateBookCopyForm.Designer.cs">
+      <DependentUpon>AddUpdateBookCopyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookCopies\Controls\FindBookCopyWithFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BookCopies\Controls\FindBookCopyWithFilterControl.Designer.cs">
+      <DependentUpon>FindBookCopyWithFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookCopies\Controls\ViewBookCopyCardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BookCopies\Controls\ViewBookCopyCardControl.Designer.cs">
+      <DependentUpon>ViewBookCopyCardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookCopies\ManageBookCopiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookCopies\ManageBookCopiesForm.Designer.cs">
+      <DependentUpon>ManageBookCopiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookCopies\ViewBookCopyCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookCopies\ViewBookCopyCardForm.Designer.cs">
+      <DependentUpon>ViewBookCopyCardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\AddUpdateBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\AddUpdateBookForm.Designer.cs">
+      <DependentUpon>AddUpdateBookForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\Controls\FindBookWithFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Books\Controls\FindBookWithFilterControl.Designer.cs">
+      <DependentUpon>FindBookWithFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\Controls\ViewBookCardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Books\Controls\ViewBookCardControl.Designer.cs">
+      <DependentUpon>ViewBookCardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\ManageBooksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\ManageBooksForm.Designer.cs">
+      <DependentUpon>ManageBooksForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Books\ViewBookCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Books\ViewBookCardForm.Designer.cs">
+      <DependentUpon>ViewBookCardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fines\Controls\ViewFineCardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Fines\Controls\ViewFineCardControl.Designer.cs">
+      <DependentUpon>ViewFineCardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fines\ManageFinesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fines\ManageFinesForm.Designer.cs">
+      <DependentUpon>ManageFinesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fines\ViewFineDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fines\ViewFineDetailsForm.Designer.cs">
+      <DependentUpon>ViewFineDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\BorrowBookCopyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\BorrowBookCopyForm.Designer.cs">
+      <DependentUpon>BorrowBookCopyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\Controls\BookTransactionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\Controls\BookTransactionsControl.Designer.cs">
+      <DependentUpon>BookTransactionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\Controls\BorrowBookControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\Controls\BorrowBookControl.Designer.cs">
+      <DependentUpon>BorrowBookControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\Controls\StatsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\Controls\StatsControl.Designer.cs">
+      <DependentUpon>StatsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\Controls\ViewBorrowDetailsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\Controls\ViewBorrowDetailsControl.Designer.cs">
+      <DependentUpon>ViewBorrowDetailsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\ManageBorrowedBookCopiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\ManageBorrowedBookCopiesForm.Designer.cs">
+      <DependentUpon>ManageBorrowedBookCopiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\ViewBookBorrowDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BorrowingBookCopy\ViewBookBorrowDetailsForm.Designer.cs">
+      <DependentUpon>ViewBookBorrowDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Categories\AddUpdateCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\AddUpdateCategoryForm.Designer.cs">
+      <DependentUpon>AddUpdateCategoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Categories\Controls\ViewCategoryControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Controls\ViewCategoryControl.Designer.cs">
+      <DependentUpon>ViewCategoryControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Categories\ManageBookCategoriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\ManageBookCategoriesForm.Designer.cs">
+      <DependentUpon>ManageBookCategoriesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Categories\ViewCategoryCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\ViewCategoryCardForm.Designer.cs">
+      <DependentUpon>ViewCategoryCardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\Controls\ViewPaymentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Payments\Controls\ViewPaymentControl.Designer.cs">
+      <DependentUpon>ViewPaymentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryPolicies\Control\PolicyCardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LibraryPolicies\Control\PolicyCardControl.Designer.cs">
+      <DependentUpon>PolicyCardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryPolicies\ViewPolicyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibraryPolicies\ViewPolicyForm.Designer.cs">
+      <DependentUpon>ViewPolicyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MembershipRenewals\ManageMembershipRenewals.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MembershipRenewals\ManageMembershipRenewals.Designer.cs">
+      <DependentUpon>ManageMembershipRenewals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MembershipRenewals\ViewMembershipRenewalInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MembershipRenewals\ViewMembershipRenewalInfo.Designer.cs">
+      <DependentUpon>ViewMembershipRenewalInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Memberships\Controls\ViewMembershipCardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Memberships\Controls\ViewMembershipCardControl.Designer.cs">
+      <DependentUpon>ViewMembershipCardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Members\Controls\RelationlControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Members\Controls\RelationlControl.Designer.cs">
+      <DependentUpon>RelationlControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TextCustomFilterControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TextCustomFilterControl.Designer.cs">
+      <DependentUpon>TextCustomFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\ViewFinePaymentInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payments\ViewFinePaymentInfoForm.Designer.cs">
+      <DependentUpon>ViewFinePaymentInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\ManageFinePaymentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payments\ManageFinePaymentsForm.Designer.cs">
+      <DependentUpon>ManageFinePaymentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\ProcessFinePaymentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payments\ProcessFinePaymentForm.Designer.cs">
+      <DependentUpon>ProcessFinePaymentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryPolicies\AddUpdatePolicyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibraryPolicies\AddUpdatePolicyForm.Designer.cs">
+      <DependentUpon>AddUpdatePolicyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryPolicies\ManagePoliciesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibraryPolicies\ManagePoliciesForm.Designer.cs">
+      <DependentUpon>ManagePoliciesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Memberships\AddUpdateMembershipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Memberships\AddUpdateMembershipForm.Designer.cs">
+      <DependentUpon>AddUpdateMembershipForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Memberships\ManageMembershipsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Memberships\ManageMembershipsForm.Designer.cs">
+      <DependentUpon>ManageMembershipsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Memberships\ViewMembershipDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Memberships\ViewMembershipDetailsForm.Designer.cs">
+      <DependentUpon>ViewMembershipDetailsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Members\AddUpdateMemberForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Members\AddUpdateMemberForm.Designer.cs">
+      <DependentUpon>AddUpdateMemberForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Members\Controls\MemberControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Members\Controls\MemberControl.Designer.cs">
+      <DependentUpon>MemberControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Members\ManageMembersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Members\ManageMembersForm.Designer.cs">
+      <DependentUpon>ManageMembersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Members\ViewMemberCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Members\ViewMemberCardForm.Designer.cs">
+      <DependentUpon>ViewMemberCardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="People\AddUpdatePersonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="People\AddUpdatePersonForm.Designer.cs">
+      <DependentUpon>AddUpdatePersonForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="People\Controls\FindPersonWithFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="People\Controls\FindPersonWithFilterControl.Designer.cs">
+      <DependentUpon>FindPersonWithFilterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="People\Controls\PersonCardControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="People\Controls\PersonCardControl.Designer.cs">
+      <DependentUpon>PersonCardControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="People\ManagePeopleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="People\ManagePeopleForm.Designer.cs">
+      <DependentUpon>ManagePeopleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="People\ViewPersonCardInfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="People\ViewPersonCardInfoForm.Designer.cs">
+      <DependentUpon>ViewPersonCardInfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users\AddUpdateUserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users\AddUpdateUserForm.Designer.cs">
+      <DependentUpon>AddUpdateUserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\ChangePasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users\ChangePasswordForm.Designer.cs">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\Controls\FindAcountcontrol.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Users\Controls\FindAcountcontrol.Designer.cs">
+      <DependentUpon>FindAcountcontrol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\Controls\AccountControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Users\Controls\AccountControl.Designer.cs">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\ManageUsersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users\ManageUsersForm.Designer.cs">
+      <DependentUpon>ManageUsersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Users\ViewUserCardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Users\ViewUserCardForm.Designer.cs">
+      <DependentUpon>ViewUserCardForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookCopies\AddUpdateBookCopyForm.resx">
+      <DependentUpon>AddUpdateBookCopyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookCopies\Controls\FindBookCopyWithFilterControl.resx">
+      <DependentUpon>FindBookCopyWithFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookCopies\Controls\ViewBookCopyCardControl.resx">
+      <DependentUpon>ViewBookCopyCardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookCopies\ManageBookCopiesForm.resx">
+      <DependentUpon>ManageBookCopiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookCopies\ViewBookCopyCardForm.resx">
+      <DependentUpon>ViewBookCopyCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\AddUpdateBookForm.resx">
+      <DependentUpon>AddUpdateBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\Controls\FindBookWithFilterControl.resx">
+      <DependentUpon>FindBookWithFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\Controls\ViewBookCardControl.resx">
+      <DependentUpon>ViewBookCardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\ManageBooksForm.resx">
+      <DependentUpon>ManageBooksForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Books\ViewBookCardForm.resx">
+      <DependentUpon>ViewBookCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fines\Controls\ViewFineCardControl.resx">
+      <DependentUpon>ViewFineCardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fines\ManageFinesForm.resx">
+      <DependentUpon>ManageFinesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fines\ViewFineDetailsForm.resx">
+      <DependentUpon>ViewFineDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BorrowingBookCopy\BorrowBookCopyForm.resx">
+      <DependentUpon>BorrowBookCopyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BorrowingBookCopy\Controls\BookTransactionsControl.resx">
+      <DependentUpon>BookTransactionsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BorrowingBookCopy\Controls\BorrowBookControl.resx">
+      <DependentUpon>BorrowBookControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BorrowingBookCopy\Controls\StatsControl.resx">
+      <DependentUpon>StatsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BorrowingBookCopy\Controls\ViewBorrowDetailsControl.resx">
+      <DependentUpon>ViewBorrowDetailsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BorrowingBookCopy\ManageBorrowedBookCopiesForm.resx">
+      <DependentUpon>ManageBorrowedBookCopiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BorrowingBookCopy\ViewBookBorrowDetailsForm.resx">
+      <DependentUpon>ViewBookBorrowDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\AddUpdateCategoryForm.resx">
+      <DependentUpon>AddUpdateCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Controls\ViewCategoryControl.resx">
+      <DependentUpon>ViewCategoryControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\ManageBookCategoriesForm.resx">
+      <DependentUpon>ManageBookCategoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\ViewCategoryCardForm.resx">
+      <DependentUpon>ViewCategoryCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payments\ViewFinePaymentInfoForm.resx">
+      <DependentUpon>ViewFinePaymentInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payments\ManageFinePaymentsForm.resx">
+      <DependentUpon>ManageFinePaymentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payments\ProcessFinePaymentForm.resx">
+      <DependentUpon>ProcessFinePaymentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibraryPolicies\AddUpdatePolicyForm.resx">
+      <DependentUpon>AddUpdatePolicyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payments\Controls\ViewPaymentControl.resx">
+      <DependentUpon>ViewPaymentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibraryPolicies\ManagePoliciesForm.resx">
+      <DependentUpon>ManagePoliciesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibraryPolicies\Control\PolicyCardControl.resx">
+      <DependentUpon>PolicyCardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibraryPolicies\ViewPolicyForm.resx">
+      <DependentUpon>ViewPolicyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.dje.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.en-AS.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MembershipRenewals\ManageMembershipRenewals.resx">
+      <DependentUpon>ManageMembershipRenewals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MembershipRenewals\ViewMembershipRenewalInfo.resx">
+      <DependentUpon>ViewMembershipRenewalInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Memberships\AddUpdateMembershipForm.resx">
+      <DependentUpon>AddUpdateMembershipForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Memberships\Controls\ViewMembershipCardControl.resx">
+      <DependentUpon>ViewMembershipCardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Memberships\ManageMembershipsForm.resx">
+      <DependentUpon>ManageMembershipsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Memberships\ViewMembershipDetailsForm.resx">
+      <DependentUpon>ViewMembershipDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Members\AddUpdateMemberForm.resx">
+      <DependentUpon>AddUpdateMemberForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Members\Controls\MemberControl.resx">
+      <DependentUpon>MemberControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Members\Controls\RelationlControl.resx">
+      <DependentUpon>RelationlControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Members\ManageMembersForm.resx">
+      <DependentUpon>ManageMembersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Members\ViewMemberCardForm.resx">
+      <DependentUpon>ViewMemberCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\AddUpdatePersonForm.resx">
+      <DependentUpon>AddUpdatePersonForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\Controls\FindPersonWithFilterControl.resx">
+      <DependentUpon>FindPersonWithFilterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\Controls\PersonCardControl.resx">
+      <DependentUpon>PersonCardControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\ManagePeopleForm.resx">
+      <DependentUpon>ManagePeopleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="People\ViewPersonCardInfoForm.resx">
+      <DependentUpon>ViewPersonCardInfoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\AddUpdateUserForm.resx">
+      <DependentUpon>AddUpdateUserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\ChangePasswordForm.resx">
+      <DependentUpon>ChangePasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\Controls\FindAcountcontrol.resx">
+      <DependentUpon>FindAcountcontrol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\Controls\AccountControl.resx">
+      <DependentUpon>AccountControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\ManageUsersForm.resx">
+      <DependentUpon>ManageUsersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Users\ViewUserCardForm.resx">
+      <DependentUpon>ViewUserCardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj">
+      <Project>{3629557e-1928-4738-8e80-b3c8b248073c}</Project>
+      <Name>Business</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Member_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Category_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fine_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Copy_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fines_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Books_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Copies_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Categories_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Members_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Users_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\People_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Change_Password_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\viewUser_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Out_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Policies_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Policy_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\People_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Copy_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fine_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Category_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Policy_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Member_54.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Manage_Borrowing_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lost_Book_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Damaged_Book_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Return_Book_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Borrow_Book_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Library_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Login_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Show_Password_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remember_Me_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Previous_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Email_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NationalNo_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Phone_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Female_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Address_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Male_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Female_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Person_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Permisson_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Password_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ID_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Permission_All_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Permission_None_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Report_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_Renewal_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_Renewal_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reports_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Change_Password_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_Card_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Limit_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Checked_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\multiply_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Payment-Method_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Payment_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Status_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reason_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Book_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inaki-del-olmo-NIJuEQw0RKg-unsplash.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find_Person_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find_Person_63.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_User_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fine_ID_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_Info_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Payment_ID_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ISBN_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Borrow_Book_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\password_reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_Membership_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_Membership_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Membership_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_Policy_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_Policy_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_Categories_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Categories_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_Categories_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_Book_32.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_Book_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Book_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RenewId_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find_Person_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gender_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Star_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Money_Bag_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Books_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\round.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\more.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Book_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Book_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Categories_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Membership_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_Person1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_User_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Address_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Categories_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Copies_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Copy_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Book_Copy_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Books_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Books_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Borrow_Book_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Borrow_Book_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\button1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Category_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Category_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Change_Password_241.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Change_Password_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ChatGPT Image Aug 18, 2026, 09_43_53 AM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Checked_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Damaged_Book_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_Book_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_Categories_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_Membership_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete_Policy_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Email_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Female_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Female_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find_Person_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find_Person_631.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Find_Person_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fine_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fine_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fine_ID_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fines_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gender_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ID_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inaki-del-olmo-NIJuEQw0RKg-unsplash1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ISBN_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Library_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Limit_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log_Out_241.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Login_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lost_Book_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Male_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Manage_Borrowing_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Manage_Borrowing_512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Member_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Member_541.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Members_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_Renewal_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Membership_Renewal_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Money_Bag_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\more1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\multiply_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NationalNo_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Next_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Password_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\password_reload1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Payment_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Payment_ID_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Payment-Method_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\People_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\People_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Permission_All_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Permission_None_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Permisson_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Phone_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Policies_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Policy_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Policy_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Previous_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reason_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Remember_Me_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RenewId_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Report_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reports_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Return_Book_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\round1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Save_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings_642.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Show_Password_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Star_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Status_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_Book_32.png1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_Categories_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_Membership_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Update_Policy_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Users_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_Card_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\View_Info_641.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\viewUser_241.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add_5121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database\ERD.png" />
+    <Content Include="Database\Schema.sql" />
+    <Content Include="Database\StoredProcedures.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
