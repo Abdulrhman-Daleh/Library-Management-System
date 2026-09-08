@@ -328,7 +328,7 @@ namespace BusinessLogic
 
         private static bool AdminAccountExists()
         {
-            return FindByUsername("admin") != null;
+            return FindByUsername("Admin") != null;
         }
 
         public bool AddAdminAccount()
