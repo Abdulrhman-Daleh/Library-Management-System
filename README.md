@@ -70,7 +70,7 @@ I used a mix of **inline SQL** for simple CRUD and **stored procedures** for com
 5. **Run the seed data script** (`/Database/SeedData.sql`).
 6. **Update the connection string** in `App.config` to point to your SQL Server instance.
 7. **Build and run** the solution in Visual Studio.
-
+8. default username Admin and password Admin12345
 > If you get stuck, open an issue or message me – happy to help.
 
 ---
