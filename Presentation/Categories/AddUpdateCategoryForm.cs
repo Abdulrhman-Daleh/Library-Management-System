@@ -38,7 +38,7 @@ namespace LibrarySystem.Categories
         {
             LblTitle.Text = "Add New Book Category";
             this.Text = "Add New Category";
-            LblCategoryId.Text = "[????]";
+            LblCategoryId.Text = "[Not Set]";
             TxtCategoryDescription.Text = "";
             TxtCategoryName.Text = "";
         }

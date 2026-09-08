@@ -381,7 +381,7 @@ namespace LibrarySystem.Users
             this.LblUserId.Name = "LblUserId";
             this.LblUserId.Size = new System.Drawing.Size(77, 33);
             this.LblUserId.TabIndex = 5;
-            this.LblUserId.Text = "[????]";
+            this.LblUserId.Text = "[Not Set]";
             // 
             // TbPermissions
             // 

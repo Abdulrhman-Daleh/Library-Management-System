@@ -25,11 +25,11 @@ namespace LibrarySystem.Users.Controls.ViewUserCardControl
 
         public void ResetDefaultFields()
         {
-            LblUserName.Text = "[????]";
-            LblPermissions.Text = "[????]";
-            LblStatus.Text = "[????]";
+            LblUserName.Text = "[Not Set]";
+            LblPermissions.Text = "[Not Set]";
+            LblStatus.Text = "[Not Set]";
             pbStatus.ImageLocation = Resources.round.ToString();
-            LblLastLogin.Text = "[????]";
+            LblLastLogin.Text = "[Not Set]";
             _selectedUser = null;
         }
 

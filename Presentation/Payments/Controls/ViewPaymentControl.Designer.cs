@@ -160,7 +160,7 @@
             this.LblPaymentId.Name = "LblPaymentId";
             this.LblPaymentId.Size = new System.Drawing.Size(77, 33);
             this.LblPaymentId.TabIndex = 41;
-            this.LblPaymentId.Text = "[????]";
+            this.LblPaymentId.Text = "[Not Set]";
             // 
             // LblAmountPaid
             // 
@@ -170,7 +170,7 @@
             this.LblAmountPaid.Name = "LblAmountPaid";
             this.LblAmountPaid.Size = new System.Drawing.Size(52, 23);
             this.LblAmountPaid.TabIndex = 42;
-            this.LblAmountPaid.Text = "[????]";
+            this.LblAmountPaid.Text = "[Not Set]";
             // 
             // LblPaymentDate
             // 
@@ -180,7 +180,7 @@
             this.LblPaymentDate.Name = "LblPaymentDate";
             this.LblPaymentDate.Size = new System.Drawing.Size(52, 23);
             this.LblPaymentDate.TabIndex = 43;
-            this.LblPaymentDate.Text = "[????]";
+            this.LblPaymentDate.Text = "[Not Set]";
             // 
             // LblPaymentMethod
             // 
@@ -190,7 +190,7 @@
             this.LblPaymentMethod.Name = "LblPaymentMethod";
             this.LblPaymentMethod.Size = new System.Drawing.Size(52, 23);
             this.LblPaymentMethod.TabIndex = 44;
-            this.LblPaymentMethod.Text = "[????]";
+            this.LblPaymentMethod.Text = "[Not Set]";
             // 
             // ViewPaymentControl
             // 

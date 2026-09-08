@@ -95,7 +95,7 @@
             this.LblPolicyId.Name = "LblPolicyId";
             this.LblPolicyId.Size = new System.Drawing.Size(69, 29);
             this.LblPolicyId.TabIndex = 75;
-            this.LblPolicyId.Text = "[????]";
+            this.LblPolicyId.Text = "[Not Set]";
             // 
             // pictureBox2
             // 
@@ -127,7 +127,7 @@
             this.LblMemberId.Name = "LblMemberId";
             this.LblMemberId.Size = new System.Drawing.Size(69, 29);
             this.LblMemberId.TabIndex = 72;
-            this.LblMemberId.Text = "[????]";
+            this.LblMemberId.Text = "[Not Set]";
             // 
             // pictureBox1
             // 
@@ -159,7 +159,7 @@
             this.LblBookCopyId.Name = "LblBookCopyId";
             this.LblBookCopyId.Size = new System.Drawing.Size(69, 29);
             this.LblBookCopyId.TabIndex = 69;
-            this.LblBookCopyId.Text = "[????]";
+            this.LblBookCopyId.Text = "[Not Set]";
             // 
             // LblTitle
             // 
@@ -201,7 +201,7 @@
             this.LblStatusTitle.Name = "LblStatusTitle";
             this.LblStatusTitle.Size = new System.Drawing.Size(52, 23);
             this.LblStatusTitle.TabIndex = 65;
-            this.LblStatusTitle.Text = "[????]";
+            this.LblStatusTitle.Text = "[Not Set]";
             // 
             // pictureBox3
             // 
@@ -233,7 +233,7 @@
             this.LblBorrowId.Name = "LblBorrowId";
             this.LblBorrowId.Size = new System.Drawing.Size(69, 29);
             this.LblBorrowId.TabIndex = 62;
-            this.LblBorrowId.Text = "[????]";
+            this.LblBorrowId.Text = "[Not Set]";
             // 
             // BorrowBookControl
             // 

@@ -73,7 +73,7 @@
             this.LblPolicyId.Name = "LblPolicyId";
             this.LblPolicyId.Size = new System.Drawing.Size(66, 33);
             this.LblPolicyId.TabIndex = 1;
-            this.LblPolicyId.Text = "[???]";
+            this.LblPolicyId.Text = "[Not Set]";
             // 
             // NudFeesPerLateDay
             // 

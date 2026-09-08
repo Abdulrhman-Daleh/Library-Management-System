@@ -31,8 +31,8 @@ namespace Business
         public RelationalControlInformation()
         {
             PageTitle = "Unkown";
-            Title = "[????]";
-            Lines.AddRange(new List<string>() { "[????}", "[????}", "[????}", "[????]" });
+            Title = "[Not Set]";
+            Lines.AddRange(new List<string>() { "[????}", "[????}", "[????}", "[Not Set]" });
             LinesLabels = null;
             LinesImages = null;
             OnClick = null;

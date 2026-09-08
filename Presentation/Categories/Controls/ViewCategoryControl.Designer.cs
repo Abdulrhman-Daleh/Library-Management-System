@@ -133,7 +133,7 @@
             this.LblCategoryId.Name = "LblCategoryId";
             this.LblCategoryId.Size = new System.Drawing.Size(66, 33);
             this.LblCategoryId.TabIndex = 29;
-            this.LblCategoryId.Text = "[???]";
+            this.LblCategoryId.Text = "[Not Set]";
             // 
             // LblCategoryName
             // 
@@ -143,7 +143,7 @@
             this.LblCategoryName.Name = "LblCategoryName";
             this.LblCategoryName.Size = new System.Drawing.Size(44, 23);
             this.LblCategoryName.TabIndex = 30;
-            this.LblCategoryName.Text = "[???]";
+            this.LblCategoryName.Text = "[Not Set]";
             // 
             // LblCategoryDescription
             // 
@@ -153,7 +153,7 @@
             this.LblCategoryDescription.Name = "LblCategoryDescription";
             this.LblCategoryDescription.Size = new System.Drawing.Size(44, 23);
             this.LblCategoryDescription.TabIndex = 31;
-            this.LblCategoryDescription.Text = "[???]";
+            this.LblCategoryDescription.Text = "[Not Set]";
             // 
             // ViewCategoryControl
             // 

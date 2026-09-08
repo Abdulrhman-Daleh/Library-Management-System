@@ -103,7 +103,7 @@
             this.LblBorrowID.Name = "LblBorrowID";
             this.LblBorrowID.Size = new System.Drawing.Size(69, 29);
             this.LblBorrowID.TabIndex = 60;
-            this.LblBorrowID.Text = "[????]";
+            this.LblBorrowID.Text = "[Not Set]";
             // 
             // findBookCopyWithFilterControl
             // 

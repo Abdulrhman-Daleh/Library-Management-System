@@ -89,7 +89,7 @@
             this.LblMaxBooks.Name = "LblMaxBooks";
             this.LblMaxBooks.Size = new System.Drawing.Size(52, 23);
             this.LblMaxBooks.TabIndex = 31;
-            this.LblMaxBooks.Text = "[????]";
+            this.LblMaxBooks.Text = "[Not Set]";
             // 
             // pictureBox2
             // 
@@ -119,7 +119,7 @@
             this.LblMembershipName.Name = "LblMembershipName";
             this.LblMembershipName.Size = new System.Drawing.Size(83, 35);
             this.LblMembershipName.TabIndex = 25;
-            this.LblMembershipName.Text = "[????]";
+            this.LblMembershipName.Text = "[Not Set]";
             // 
             // pictureBox1
             // 
@@ -149,7 +149,7 @@
             this.LblTypeID.Name = "LblTypeID";
             this.LblTypeID.Size = new System.Drawing.Size(83, 35);
             this.LblTypeID.TabIndex = 0;
-            this.LblTypeID.Text = "[????]";
+            this.LblTypeID.Text = "[Not Set]";
             // 
             // ViewMembershipCardControl
             // 

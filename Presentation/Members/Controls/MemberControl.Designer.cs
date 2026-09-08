@@ -100,7 +100,7 @@
             this.LblDaysLeft.Name = "LblDaysLeft";
             this.LblDaysLeft.Size = new System.Drawing.Size(52, 23);
             this.LblDaysLeft.TabIndex = 37;
-            this.LblDaysLeft.Text = "[????]";
+            this.LblDaysLeft.Text = "[Not Set]";
             // 
             // pictureBox5
             // 
@@ -193,7 +193,7 @@
             this.LblMemberID.Name = "LblMemberID";
             this.LblMemberID.Size = new System.Drawing.Size(74, 25);
             this.LblMemberID.TabIndex = 25;
-            this.LblMemberID.Text = "[????]";
+            this.LblMemberID.Text = "[Not Set]";
             // 
             // LblMemberJoinDate
             // 
@@ -203,7 +203,7 @@
             this.LblMemberJoinDate.Name = "LblMemberJoinDate";
             this.LblMemberJoinDate.Size = new System.Drawing.Size(52, 23);
             this.LblMemberJoinDate.TabIndex = 26;
-            this.LblMemberJoinDate.Text = "[????]";
+            this.LblMemberJoinDate.Text = "[Not Set]";
             // 
             // LblMembershipExpirationDate
             // 
@@ -213,7 +213,7 @@
             this.LblMembershipExpirationDate.Name = "LblMembershipExpirationDate";
             this.LblMembershipExpirationDate.Size = new System.Drawing.Size(52, 23);
             this.LblMembershipExpirationDate.TabIndex = 27;
-            this.LblMembershipExpirationDate.Text = "[????]";
+            this.LblMembershipExpirationDate.Text = "[Not Set]";
             // 
             // LblMembershipTypeName
             // 
@@ -223,7 +223,7 @@
             this.LblMembershipTypeName.Name = "LblMembershipTypeName";
             this.LblMembershipTypeName.Size = new System.Drawing.Size(52, 23);
             this.LblMembershipTypeName.TabIndex = 28;
-            this.LblMembershipTypeName.Text = "[????]";
+            this.LblMembershipTypeName.Text = "[Not Set]";
             // 
             // MemberCardControl
             // 

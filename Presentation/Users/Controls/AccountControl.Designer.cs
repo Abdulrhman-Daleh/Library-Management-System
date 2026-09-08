@@ -77,7 +77,7 @@
             this.LblLastLogin.Name = "LblLastLogin";
             this.LblLastLogin.Size = new System.Drawing.Size(52, 23);
             this.LblLastLogin.TabIndex = 64;
-            this.LblLastLogin.Text = "[????]";
+            this.LblLastLogin.Text = "[Not Set]";
             // 
             // label1
             // 
@@ -117,7 +117,7 @@
             this.LblUserName.Name = "LblUserName";
             this.LblUserName.Size = new System.Drawing.Size(52, 23);
             this.LblUserName.TabIndex = 46;
-            this.LblUserName.Text = "[????]";
+            this.LblUserName.Text = "[Not Set]";
             // 
             // LblPermissions
             // 
@@ -127,7 +127,7 @@
             this.LblPermissions.Name = "LblPermissions";
             this.LblPermissions.Size = new System.Drawing.Size(52, 23);
             this.LblPermissions.TabIndex = 47;
-            this.LblPermissions.Text = "[????]";
+            this.LblPermissions.Text = "[Not Set]";
             // 
             // LblStatus
             // 
@@ -137,7 +137,7 @@
             this.LblStatus.Name = "LblStatus";
             this.LblStatus.Size = new System.Drawing.Size(52, 23);
             this.LblStatus.TabIndex = 67;
-            this.LblStatus.Text = "[????]";
+            this.LblStatus.Text = "[Not Set]";
             // 
             // pbStatus
             // 

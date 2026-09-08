@@ -18,11 +18,11 @@ namespace LibrarySystem.Members.Controls
 
         private void InitializeEmptyState()
         {
-            LblMemberID.Text = "[????]";
+            LblMemberID.Text = "[Not Set]";
             LblMemberJoinDate.Text = "[??/??/????]";
             LblMembershipExpirationDate.Text = "[??/??/????]";
             LblMembershipTypeName.Text = "[??????]";
-            LblDaysLeft.Text = "[????]";
+            LblDaysLeft.Text = "[Not Set]";
             pBarRemaining.Value = 0;
         }
 

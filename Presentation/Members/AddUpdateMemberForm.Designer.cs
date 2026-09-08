@@ -202,7 +202,7 @@
             this.LblMemberId.Name = "LblMemberId";
             this.LblMemberId.Size = new System.Drawing.Size(59, 29);
             this.LblMemberId.TabIndex = 0;
-            this.LblMemberId.Text = "[???]";
+            this.LblMemberId.Text = "[Not Set]";
             // 
             // CbMembershipTypes
             // 

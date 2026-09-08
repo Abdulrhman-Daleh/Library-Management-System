@@ -89,7 +89,7 @@
             this.LblValue4.Name = "LblValue4";
             this.LblValue4.Size = new System.Drawing.Size(36, 23);
             this.LblValue4.TabIndex = 10;
-            this.LblValue4.Text = "[??]";
+            this.LblValue4.Text = "[Not Set]";
             // 
             // pbImage4
             // 
@@ -129,7 +129,7 @@
             this.LblValue3.Name = "LblValue3";
             this.LblValue3.Size = new System.Drawing.Size(36, 23);
             this.LblValue3.TabIndex = 1;
-            this.LblValue3.Text = "[??]";
+            this.LblValue3.Text = "[Not Set]";
             // 
             // pbImage3
             // 
@@ -169,7 +169,7 @@
             this.LblValue2.Name = "LblValue2";
             this.LblValue2.Size = new System.Drawing.Size(36, 23);
             this.LblValue2.TabIndex = 4;
-            this.LblValue2.Text = "[??]";
+            this.LblValue2.Text = "[Not Set]";
             // 
             // pbImage2
             // 
@@ -209,7 +209,7 @@
             this.LblValue1.Name = "LblValue1";
             this.LblValue1.Size = new System.Drawing.Size(36, 23);
             this.LblValue1.TabIndex = 7;
-            this.LblValue1.Text = "[??]";
+            this.LblValue1.Text = "[Not Set]";
             // 
             // pbImage1
             // 

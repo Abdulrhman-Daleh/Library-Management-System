@@ -53,7 +53,7 @@ namespace LibrarySystem.BorrowingBookCopy.Controls
                 {
                     Borrow.BookCopyInfo = findBookCopyWithFilterControl.SelectedBookCopy;
                     Borrow.BookCopyId = Borrow.BookCopyInfo.BookCopyId;
-                    LblBorrowID.Text = Borrow.BorrowId <= 0 ? "[????]" : Borrow.BorrowId.ToString();
+                    LblBorrowID.Text = Borrow.BorrowId <= 0 ? "[Not Set]" : Borrow.BorrowId.ToString();
                 }
             }
             else 

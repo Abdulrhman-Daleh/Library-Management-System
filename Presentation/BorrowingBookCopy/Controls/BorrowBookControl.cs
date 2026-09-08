@@ -45,14 +45,14 @@ namespace LibrarySystem.BorrowingBookCopy.Controls
 
                 default:
                     LblTitle.Text = "Borrow Book";
-                    LblStatusTitle.Text = "[????]";
+                    LblStatusTitle.Text = "[Not Set]";
                     break;
             }
         }
 
         public void LoadBookBorrowData(int borrowId, int bookCopyId, int memberId, int policyId)
         {
-            LblBorrowId.Text =  borrowId <= 0 ? "[????]" : borrowId.ToString();
+            LblBorrowId.Text =  borrowId <= 0 ? "[Not Set]" : borrowId.ToString();
             LblBookCopyId.Text = bookCopyId.ToString();
             LblMemberId.Text = memberId.ToString();
             LblPolicyId.Text = policyId.ToString();
@@ -60,10 +60,10 @@ namespace LibrarySystem.BorrowingBookCopy.Controls
 
         public void Reset()
         {
-            LblBorrowId.Text = "[????]";
-            LblBookCopyId.Text = "[????]";
-            LblMemberId.Text = "[????]";
-            LblPolicyId.Text = "[????]";
+            LblBorrowId.Text = "[Not Set]";
+            LblBookCopyId.Text = "[Not Set]";
+            LblMemberId.Text = "[Not Set]";
+            LblPolicyId.Text = "[Not Set]";
             ChangePageStatus((BorrowTransaction.StatusType)5);
         }
     }

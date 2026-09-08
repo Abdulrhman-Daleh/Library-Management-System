@@ -110,7 +110,7 @@
             this.LblRenewDate.Name = "LblRenewDate";
             this.LblRenewDate.Size = new System.Drawing.Size(67, 30);
             this.LblRenewDate.TabIndex = 46;
-            this.LblRenewDate.Text = "[????]";
+            this.LblRenewDate.Text = "[Not Set]";
             // 
             // pictureBox3
             // 
@@ -140,7 +140,7 @@
             this.LblRenewId.Name = "LblRenewId";
             this.LblRenewId.Size = new System.Drawing.Size(67, 30);
             this.LblRenewId.TabIndex = 43;
-            this.LblRenewId.Text = "[????]";
+            this.LblRenewId.Text = "[Not Set]";
             // 
             // pictureBox1
             // 
@@ -170,7 +170,7 @@
             this.LblMembershipType.Name = "LblMembershipType";
             this.LblMembershipType.Size = new System.Drawing.Size(67, 30);
             this.LblMembershipType.TabIndex = 40;
-            this.LblMembershipType.Text = "[????]";
+            this.LblMembershipType.Text = "[Not Set]";
             // 
             // pictureBox2
             // 
@@ -203,7 +203,7 @@
             this.LblRenewFees.Name = "LblRenewFees";
             this.LblRenewFees.Size = new System.Drawing.Size(74, 25);
             this.LblRenewFees.TabIndex = 34;
-            this.LblRenewFees.Text = "[????]";
+            this.LblRenewFees.Text = "[Not Set]";
             // 
             // BtnClose
             // 

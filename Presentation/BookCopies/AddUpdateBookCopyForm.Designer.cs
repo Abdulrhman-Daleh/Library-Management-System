@@ -266,7 +266,7 @@
             this.LblBookCopyId.Name = "LblBookCopyId";
             this.LblBookCopyId.Size = new System.Drawing.Size(67, 30);
             this.LblBookCopyId.TabIndex = 0;
-            this.LblBookCopyId.Text = "[????]";
+            this.LblBookCopyId.Text = "[Not Set]";
             // 
             // LblBookId
             // 
@@ -276,7 +276,7 @@
             this.LblBookId.Name = "LblBookId";
             this.LblBookId.Size = new System.Drawing.Size(67, 30);
             this.LblBookId.TabIndex = 1;
-            this.LblBookId.Text = "[????]";
+            this.LblBookId.Text = "[Not Set]";
             // 
             // CbStatus
             // 

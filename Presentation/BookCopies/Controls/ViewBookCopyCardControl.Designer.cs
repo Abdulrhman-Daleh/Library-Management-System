@@ -46,7 +46,7 @@
             this.LblAddedDate.Name = "LblAddedDate";
             this.LblAddedDate.Size = new System.Drawing.Size(52, 23);
             this.LblAddedDate.TabIndex = 59;
-            this.LblAddedDate.Text = "[????]";
+            this.LblAddedDate.Text = "[Not Set]";
             // 
             // LblCondition
             // 
@@ -56,7 +56,7 @@
             this.LblCondition.Name = "LblCondition";
             this.LblCondition.Size = new System.Drawing.Size(52, 23);
             this.LblCondition.TabIndex = 58;
-            this.LblCondition.Text = "[????]";
+            this.LblCondition.Text = "[Not Set]";
             // 
             // LblStatus
             // 
@@ -66,7 +66,7 @@
             this.LblStatus.Name = "LblStatus";
             this.LblStatus.Size = new System.Drawing.Size(52, 23);
             this.LblStatus.TabIndex = 57;
-            this.LblStatus.Text = "[????]";
+            this.LblStatus.Text = "[Not Set]";
             // 
             // LblBookCopyId
             // 
@@ -78,7 +78,7 @@
             this.LblBookCopyId.Name = "LblBookCopyId";
             this.LblBookCopyId.Size = new System.Drawing.Size(62, 26);
             this.LblBookCopyId.TabIndex = 54;
-            this.LblBookCopyId.Text = "[????]";
+            this.LblBookCopyId.Text = "[Not Set]";
             // 
             // label6
             // 
@@ -213,7 +213,7 @@
             this.LblPrice.Name = "LblPrice";
             this.LblPrice.Size = new System.Drawing.Size(52, 23);
             this.LblPrice.TabIndex = 77;
-            this.LblPrice.Text = "[????]";
+            this.LblPrice.Text = "[Not Set]";
             // 
             // ViewBookCopyCardControl
             // 

@@ -101,7 +101,7 @@
             this.LblGender.Name = "LblGender";
             this.LblGender.Size = new System.Drawing.Size(52, 23);
             this.LblGender.TabIndex = 56;
-            this.LblGender.Text = "[????]";
+            this.LblGender.Text = "[Not Set]";
             // 
             // label1
             // 
@@ -224,7 +224,7 @@
             this.LblFullName.Name = "LblFullName";
             this.LblFullName.Size = new System.Drawing.Size(74, 25);
             this.LblFullName.TabIndex = 37;
-            this.LblFullName.Text = "[????]";
+            this.LblFullName.Text = "[Not Set]";
             // 
             // LblDateOfBirth
             // 
@@ -234,7 +234,7 @@
             this.LblDateOfBirth.Name = "LblDateOfBirth";
             this.LblDateOfBirth.Size = new System.Drawing.Size(52, 23);
             this.LblDateOfBirth.TabIndex = 39;
-            this.LblDateOfBirth.Text = "[????]";
+            this.LblDateOfBirth.Text = "[Not Set]";
             // 
             // LblAddress
             // 
@@ -244,7 +244,7 @@
             this.LblAddress.Name = "LblAddress";
             this.LblAddress.Size = new System.Drawing.Size(52, 23);
             this.LblAddress.TabIndex = 40;
-            this.LblAddress.Text = "[????]";
+            this.LblAddress.Text = "[Not Set]";
             // 
             // LblPhone
             // 
@@ -254,7 +254,7 @@
             this.LblPhone.Name = "LblPhone";
             this.LblPhone.Size = new System.Drawing.Size(52, 23);
             this.LblPhone.TabIndex = 41;
-            this.LblPhone.Text = "[????]";
+            this.LblPhone.Text = "[Not Set]";
             // 
             // LblEmail
             // 
@@ -264,7 +264,7 @@
             this.LblEmail.Name = "LblEmail";
             this.LblEmail.Size = new System.Drawing.Size(52, 23);
             this.LblEmail.TabIndex = 42;
-            this.LblEmail.Text = "[????]";
+            this.LblEmail.Text = "[Not Set]";
             // 
             // PersonCardControl
             // 

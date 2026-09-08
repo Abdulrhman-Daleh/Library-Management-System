@@ -21,9 +21,9 @@ namespace LibrarySystem.BookCopies.Controls
 
         private void ResetDefaults()
         {
-            LblBookCopyId.Text = "[????]";
-            LblStatus.Text = "[????]";
-            LblCondition.Text = "[????]";
+            LblBookCopyId.Text = "[Not Set]";
+            LblStatus.Text = "[Not Set]";
+            LblCondition.Text = "[Not Set]";
             LblAddedDate.Text = "[??/??/????]";
             LblPrice.Text = "[$$$]";
         }

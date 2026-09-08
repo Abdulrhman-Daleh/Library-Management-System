@@ -29,10 +29,10 @@ namespace WindowsFormsApp1.MembershipRenewals
 
             if (GenericOperations.IsEmptyObject(renewInfo))
             {
-                LblMembershipType.Text = "[????]";
-                LblRenewDate.Text = "[????]";
+                LblMembershipType.Text = "[Not Set]";
+                LblRenewDate.Text = "[Not Set]";
                 LblRenewFees.Text = "[$$$]";
-                LblRenewDate.Text = "[????/??/??]";
+                LblRenewDate.Text = "[Not Set]";
                 return;
             }
 

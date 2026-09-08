@@ -18,12 +18,12 @@ namespace LibrarySystem.BorrowingBookCopy.Controls
 
         private void ResetDefaultControls()
         {
-            LblBorrowId.Text = "[????]";
-            LblBorrowStatusId.Text = "[????]";
-            LblBorrowDate.Text = "[????]";
-            LblBorrowDueDate.Text = "[????]";
-            LblReturnDate.Text = "[????]";
-            LblLostDate.Text = "[????]";
+            LblBorrowId.Text = "[Not Set]";
+            LblBorrowStatusId.Text = "[Not Set]";
+            LblBorrowDate.Text = "[Not Set]";
+            LblBorrowDueDate.Text = "[Not Set]";
+            LblReturnDate.Text = "[Not Set]";
+            LblLostDate.Text = "[Not Set]";
         }
 
         private void ConfigureBorrowDataToUi()

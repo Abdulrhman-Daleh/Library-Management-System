@@ -212,7 +212,7 @@
             this.LblEffectiveTo.Name = "LblEffectiveTo";
             this.LblEffectiveTo.Size = new System.Drawing.Size(52, 23);
             this.LblEffectiveTo.TabIndex = 56;
-            this.LblEffectiveTo.Text = "[????]";
+            this.LblEffectiveTo.Text = "[Not Set]";
             // 
             // LblEffectiveFrom
             // 
@@ -222,7 +222,7 @@
             this.LblEffectiveFrom.Name = "LblEffectiveFrom";
             this.LblEffectiveFrom.Size = new System.Drawing.Size(52, 23);
             this.LblEffectiveFrom.TabIndex = 55;
-            this.LblEffectiveFrom.Text = "[????]";
+            this.LblEffectiveFrom.Text = "[Not Set]";
             // 
             // LblLostBookMultiplier
             // 
@@ -232,7 +232,7 @@
             this.LblLostBookMultiplier.Name = "LblLostBookMultiplier";
             this.LblLostBookMultiplier.Size = new System.Drawing.Size(52, 23);
             this.LblLostBookMultiplier.TabIndex = 54;
-            this.LblLostBookMultiplier.Text = "[????]";
+            this.LblLostBookMultiplier.Text = "[Not Set]";
             // 
             // LblGracePeriodDays
             // 
@@ -242,7 +242,7 @@
             this.LblGracePeriodDays.Name = "LblGracePeriodDays";
             this.LblGracePeriodDays.Size = new System.Drawing.Size(52, 23);
             this.LblGracePeriodDays.TabIndex = 53;
-            this.LblGracePeriodDays.Text = "[????]";
+            this.LblGracePeriodDays.Text = "[Not Set]";
             // 
             // LblFeesPerLateDay
             // 
@@ -252,7 +252,7 @@
             this.LblFeesPerLateDay.Name = "LblFeesPerLateDay";
             this.LblFeesPerLateDay.Size = new System.Drawing.Size(52, 23);
             this.LblFeesPerLateDay.TabIndex = 52;
-            this.LblFeesPerLateDay.Text = "[????]";
+            this.LblFeesPerLateDay.Text = "[Not Set]";
             // 
             // LblPolicyId
             // 
@@ -262,7 +262,7 @@
             this.LblPolicyId.Name = "LblPolicyId";
             this.LblPolicyId.Size = new System.Drawing.Size(52, 23);
             this.LblPolicyId.TabIndex = 51;
-            this.LblPolicyId.Text = "[????]";
+            this.LblPolicyId.Text = "[Not Set]";
             // 
             // PolicyCardControl
             // 

@@ -201,7 +201,7 @@
             this.LblBorrowId.Name = "LblBorrowId";
             this.LblBorrowId.Size = new System.Drawing.Size(69, 29);
             this.LblBorrowId.TabIndex = 38;
-            this.LblBorrowId.Text = "[????]";
+            this.LblBorrowId.Text = "[Not Set]";
             // 
             // LblBorrowStatusId
             // 
@@ -211,7 +211,7 @@
             this.LblBorrowStatusId.Name = "LblBorrowStatusId";
             this.LblBorrowStatusId.Size = new System.Drawing.Size(52, 23);
             this.LblBorrowStatusId.TabIndex = 42;
-            this.LblBorrowStatusId.Text = "[????]";
+            this.LblBorrowStatusId.Text = "[Not Set]";
             // 
             // LblBorrowDate
             // 
@@ -221,7 +221,7 @@
             this.LblBorrowDate.Name = "LblBorrowDate";
             this.LblBorrowDate.Size = new System.Drawing.Size(52, 23);
             this.LblBorrowDate.TabIndex = 43;
-            this.LblBorrowDate.Text = "[????]";
+            this.LblBorrowDate.Text = "[Not Set]";
             // 
             // LblBorrowDueDate
             // 
@@ -231,7 +231,7 @@
             this.LblBorrowDueDate.Name = "LblBorrowDueDate";
             this.LblBorrowDueDate.Size = new System.Drawing.Size(52, 23);
             this.LblBorrowDueDate.TabIndex = 44;
-            this.LblBorrowDueDate.Text = "[????]";
+            this.LblBorrowDueDate.Text = "[Not Set]";
             // 
             // LblReturnDate
             // 
@@ -241,7 +241,7 @@
             this.LblReturnDate.Name = "LblReturnDate";
             this.LblReturnDate.Size = new System.Drawing.Size(52, 23);
             this.LblReturnDate.TabIndex = 45;
-            this.LblReturnDate.Text = "[????]";
+            this.LblReturnDate.Text = "[Not Set]";
             // 
             // LblLostDate
             // 
@@ -251,7 +251,7 @@
             this.LblLostDate.Name = "LblLostDate";
             this.LblLostDate.Size = new System.Drawing.Size(52, 23);
             this.LblLostDate.TabIndex = 46;
-            this.LblLostDate.Text = "[????]";
+            this.LblLostDate.Text = "[Not Set]";
             // 
             // ViewBorrowDetailsControl
             // 

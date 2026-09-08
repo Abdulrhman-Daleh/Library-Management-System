@@ -60,7 +60,7 @@
             this.LblCategoryId.Name = "LblCategoryId";
             this.LblCategoryId.Size = new System.Drawing.Size(83, 35);
             this.LblCategoryId.TabIndex = 1;
-            this.LblCategoryId.Text = "[????]";
+            this.LblCategoryId.Text = "[Not Set]";
             // 
             // GbCategoryInfo
             // 

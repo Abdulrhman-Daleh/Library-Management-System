@@ -91,7 +91,7 @@
             this.LblTotalCopies.Name = "LblTotalCopies";
             this.LblTotalCopies.Size = new System.Drawing.Size(52, 23);
             this.LblTotalCopies.TabIndex = 70;
-            this.LblTotalCopies.Text = "[????]";
+            this.LblTotalCopies.Text = "[Not Set]";
             // 
             // pictureBox5
             // 
@@ -163,7 +163,7 @@
             this.LblBookId.Name = "LblBookId";
             this.LblBookId.Size = new System.Drawing.Size(69, 29);
             this.LblBookId.TabIndex = 51;
-            this.LblBookId.Text = "[????]";
+            this.LblBookId.Text = "[Not Set]";
             // 
             // LblIsbn
             // 
@@ -175,7 +175,7 @@
             this.LblIsbn.Name = "LblIsbn";
             this.LblIsbn.Size = new System.Drawing.Size(69, 29);
             this.LblIsbn.TabIndex = 52;
-            this.LblIsbn.Text = "[????]";
+            this.LblIsbn.Text = "[Not Set]";
             // 
             // LblPublicationDate
             // 
@@ -185,7 +185,7 @@
             this.LblPublicationDate.Name = "LblPublicationDate";
             this.LblPublicationDate.Size = new System.Drawing.Size(52, 23);
             this.LblPublicationDate.TabIndex = 54;
-            this.LblPublicationDate.Text = "[????]";
+            this.LblPublicationDate.Text = "[Not Set]";
             // 
             // pictureBox1
             // 
@@ -217,7 +217,7 @@
             this.LblAuthor.Name = "LblAuthor";
             this.LblAuthor.Size = new System.Drawing.Size(69, 29);
             this.LblAuthor.TabIndex = 73;
-            this.LblAuthor.Text = "[????]";
+            this.LblAuthor.Text = "[Not Set]";
             // 
             // ViewBookCardControl
             // 

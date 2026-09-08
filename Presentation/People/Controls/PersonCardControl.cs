@@ -33,12 +33,12 @@ namespace LibrarySystem.People
 
         private void ResetDefaultViews()
         {
-            LblFullName.Text = "[????]";
-            LblDateOfBirth.Text = "[????]";
-            LblAddress.Text = "[????]";
-            LblGender.Text = "[????]";
-            LblPhone.Text = "[????]";
-            LblEmail.Text = "[????]";
+            LblFullName.Text = "[Not Set]";
+            LblDateOfBirth.Text = "[Not Set]";
+            LblAddress.Text = "[Not Set]";
+            LblGender.Text = "[Not Set]";
+            LblPhone.Text = "[Not Set]";
+            LblEmail.Text = "[Not Set]";
             PbPersonImage.ImageLocation = null;
         }
 

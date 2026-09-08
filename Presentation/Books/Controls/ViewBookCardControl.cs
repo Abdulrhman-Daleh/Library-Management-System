@@ -18,11 +18,11 @@ namespace LibrarySystem.Books.Controls
 
         private void ResetDefaultFields()
         {
-            LblBookId.Text = "[????]";
-            LblIsbn.Text = "[????]";
-            LblPublicationDate.Text = "[????]";
-            LblTotalCopies.Text = "[????]";
-            LblAuthor.Text = "[????]";
+            LblBookId.Text = "[Not Set]";
+            LblIsbn.Text = "[Not Set]";
+            LblPublicationDate.Text = "[Not Set]";
+            LblTotalCopies.Text = "[Not Set]";
+            LblAuthor.Text = "[Not Set]";
         }
 
         private bool HandleEmptyBook()

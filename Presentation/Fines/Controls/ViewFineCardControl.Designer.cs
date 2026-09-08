@@ -199,7 +199,7 @@
             this.LblFineId.Name = "LblFineId";
             this.LblFineId.Size = new System.Drawing.Size(52, 23);
             this.LblFineId.TabIndex = 9;
-            this.LblFineId.Text = "[????]";
+            this.LblFineId.Text = "[Not Set]";
             // 
             // LblFineStatus
             // 
@@ -209,7 +209,7 @@
             this.LblFineStatus.Name = "LblFineStatus";
             this.LblFineStatus.Size = new System.Drawing.Size(52, 23);
             this.LblFineStatus.TabIndex = 10;
-            this.LblFineStatus.Text = "[????]";
+            this.LblFineStatus.Text = "[Not Set]";
             // 
             // LblReason
             // 
@@ -219,7 +219,7 @@
             this.LblReason.Name = "LblReason";
             this.LblReason.Size = new System.Drawing.Size(52, 23);
             this.LblReason.TabIndex = 11;
-            this.LblReason.Text = "[????]";
+            this.LblReason.Text = "[Not Set]";
             // 
             // LblFineAmount
             // 
@@ -229,7 +229,7 @@
             this.LblFineAmount.Name = "LblFineAmount";
             this.LblFineAmount.Size = new System.Drawing.Size(52, 23);
             this.LblFineAmount.TabIndex = 12;
-            this.LblFineAmount.Text = "[????]";
+            this.LblFineAmount.Text = "[Not Set]";
             // 
             // LblPaidAmount
             // 
@@ -239,7 +239,7 @@
             this.LblPaidAmount.Name = "LblPaidAmount";
             this.LblPaidAmount.Size = new System.Drawing.Size(52, 23);
             this.LblPaidAmount.TabIndex = 13;
-            this.LblPaidAmount.Text = "[????]";
+            this.LblPaidAmount.Text = "[Not Set]";
             // 
             // LblRemainingAmount
             // 
@@ -249,7 +249,7 @@
             this.LblRemainingAmount.Name = "LblRemainingAmount";
             this.LblRemainingAmount.Size = new System.Drawing.Size(52, 23);
             this.LblRemainingAmount.TabIndex = 14;
-            this.LblRemainingAmount.Text = "[????]";
+            this.LblRemainingAmount.Text = "[Not Set]";
             // 
             // ViewFineCardControl
             // 

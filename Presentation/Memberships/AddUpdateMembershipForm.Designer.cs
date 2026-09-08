@@ -64,7 +64,7 @@
             this.LblMembershipTypeId.Name = "LblMembershipTypeId";
             this.LblMembershipTypeId.Size = new System.Drawing.Size(55, 33);
             this.LblMembershipTypeId.TabIndex = 1;
-            this.LblMembershipTypeId.Text = "[??]";
+            this.LblMembershipTypeId.Text = "[Not Set]";
             // 
             // TxtMembershipTypeName
             // 

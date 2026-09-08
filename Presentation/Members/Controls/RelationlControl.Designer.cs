@@ -99,7 +99,7 @@
             this.LblLeft.Name = "LblLeft";
             this.LblLeft.Size = new System.Drawing.Size(52, 23);
             this.LblLeft.TabIndex = 76;
-            this.LblLeft.Text = "[????]";
+            this.LblLeft.Text = "[Not Set]";
             // 
             // LblLeft2
             // 
@@ -108,7 +108,7 @@
             this.LblLeft2.Name = "LblLeft2";
             this.LblLeft2.Size = new System.Drawing.Size(52, 23);
             this.LblLeft2.TabIndex = 75;
-            this.LblLeft2.Text = "[????]";
+            this.LblLeft2.Text = "[Not Set]";
             // 
             // LblLeft1
             // 
@@ -127,7 +127,7 @@
             this.LblLeftLine3.Name = "LblLeftLine3";
             this.LblLeftLine3.Size = new System.Drawing.Size(52, 23);
             this.LblLeftLine3.TabIndex = 73;
-            this.LblLeftLine3.Text = "[????]";
+            this.LblLeftLine3.Text = "[Not Set]";
             // 
             // PbTitleImageRight
             // 
@@ -147,7 +147,7 @@
             this.LblLeftPTitle.Name = "LblLeftPTitle";
             this.LblLeftPTitle.Size = new System.Drawing.Size(52, 23);
             this.LblLeftPTitle.TabIndex = 71;
-            this.LblLeftPTitle.Text = "[????]";
+            this.LblLeftPTitle.Text = "[Not Set]";
             // 
             // LnkLeft
             // 
@@ -195,7 +195,7 @@
             this.LblLeftLine1.Name = "LblLeftLine1";
             this.LblLeftLine1.Size = new System.Drawing.Size(52, 23);
             this.LblLeftLine1.TabIndex = 61;
-            this.LblLeftLine1.Text = "[????]";
+            this.LblLeftLine1.Text = "[Not Set]";
             // 
             // LblLeftLine23
             // 
@@ -205,7 +205,7 @@
             this.LblLeftLine23.Name = "LblLeftLine23";
             this.LblLeftLine23.Size = new System.Drawing.Size(52, 23);
             this.LblLeftLine23.TabIndex = 62;
-            this.LblLeftLine23.Text = "[????]";
+            this.LblLeftLine23.Text = "[Not Set]";
             // 
             // gpRight
             // 
@@ -239,7 +239,7 @@
             this.LblRight4.Name = "LblRight4";
             this.LblRight4.Size = new System.Drawing.Size(52, 23);
             this.LblRight4.TabIndex = 83;
-            this.LblRight4.Text = "[????]";
+            this.LblRight4.Text = "[Not Set]";
             // 
             // pbLine4ImageRight
             // 
@@ -258,7 +258,7 @@
             this.LblLine4Right.Name = "LblLine4Right";
             this.LblLine4Right.Size = new System.Drawing.Size(52, 23);
             this.LblLine4Right.TabIndex = 81;
-            this.LblLine4Right.Text = "[????]";
+            this.LblLine4Right.Text = "[Not Set]";
             // 
             // LnkRight
             // 
@@ -278,7 +278,7 @@
             this.LblRight3.Name = "LblRight3";
             this.LblRight3.Size = new System.Drawing.Size(52, 23);
             this.LblRight3.TabIndex = 79;
-            this.LblRight3.Text = "[????]";
+            this.LblRight3.Text = "[Not Set]";
             // 
             // PbTitleImageLeft
             // 
@@ -297,7 +297,7 @@
             this.LblRight2.Name = "LblRight2";
             this.LblRight2.Size = new System.Drawing.Size(52, 23);
             this.LblRight2.TabIndex = 78;
-            this.LblRight2.Text = "[????]";
+            this.LblRight2.Text = "[Not Set]";
             // 
             // LblRight1
             // 
@@ -306,7 +306,7 @@
             this.LblRight1.Name = "LblRight1";
             this.LblRight1.Size = new System.Drawing.Size(52, 23);
             this.LblRight1.TabIndex = 77;
-            this.LblRight1.Text = "[????]";
+            this.LblRight1.Text = "[Not Set]";
             // 
             // LblRightTitle
             // 
@@ -316,7 +316,7 @@
             this.LblRightTitle.Name = "LblRightTitle";
             this.LblRightTitle.Size = new System.Drawing.Size(52, 23);
             this.LblRightTitle.TabIndex = 72;
-            this.LblRightTitle.Text = "[????]";
+            this.LblRightTitle.Text = "[Not Set]";
             // 
             // pbLine2ImageRight
             // 
@@ -345,7 +345,7 @@
             this.LblLine3Right.Name = "LblLine3Right";
             this.LblLine3Right.Size = new System.Drawing.Size(52, 23);
             this.LblLine3Right.TabIndex = 37;
-            this.LblLine3Right.Text = "[????]";
+            this.LblLine3Right.Text = "[Not Set]";
             // 
             // LblLine2Right
             // 
@@ -355,7 +355,7 @@
             this.LblLine2Right.Name = "LblLine2Right";
             this.LblLine2Right.Size = new System.Drawing.Size(52, 23);
             this.LblLine2Right.TabIndex = 38;
-            this.LblLine2Right.Text = "[????]";
+            this.LblLine2Right.Text = "[Not Set]";
             // 
             // pbLine1ImageRight
             // 
@@ -376,7 +376,7 @@
             this.LblLine1Right.Name = "LblLine1Right";
             this.LblLine1Right.Size = new System.Drawing.Size(74, 25);
             this.LblLine1Right.TabIndex = 34;
-            this.LblLine1Right.Text = "[????]";
+            this.LblLine1Right.Text = "[Not Set]";
             // 
             // RelationlControl
             // 
