@@ -239,6 +239,9 @@ namespace LibrarySystem.BookCopies
         {
             int bookCopyId = (int)DgvBookCopies.CurrentRow.Cells["BookCopyID"].Value;
 
+            if (MessageBox.Show($"are you sure you want to delete book copy with id : {bookCopyId} y/n?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                return;
+
             BorrowBookCopyForm borrowBookCopyForm = new BorrowBookCopyForm(bookCopyId, BorrowTransaction.StatusType.Damage);
             borrowBookCopyForm.OnBorrowAdded += (id) => ReloadRecords(bookCopyId);
             borrowBookCopyForm.ShowDialog();
