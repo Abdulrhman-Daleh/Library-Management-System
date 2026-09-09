@@ -214,15 +214,24 @@ namespace DataAccess
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
-                string query = @"SELECT * FROM MembershipRenews";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    await connection.OpenAsync();
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    string query = @"SELECT * FROM MembershipRenews";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        {
                             dataTable.Load(reader);
+                        }
                     }
+                }
+                catch(Exception ex)
+                {
+                    DataLogger.LogError("MembershipRenewData", ex.Message);
+                    return new DataTable();
                 }
             }
 
@@ -235,40 +244,55 @@ namespace DataAccess
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
-                string query = @"SELECT * FROM MembershipRenews WHERE MemberID = @MemberID";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
+                    string query = @"SELECT * FROM MembershipRenews WHERE MemberID = @MemberID";
+
                     await connection.OpenAsync();
-                    command.Parameters.AddWithValue("@MemberID", memberId);
-                    using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
+                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        {
                             dataTable.Load(reader);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    DataLogger.LogError("MembershipRenewData", ex.Message);
+                    return new DataTable();
                 }
             }
 
             return dataTable;
         }
 
-        public static DataTable GetRenewalsByMemberId(int memberId)
+        public static async Task<DataTable> GetRenewalsByMemberId(int memberId)
         {
             DataTable dataTable = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
-                string query = @"SELECT * FROM MembershipRenews WHERE MemberID = @MemberID ORDER BY RenewDate DESC";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("@MemberID", memberId);
-                    connection.Open();
+                    string query = @"SELECT * FROM MembershipRenews WHERE MemberID = @MemberID ORDER BY RenewDate DESC";
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        if (reader.HasRows)
+                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        await connection.OpenAsync();
+
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        {
                             dataTable.Load(reader);
+                        }
                     }
+                }
+                catch(Exception ex)
+                {
+                    DataLogger.LogError("MembershipRenewData", ex.Message);
+                    return new DataTable();
                 }
             }
 
