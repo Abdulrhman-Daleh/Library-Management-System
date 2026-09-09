@@ -25,13 +25,13 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        if (reader.HasRows)
                             peopleDataTable.Load(reader);
                     }
                 }
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 
@@ -55,7 +55,6 @@ namespace DataAccess
                         command.Parameters.AddWithValue("@PersonID", personId);
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
-                            if (reader.HasRows)
                                 peopleDataTable.Load(reader);
                         }
                     }
@@ -63,6 +62,7 @@ namespace DataAccess
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 

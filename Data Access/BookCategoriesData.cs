@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 
 namespace DataAccess
@@ -24,13 +25,13 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        if (reader.HasRows)
                             dataTable.Load(reader);
                     }
                 }
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 

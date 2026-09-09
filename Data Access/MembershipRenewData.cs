@@ -221,7 +221,6 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        if (reader.HasRows)
                             dataTable.Load(reader);
                     }
                 }
@@ -244,7 +243,6 @@ namespace DataAccess
                     command.Parameters.AddWithValue("@MemberID", memberId);
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        if (reader.HasRows)
                             dataTable.Load(reader);
                     }
                 }

@@ -25,15 +25,13 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand(query, connection))
                     using (SqlDataReader reader = await command.ExecuteReaderAsync())
                     {
-                        if (reader.HasRows)
                             dataTable.Load(reader);
-                        else
-                            dataTable = null;
                     }
                 }
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 
@@ -59,16 +57,14 @@ namespace DataAccess
                         command.Parameters.AddWithValue("@UserID", userId);
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
-                            if (reader.HasRows)
                                 dataTable.Load(reader);
-                            else
-                                dataTable = null;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 
@@ -96,16 +92,14 @@ namespace DataAccess
 
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
-                            if (reader.HasRows)
                                 dataTable.Load(reader);
-                            else
-                                dataTable = null;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 
@@ -134,16 +128,14 @@ namespace DataAccess
 
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
-                            if (reader.HasRows)
                                 dataTable.Load(reader);
-                            else
-                                dataTable = null;
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 
