@@ -55,8 +55,8 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        if(renewId.HasValue)
-                        command.Parameters.AddWithValue("@RenewID", renewId);
+                        if (renewId.HasValue)
+                            command.Parameters.AddWithValue("@RenewID", renewId);
                         else
                             command.Parameters.AddWithValue("@RenewID", DBNull.Value);
 
@@ -146,8 +146,8 @@ namespace DataAccess
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    if(renewId.HasValue)
-                    command.Parameters.AddWithValue("@RenewID", renewId);
+                    if (renewId.HasValue)
+                        command.Parameters.AddWithValue("@RenewID", renewId);
                     else
                         command.Parameters.AddWithValue("@RenewID", DBNull.Value);
 
@@ -228,7 +228,7 @@ namespace DataAccess
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     DataLogger.LogError("MembershipRenewData", ex.Message);
                     return new DataTable();
@@ -289,7 +289,7 @@ namespace DataAccess
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     DataLogger.LogError("MembershipRenewData", ex.Message);
                     return new DataTable();

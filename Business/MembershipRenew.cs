@@ -91,9 +91,9 @@ namespace BusinessLogic
             return renewDto == null ? null : new MembershipRenew(renewDto);
         }
 
-        public static DataTable GetRenewalsByMemberId(int memberId)
+        public static async Task<DataTable> GetRenewalsByMemberId(int memberId)
         {
-            return MembershipRenewData.GetRenewalsByMemberId(memberId);
+            return await MembershipRenewData.GetRenewalsByMemberId(memberId);
         }
 
         private bool Add()

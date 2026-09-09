@@ -29,6 +29,7 @@ namespace DataAccess
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 
@@ -59,6 +60,7 @@ namespace DataAccess
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return new DataTable();
                 }
             }
 
