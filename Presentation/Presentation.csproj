@@ -608,6 +608,7 @@
     <EmbeddedResource Include="Users\ViewUserCardForm.resx">
       <DependentUpon>ViewUserCardForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="App.config.example" />
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

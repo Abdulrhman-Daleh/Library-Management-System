@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+	<startup>
+		<supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.2" />
+	</startup>
+	<connectionStrings>
+		<!-- Replace with your own SQL Server connection string -->
+		<add name="DbConnection"
+             connectionString="Server=YOUR_SERVER;Database=Library;User Id=YOUR_USER;Password=YOUR_PASSWORD;"/>
+	</connectionStrings>
+</configuration>
