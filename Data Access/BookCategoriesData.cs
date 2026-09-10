@@ -86,7 +86,8 @@ namespace DataAccess
                             command.Parameters.AddWithValue("@CategoryDescription", categoryDto.CategoryDescription);
 
                         object result = command.ExecuteScalar();
-                        if (result != null && int.TryParse(result.ToString(), out categoryId)) { }
+                        if (result != null)
+                            int.TryParse(result.ToString(), out categoryId);
                     }
                 }
                 catch (Exception ex)
