@@ -10,8 +10,7 @@ namespace BusinessLogic
     {
         public enum ModeType
         {
-            Add,
-            Update
+            View
         }
 
         private MembershipRenewDTO _renewDto;
@@ -55,17 +54,11 @@ namespace BusinessLogic
 
         public Member MemberInfo { get; set; }
 
-        public MembershipRenew()
-        {
-            _renewDto = new MembershipRenewDTO();
-            _currentMode = ModeType.Add;
-        }
-
         private MembershipRenew(MembershipRenewDTO renewDto)
         {
             _renewDto = renewDto;
             MemberInfo = Member.FindByMemberId(renewDto.MemberId);
-            _currentMode = ModeType.Update;
+            _currentMode = ModeType.View;
         }
 
         public static async Task<DataTable> GetAllAsync(User currentUser, int memberId)
@@ -85,52 +78,5 @@ namespace BusinessLogic
             return renewDto == null ? null : new MembershipRenew(renewDto);
         }
 
-        public static MembershipRenew FindByMemberId(int memberId)
-        {
-            MembershipRenewDTO renewDto = MembershipRenewData.FindByMemberId(memberId);
-            return renewDto == null ? null : new MembershipRenew(renewDto);
-        }
-
-        public static async Task<DataTable> GetRenewalsByMemberId(int memberId)
-        {
-            return await MembershipRenewData.GetRenewalsByMemberId(memberId);
-        }
-
-        private bool Add()
-        {
-            RenewId = MembershipRenewData.Add(_renewDto);
-            return RenewId != -1;
-        }
-
-        private bool Update()
-        {
-            return MembershipRenewData.Update(_renewDto);
-        }
-
-        public bool Save()
-        {
-            if (_currentMode == ModeType.Add)
-            {
-                if (Add())
-                {
-                    _currentMode = ModeType.Update;
-                    return true;
-                }
-
-                return false;
-            }
-
-            return Update();
-        }
-
-        public static bool Delete(int renewId)
-        {
-            return MembershipRenewData.Delete(renewId);
-        }
-
-        public static int GetMemberIdByRenewId(int? renewId)
-        {
-            return MembershipRenewData.GetMemberIdByFineId(renewId);
-        }
     }
 }
