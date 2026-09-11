@@ -1,1 +1,940 @@
-﻿{"metadata":{"kernel_spec":{"name":"SQL","language":"sql","display_name":"SQL"},"language_info":{"name":"sql","version":""}},"nbformat":4,"nbformat_minor":2,"cells":[{"cell_type":"markdown","source":["# [dbo].[SP_BorrowBook]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_BorrowBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["USE [Library]\r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_BorrowBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_BorrowBook]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","\r\n   create procedure [dbo].[SP_BorrowBook]  \r\n @BookCopyID int,  \r\n @MemberID int,  \r\n @PolicyID int,  \r\n @BorrowStatusID int,  \r\n @BorrowDate datetime,  \r\n @DueDate datetime,  \r\n @ReturnDate datetime,  \r\n @LostDate datetime,  \r\n @BorrowID int output  \r\n as  \r\n  begin  \r\n   begin try  \r\n    begin transaction  \r\n    declare @Result bit  \r\n  \r\n     exec SP_IsMembershipExpired @MemberID = @MemberID, @Expired = @Result output  \r\n     if @Result > 0  \r\n      throw 50001, 'Membership expired', 1;  \r\n  \r\n     exec SP_HasReachedBorrowLimit @MemberID = @MemberID, @LimitReached = @Result output  \r\n     if @Result > 0  \r\n      throw 50002, 'Member reached borrow limit', 1;  \r\n  \r\n       \r\n  \r\n      insert into BorrowTransactions (BookCopyID, MemberID, PolicyID, BorrowStatusID,   \r\n      BorrowDate, DueDate, ReturnDate, LostDate  \r\n        \r\n      ) values (@BookCopyID, @MemberID, @PolicyID, @BorrowStatusID,   \r\n      @BorrowDate, @DueDate, @ReturnDate, @LostDate)  \r\n  \r\n      set @BorrowID = SCOPE_IDENTITY();  \r\n  \r\n      update BookCopies set StatusID = 3 where BookCopyID = @BookCopyID  \r\n  \r\n      commit transaction  \r\n  \r\n   end try  \r\n   begin catch  \r\n      \r\n    if @@TRANCOUNT > 0  \r\n     rollback;  \r\n  \r\n     throw  \r\n  \r\n   end catch  \r\n  end\r\nGO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_BorrowBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_CalculateBorrowFines]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_CalculateBorrowFines' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_CalculateBorrowFines]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n"," create procedure [dbo].[SP_CalculateBorrowFines]  \r\n   @BookCopyID int,  \r\n   @DueDate datetime,   \r\n   @PolicyID int,  \r\n   @TotalFees decimal(10,2) output  \r\n   as  \r\n    begin  \r\n  \r\n    declare @LateDays int = DateDiff(Day, @DueDate, GetDate()) - (select GracePeriodDays from LibraryPolicy   \r\n     where PolicyID = @PolicyID)  \r\n  \r\n     if @LateDays <= 0  \r\n      begin  \r\n       set @TotalFees = 0;  \r\n       return;  \r\n      end  \r\n  \r\n      set @TotalFees = @LateDays * (select FeesPerLateDay from LibraryPolicy   \r\n     where PolicyID = @PolicyID)  \r\n  \r\n    end  \r\nGO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_CalculateBorrowFines' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_CheckCopyIfAvilable]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_CheckCopyIfAvilable' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_CheckCopyIfAvilable]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_CheckCopyIfAvilable]    \r\n  @BookCopyID int,\r\n  @IsAvailable bit output\r\n  as    \r\n  begin    \r\n  \r\n    if not exists (select 1 from BookCopies\r\n     where BookCopyID = @BookCopyID)\r\n        begin\r\n            set @IsAvailable = 0;\r\n            return;\r\n        end\r\n\r\n    if not exists     \r\n    (    \r\n     select 1 from BookCopies  \r\n     where BookCopyID = @BookCopyID and StatusID = 1    \r\n     )   \r\n       begin\r\n            set @IsAvailable = 0;\r\n            return;\r\n        end\r\n    \r\n\r\n        set @IsAvailable = 1;\r\n  end    \r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_CheckCopyIfAvilable' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_DamagedBook]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_DamagedBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_DamagedBook]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_DamagedBook]      \r\n   @BookCopyID int,          \r\n   @BorrowID int,        \r\n   @NewConditionID int        \r\n   as          \r\n    begin          \r\n        begin try\r\n            begin transaction\r\n\r\n   declare @CurrentConditionFees decimal(10,2) = (select ConditionFees from BookConditions as BookC         \r\n   inner join BookCopies as BCopy on BookC.ConditionID = BCopy.ConditionID where BCopy.BookCopyID = @BookCopyID)        \r\n           \r\n   declare @NewConditionFees decimal(10,2) = (select ConditionFees from BookConditions where ConditionID = @NewConditionID);\r\n\r\n   declare @DamageFees decimal(10,2) = @NewConditionFees - @CurrentConditionFees;\r\n        \r\n   if @DamageFees > 0        \r\n   begin\r\n        insert into Fines (BorrowID, FineStatusID, FineAmount, Reason, CreatedDate, ClosedDate, RenewID)        \r\n        values (@BorrowID, 2, @DamageFees, 'Damaged Book', GetDate(), null, null);     \r\n        end\r\n        \r\n   update BookCopies set StatusID = 1, ConditionID = @NewConditionID where BookCopyID = @BookCopyID        \r\n        \r\n   update BorrowTransactions set BorrowStatusID = 3, ReturnDate = GetDate() where BorrowID = @BorrowID;    \r\n\r\n   commit transaction\r\n   end try\r\n   begin catch\r\n\r\n        if @@TRANCOUNT > 0\r\n            Rollback;\r\n\r\n            throw;\r\n    \r\n   end catch\r\n    end \r\nGO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_DamagedBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_DoesBorrowHasFees]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_DoesBorrowHasFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_DoesBorrowHasFees]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","\r\ncreate procedure [dbo].[SP_DoesBorrowHasFees]      \r\n  @BorrowID int,      \r\n  @HasFees bit output      \r\n  as      \r\n  begin      \r\n      \r\n declare @BorrowFees decimal(10,2) = (select FineAmount from Fines where BorrowID = @BorrowID)      \r\n      \r\n   declare @PaidAmount decimal(10,2) = IsNull((select Sum(AmountPaid) from FinePayments as FPayment inner join Fines as F on F.FineID =       \r\n   FPayment.FineID where F.BorrowID = @BorrowID),0)      \r\n      \r\n   declare @Remaining decimal(10,2) = @BorrowFees - @PaidAmount;      \r\n       \r\n   if @Remaining > 0      \r\n     set @HasFees = 1;      \r\n    else\r\n    set @HasFees = 0;\r\n\r\n  end \r\n\r\nGO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_DoesBorrowHasFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_DoesRenewHasFees]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_DoesRenewHasFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_DoesRenewHasFees]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_DoesRenewHasFees]        \r\n  @RenewId int,        \r\n  @HasFees bit output        \r\n  as        \r\n  begin        \r\n        \r\n declare @BorrowFees decimal(10,2) = (select FineAmount from Fines where RenewID = @RenewId)        \r\n        \r\n   declare @PaidAmount decimal(10,2) = IsNull((select Sum(AmountPaid) from FinePayments as FPayment inner join Fines as F on F.FineID =         \r\n   FPayment.FineID where F.RenewID = @RenewId),0)        \r\n        \r\n   declare @Remaining decimal(10,2) = @BorrowFees - @PaidAmount;        \r\n         \r\n   if @Remaining > 0        \r\n     set @HasFees = 1;        \r\n    else  \r\n    set @HasFees = 0;  \r\n  \r\n  end   \r\n  \r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_DoesRenewHasFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_FinePayment]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_FinePayment' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_FinePayment]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_FinePayment]      \r\n     @FineID int, \r\n     @RenewID int, \r\n     @AmountPaid decimal(10,2), \r\n     @PaymentMethod nvarchar(100), \r\n     @PaymentID int output    \r\n    as      \r\n         begin      \r\n             begin try      \r\n                 begin transaction      \r\n      \r\n                      insert into FinePayments (FineID, AmountPaid, PaymentDate, PaymentMethod)      \r\n                      values      \r\n                      (@FineID, @AmountPaid, GetDate(), @PaymentMethod)      \r\n    \r\n          set @PaymentID = SCOPE_IDENTITY();    \r\n      \r\n          declare @result bit;      \r\n          declare @BorrowId int = (select BorrowID from Fines where FineID = @FineID)      \r\n      \r\n          exec SP_DoesBorrowHasFees       \r\n          @BorrowID = @BorrowId, @HasFees = @result output;      \r\n            \r\n        if @result = 0    \r\n             begin      \r\n           \r\n                 update Fines      \r\n                 set ClosedDate = GetDate(), RenewID = @RenewID,    \r\n                 FineStatusID = 1    \r\n                 where FineID = @FineID    \r\n  \r\n         if @RenewID is not null  \r\n         begin  \r\n  \r\n            exec SP_DoesRenewHasFees  \r\n            @RenewID = @RenewID, @HasFees = @result output;\r\n         \r\n             if @result = 0  \r\n                begin  \r\n                     update renew  \r\n                     set renew.IsPaid = 1  \r\n                     from MembershipRenews as renew  \r\n                     inner join Fines as f on f.RenewID = renew.RenewID  \r\n                     where f.FineID = @FineID  \r\n              end  \r\n          end  \r\n  \r\n      end      \r\n          \r\n        commit transaction      \r\n      \r\n        end try      \r\n     begin catch      \r\n        \r\n     if @@TRANCOUNT > 0      \r\n          rollback;      \r\n      \r\n        throw;      \r\n      \r\n     end catch      \r\n end  \r\n\r\nGO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_FinePayment' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_getTotalMembershipTypeFees]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_getTotalMembershipTypeFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_getTotalMembershipTypeFees]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create PROCEDURE  [dbo].[SP_getTotalMembershipTypeFees] \r\n    @MembershipTypeID int,\r\n    @FinesAmount decimal(10, 2)\r\n    as \r\nbegin\r\n    declare @MembershipFees decimal(13,2);\r\n    declare @PaidAmount decimal(13,2);\r\n\r\n    set @MembershipFees = (select Sum(f.FineAmount) from MembershipType as mtype\r\n                    inner join Members as m on m.MembershipTypeID = mtype.MembershipTypeID\r\n                    inner join BorrowTransactions as borrowT on borrowT.MemberID = m.MemberID\r\n                    inner join Fines as f on f.BorrowID = borrowT.BorrowID);\r\n\r\n     set @PaidAmount = (select Sum(fineP.AmountPaid) from MembershipType as mtype\r\n                    inner join Members as m on m.MembershipTypeID = mtype.MembershipTypeID\r\n                    inner join BorrowTransactions as borrowT on borrowT.MemberID = m.MemberID\r\n                    inner join Fines as f on f.BorrowID = borrowT.BorrowID\r\n                    inner join FinePayments fineP on fineP.FineID = f.FineID)\r\n\r\n\r\n        set @FinesAmount = @MembershipFees - @PaidAmount;\r\n\r\nend\r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_getTotalMembershipTypeFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_HasGeneralFees]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_HasGeneralFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_HasGeneralFees]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_HasGeneralFees]\r\n\t@MemberID int,\r\n\t@hasGeneralFees bit output\r\n\tas\r\n\tbegin\r\n\r\n\t\tif exists(\r\n\r\n\t\t\tselect 1 from Fines as F inner join BorrowTransactions as Borrow on F.BorrowID = Borrow.BorrowID \r\n\t\t\twhere Borrow.MemberID = @MemberID and F.ClosedDate is null\r\n\t\t)\r\n\t\tbegin\r\n\t\t\tset @hasGeneralFees = 1\r\n\t\t\treturn;\r\n\t\tend\r\n\r\n\t\tif exists(\r\n\t\t\tselect 1 from Fines as F inner join MembershipRenews as MR on MR.RenewID = F.RenewID\r\n\t\t\twhere F.ClosedDate is null and MR.MemberID = @MemberID\r\n\t\t)\r\n\t\tbegin\r\n\t\t\tset @hasGeneralFees = 1\r\n\t\t\treturn;\r\n\t\tend\r\n\t\t\r\n\r\n\t\tset @hasGeneralFees = 0\r\n\tend\r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_HasGeneralFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_HasMembershipRenewFees]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_HasMembershipRenewFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_HasMembershipRenewFees]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","\r\n    create procedure [dbo].[SP_HasMembershipRenewFees]  \r\n @RenewID int,  \r\n @hasFine bit output  \r\n as  \r\n  begin  \r\n  \r\n   declare @PaidAmount decimal(10,2) = IsNull((select Sum(FPayment.AmountPaid) from FinePayments as FPayment inner join  \r\n   Fines as F on FPayment.FineID = F.FineID  where F.RenewID = @RenewID),0)  \r\n  \r\n   declare @FineAmount decimal(10,2) = (select FineAmount from Fines where RenewID = @RenewID)  \r\n  \r\n   declare @Remainder decimal(10,2) = @FineAmount - @PaidAmount;  \r\n  \r\n   if @Remainder <= 0  \r\n    begin  \r\n     set @hasFine = 0;  \r\n     return;  \r\n    end  \r\n  \r\n    set @hasFine = 1  \r\n  end  \r\nGO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_HasMembershipRenewFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_HasReachedBorrowLimit]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_HasReachedBorrowLimit' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_HasReachedBorrowLimit]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","\r\ncreate procedure [dbo].[SP_HasReachedBorrowLimit]  \r\n       @MemberID int,    \r\n      @LimitReached bit output    \r\n    as    \r\n begin    \r\n    \r\n     if (select Count(*) from BorrowTransactions\r\n    where MemberID = @MemberID and ReturnDate is null and LostDate is null)\r\n    >=\r\n    ISNull\r\n    (\r\n    (select MembershipBorrowLimit from MembershipType inner join Members on Members.MembershipTypeID = \r\n    MembershipType.MembershipTypeID where members.MemberID = @MemberID),\r\n    0\r\n    )\r\n     begin\r\n            set @LimitReached = 1;\r\n            return;\r\n    end\r\n                \r\n             set @LimitReached = 0  \r\n end  \r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_HasReachedBorrowLimit' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_IsBookCopyBorrowed]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_IsBookCopyBorrowed' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_IsBookCopyBorrowed]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_IsBookCopyBorrowed]  \r\n   @BookCopyID int,  \r\n   @IsBorrowed bit output  \r\n   as   \r\n    begin  \r\n  \r\n    if exists(  \r\n    select 1 from BorrowTransactions  \r\n                             where BookCopyID = @BookCopyID  \r\n                             and ReturnDate is null and LostDate is null  \r\n        )  \r\n        begin\r\n        set @IsBorrowed = 1  \r\n        return;\r\n        end\r\n\r\n\r\n        set @IsBorrowed = 0  \r\n    end\r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_IsBookCopyBorrowed' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_IsMembershipExpired]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_IsMembershipExpired' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_IsMembershipExpired]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_IsMembershipExpired]  \r\n    @MemberID int,  \r\n    @Expired bit output  \r\n    as  \r\n    begin  \r\n  \r\n    if exists (\r\n        select 1   \r\n            from Members   \r\n            where MemberID = @MemberID   \r\n            and Members.MembershipExpirationDate  <= SYSDATETIMEOFFSET()  \r\n        )  \r\n        set @Expired = 1\r\n        else\r\n        set @Expired = 0\r\n  \r\n    end\r\n\r\nGO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_IsMembershipExpired' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_LostBook]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_LostBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_LostBook]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","   create procedure [dbo].[SP_LostBook]      \r\n   @BookCopyID int,      \r\n   @BorrowID int      \r\n   as      \r\n   begin\r\n    begin try\r\n    begin transaction\r\n       \r\n   declare @BookPrice decimal(10,2) = (select BookCopyPrice from BookCopies where BookCopyID = @BookCopyID)    \r\n    \r\n   insert into Fines (BorrowID, FineStatusID, FineAmount, Reason, CreatedDate, ClosedDate, RenewID)    \r\n   values (@BorrowID, 2, @BookPrice, 'Lost Book', GetDate(), null, null);    \r\n    \r\n   update BookCopies set StatusID = 2 where BookCopyID = @BookCopyID    \r\n    \r\n   update BorrowTransactions set BorrowStatusID = 4, LostDate = GetDate() where BorrowID = @BorrowID;    \r\n    \r\n    commit transaction\r\n\r\n    end try\r\n\r\n    begin catch\r\n\r\n        if @@TRANCOUNT > 0\r\n            rollback;\r\n\r\n            throw;\r\n\r\n\r\n    end catch\r\nend\r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_LostBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_PerformReturnLostDamaged]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_PerformReturnLostDamaged' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_PerformReturnLostDamaged]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_PerformReturnLostDamaged]    \r\n @BookCopyID int,    \r\n @BorrowId int,    \r\n @NewConditionID int,    \r\n @BorrowStatus int,\r\n @Result bit output\r\n AS    \r\n  begin    \r\n   begin try    \r\n    begin transaction\r\n   if @BorrowStatus = 2    \r\n    exec SP_ReturnBook @BookCopyID = @BookCopyID, @BorrowID = @BorrowId;    \r\n\r\n    else if @BorrowStatus = 3    \r\n    exec SP_DamagedBook @BookCopyID = @BookCopyID, @BorrowID = @BorrowId, @NewConditionID = @NewConditionID;    \r\n    \r\n    else if @BorrowStatus = 4    \r\n    exec SP_LostBook @BookCopyID = @BookCopyID, @BorrowID = @BorrowId;    \r\n    \r\n    else    \r\n    throw 50006, 'invalid transaction return state', 1;    \r\n\r\n    commit transaction\r\n\r\n    set @Result = 1\r\n    end try   \r\n    \r\n    begin catch   \r\n        \r\n        if @@TRANCOUNT > 0\r\n            rollback\r\n\r\n    set @Result = 0;\r\n        \r\n     throw;    \r\n\r\n    end catch    \r\n  end \r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_PerformReturnLostDamaged' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_RenewMembership]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_RenewMembership' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_RenewMembership]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_RenewMembership]\r\n\t@MemberID int,\r\n\t@MembershipTypeID int,\r\n\t@RenewID int output\r\n\tas\r\n\t\tbegin\r\n\r\n\t\t\tbegin try\r\n\r\n\t\t\t\tbegin transaction\r\n\t\t\t\tdeclare @RenewFees decimal = (select MembershipFees from MembershipType where MembershipTypeID = @MembershipTypeID);\r\n\r\n\t\t\t\tinsert into  MembershipRenews (MemberID, MembershipTypeID, RenewDate, RenewFees, IsPaid)\r\n\t\t\t\t\tvalues (@MemberID, @MembershipTypeID, GetDate(), @RenewFees, 0)\r\n\t\t\t\t\tset @RenewId = SCOPE_IDENTITY();\r\n\r\n\t\t\t\t\tinsert into Fines (BorrowID, FineStatusID, FineAmount, Reason, CreatedDate, ClosedDate, RenewID)\r\n\t\t\t\t\tvalues (null, 2, @RenewFees, 'Membership renewal', GETDATE(), null, @RenewId)\r\n\r\n\t\t\t\t\tupdate Members set MembershipExpirationDate = DATEADD(Month, 1, MembershipExpirationDate) where MemberID = @MemberID\r\n\r\n\t\t\t\tcommit transaction\r\n\t\t\t\t\r\n\t\t\tend try\r\n\t\t\tbegin catch\r\n\r\n\t\t\t\tif @@TRANCOUNT > 0\r\n\t\t\t\t\tRollback;\r\n\r\n\t\t\t\t\tthrow;\r\n\r\n\t\t\tend catch\r\n\r\n\t\tend\r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_RenewMembership' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_ReturnBook]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_ReturnBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_ReturnBook]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_ReturnBook]  \r\n @BookCopyID int,  \r\n @BorrowID int  \r\n as  \r\n  begin  \r\n  begin try  \r\n   begin transaction  \r\n  \r\n   declare @DueDate datetime = (select DueDate from BorrowTransactions where BorrowID = @BorrowID)  \r\n   declare @PolicyID int = (select PolicyID from BorrowTransactions where BorrowID = @BorrowID)  \r\n   declare @Fees decimal(10,2)  \r\n   declare @Result bit  \r\n  \r\n  \r\n      exec SP_IsBookCopyBorrowed @BookCopyID, @IsBorrowed = @Result output  \r\n   if @Result <= 0  \r\n     THROW 50004, 'book copy is not borrowed', 1;  \r\n  \r\n  \r\n    exec SP_CalculateBorrowFines @BookCopyID = @BookCopyID, @DueDate = @DueDate,  \r\n    @PolicyID = @PolicyID, @TotalFees = @Fees output;  \r\n  \r\n    if @Fees > 0  \r\n     insert into Fines (BorrowID, FineStatusID, FineAmount, Reason, CreatedDate, ClosedDate, RenewID)  \r\n     values (@BorrowID, 2, @Fees, 'Late return', GetDate(), null, null)  \r\n  \r\n    update BorrowTransactions set BorrowStatusID = 2, ReturnDate = GETDATE() where BorrowID = @BorrowID;  \r\n  \r\n    update BookCopies set StatusID = 1 where BookCopyID = @BookCopyID;  \r\n  \r\n    commit transaction;  \r\n  \r\n  end try  \r\n  begin catch  \r\n  \r\n   if @@TRANCOUNT > 0  \r\n    RollBack;  \r\n  \r\n    throw  \r\n  \r\n  end catch  \r\n  \r\n  end\r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_ReturnBook' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_TotalUnpaidFees]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_TotalUnpaidFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_TotalUnpaidFees]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_TotalUnpaidFees]      \r\n @MemberID int,      \r\n @TotalUnpaidFees decimal output      \r\n as      \r\n  begin      \r\n         \r\n\r\n   declare @TotalBorrowFees decimal(10,2) = (select IsNull(Sum(FineAmount),0) from Fines as F inner join BorrowTransactions as Borrow on\r\n   Borrow.BorrowID = F.BorrowID where Borrow.MemberID = @MemberID and ClosedDate is null);\r\n      \r\n   declare @TotalRenewFees decimal(10,2) = (select IsNull(Sum(FineAmount),0) from Fines as F  inner join MembershipRenews \r\n   as Renews on Renews.RenewID = F.RenewID\r\n   where F.RenewID is not null and Renews.MemberID = @MemberID and IsPaid = 0)\r\n\r\n      set @TotalUnpaidFees = @TotalBorrowFees + @TotalRenewFees;\r\n  end\r\n","GO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_TotalUnpaidFees' and @Schema='dbo']","object_type":"StoredProcedure"}},{"cell_type":"markdown","source":["# [dbo].[SP_UpdateMemberMembership]"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_UpdateMemberMembership' and @Schema='dbo']","object_type":"StoredProcedure"}},{"outputs":[],"execution_count":0,"cell_type":"code","source":["/****** Object:  StoredProcedure [dbo].[SP_UpdateMemberMembership]    Script Date: 2026-09-02 2:16:49 PM ******/\r\nSET ANSI_NULLS ON\r\n","GO\r\n","SET QUOTED_IDENTIFIER ON\r\n","GO\r\n","create procedure [dbo].[SP_UpdateMemberMembership]  \r\n @MemberID int,  \r\n @MembershipTypeID int  \r\n as  \r\n  begin  \r\n  \r\n   begin try  \r\n      \r\n    begin transaction  \r\n    declare @RenewFees decimal(10,2) = (select MembershipFees from MembershipType where MembershipTypeID = @MembershipTypeID)  \r\n    declare @RenewID int  \r\n  \r\n     insert into MembershipRenews(MemberID, MembershipTypeID, RenewDate, RenewFees, IsPaid) values  \r\n     (@MemberID, @MembershipTypeID, GETDATE(), @RenewFees, 0)  \r\n  \r\n     set @RenewID = SCOPE_IDENTITY();  \r\n    if @RenewFees > 0  \r\n    begin  \r\n      \r\n     insert into Fines (BorrowID, FineStatusID, FineAmount, Reason, CreatedDate, ClosedDate, RenewID)  \r\n     values (null, 2, @RenewFees, 'Membership renewal', GETDATE(), null, @RenewID)  \r\n  \r\n     end  \r\n    else  \r\n     update MembershipRenews set IsPaid = 1 where RenewID = @RenewID  \r\n  \r\n    update Members set MembershipExpirationDate = DateAdd(Month, 1, GETDATE()),  \r\n    MembershipTypeID = @MembershipTypeID where MemberID = @MemberID  \r\n  \r\n    commit transaction  \r\n   end try  \r\n   begin catch  \r\n  \r\n    if @@TRANCOUNT > 0  \r\n     Rollback;  \r\n  \r\n     throw;  \r\n  \r\n   end catch  \r\n     \r\n  end\r\n\r\nGO\r\n"],"metadata":{"urn":"Server[@Name='MSI']/Database[@Name='Library']/StoredProcedure[@Name='SP_UpdateMemberMembership' and @Schema='dbo']","object_type":"StoredProcedure"}}]}
+﻿CREATE PROCEDURE [dbo].[SP_BorrowBook]
+    @BookCopyID INT,
+    @MemberID INT,
+    @PolicyID INT,
+    @BorrowStatusID INT,
+    @BorrowDate DATETIME,
+    @DueDate DATETIME,
+    @ReturnDate DATETIME,
+    @LostDate DATETIME,
+    @BorrowID INT OUTPUT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        DECLARE @Result BIT;
+
+        EXEC SP_IsMembershipExpired
+            @MemberID = @MemberID,
+            @Expired = @Result OUTPUT;
+
+        IF @Result > 0
+            THROW 50001, 'Membership expired', 1;
+
+        EXEC SP_HasReachedBorrowLimit
+            @MemberID = @MemberID,
+            @LimitReached = @Result OUTPUT;
+
+        IF @Result > 0
+            THROW 50002, 'Member reached borrow limit', 1;
+
+        INSERT INTO BorrowTransactions
+        (
+            BookCopyID,
+            MemberID,
+            PolicyID,
+            BorrowStatusID,
+            BorrowDate,
+            DueDate,
+            ReturnDate,
+            LostDate
+        )
+        VALUES
+        (
+            @BookCopyID,
+            @MemberID,
+            @PolicyID,
+            @BorrowStatusID,
+            @BorrowDate,
+            @DueDate,
+            @ReturnDate,
+            @LostDate
+        );
+
+        SET @BorrowID = SCOPE_IDENTITY();
+
+        UPDATE BookCopies
+        SET StatusID = 3
+        WHERE BookCopyID = @BookCopyID;
+
+        COMMIT TRANSACTION
+    END TRY
+
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        THROW;
+    END CATCH
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_CalculateBorrowFines]
+    @BookCopyID INT,
+    @DueDate DATETIME,
+    @PolicyID INT,
+    @TotalFees DECIMAL(10,2) OUTPUT
+AS
+BEGIN
+    DECLARE @LateDays INT =
+        DATEDIFF(DAY, @DueDate, GETDATE())
+        -
+        (
+            SELECT GracePeriodDays
+            FROM LibraryPolicy
+            WHERE PolicyID = @PolicyID
+        );
+
+    IF @LateDays <= 0
+    BEGIN
+        SET @TotalFees = 0;
+        RETURN;
+    END
+
+    SET @TotalFees =
+        @LateDays *
+        (
+            SELECT FeesPerLateDay
+            FROM LibraryPolicy
+            WHERE PolicyID = @PolicyID
+        );
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_CheckCopyIfAvilable]
+    @BookCopyID INT,
+    @IsAvailable BIT OUTPUT
+AS
+BEGIN
+    IF NOT EXISTS
+    (
+        SELECT 1
+        FROM BookCopies
+        WHERE BookCopyID = @BookCopyID
+    )
+    BEGIN
+        SET @IsAvailable = 0;
+        RETURN;
+    END
+
+    IF NOT EXISTS
+    (
+        SELECT 1
+        FROM BookCopies
+        WHERE BookCopyID = @BookCopyID
+            AND StatusID = 1
+    )
+    BEGIN
+        SET @IsAvailable = 0;
+        RETURN;
+    END
+
+    SET @IsAvailable = 1;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_DamagedBook]
+    @BookCopyID INT,
+    @BorrowID INT,
+    @NewConditionID INT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        DECLARE @CurrentConditionFees DECIMAL(10,2) =
+        (
+            SELECT ConditionFees
+            FROM BookConditions AS BookC
+            INNER JOIN BookCopies AS BCopy
+                ON BookC.ConditionID = BCopy.ConditionID
+            WHERE BCopy.BookCopyID = @BookCopyID
+        );
+
+        DECLARE @NewConditionFees DECIMAL(10,2) =
+        (
+            SELECT ConditionFees
+            FROM BookConditions
+            WHERE ConditionID = @NewConditionID
+        );
+
+        DECLARE @DamageFees DECIMAL(10,2) =
+            @NewConditionFees - @CurrentConditionFees;
+
+        IF @DamageFees > 0
+        BEGIN
+            INSERT INTO Fines
+            (
+                BorrowID,
+                FineStatusID,
+                FineAmount,
+                Reason,
+                CreatedDate,
+                ClosedDate,
+                RenewID
+            )
+            VALUES
+            (
+                @BorrowID,
+                2,
+                @DamageFees,
+                'Damaged Book',
+                GETDATE(),
+                NULL,
+                NULL
+            );
+        END
+
+        UPDATE BookCopies
+        SET
+            StatusID = 1,
+            ConditionID = @NewConditionID
+        WHERE BookCopyID = @BookCopyID;
+
+        UPDATE BorrowTransactions
+        SET
+            BorrowStatusID = 3,
+            ReturnDate = GETDATE()
+        WHERE BorrowID = @BorrowID;
+
+        COMMIT TRANSACTION
+    END TRY
+
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        THROW;
+    END CATCH
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_DoesBorrowHasFees]
+    @BorrowID INT,
+    @HasFees BIT OUTPUT
+AS
+BEGIN
+    DECLARE @BorrowFees DECIMAL(10,2) =
+    (
+        SELECT FineAmount
+        FROM Fines
+        WHERE BorrowID = @BorrowID
+    );
+
+    DECLARE @PaidAmount DECIMAL(10,2) =
+    ISNULL
+    (
+        (
+            SELECT SUM(AmountPaid)
+            FROM FinePayments AS FPayment
+            INNER JOIN Fines AS F
+                ON F.FineID = FPayment.FineID
+            WHERE F.BorrowID = @BorrowID
+        ),
+        0
+    );
+
+    DECLARE @Remaining DECIMAL(10,2) =
+        @BorrowFees - @PaidAmount;
+
+    IF @Remaining > 0
+        SET @HasFees = 1;
+    ELSE
+        SET @HasFees = 0;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_DoesRenewHasFees]
+    @RenewID INT,
+    @HasFees BIT OUTPUT
+AS
+BEGIN
+    DECLARE @BorrowFees DECIMAL(10,2) =
+    (
+        SELECT FineAmount
+        FROM Fines
+        WHERE RenewID = @RenewID
+    );
+
+    DECLARE @PaidAmount DECIMAL(10,2) =
+    ISNULL
+    (
+        (
+            SELECT SUM(AmountPaid)
+            FROM FinePayments AS FPayment
+            INNER JOIN Fines AS F
+                ON F.FineID = FPayment.FineID
+            WHERE F.RenewID = @RenewID
+        ),
+        0
+    );
+
+    DECLARE @Remaining DECIMAL(10,2) =
+        @BorrowFees - @PaidAmount;
+
+    IF @Remaining > 0
+        SET @HasFees = 1;
+    ELSE
+        SET @HasFees = 0;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_FinePayment]
+    @FineID INT,
+    @RenewID INT,
+    @AmountPaid DECIMAL(10,2),
+    @PaymentMethod NVARCHAR(100),
+    @PaymentID INT OUTPUT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        INSERT INTO FinePayments
+        (
+            FineID,
+            AmountPaid,
+            PaymentDate,
+            PaymentMethod
+        )
+        VALUES
+        (
+            @FineID,
+            @AmountPaid,
+            GETDATE(),
+            @PaymentMethod
+        );
+
+        SET @PaymentID = SCOPE_IDENTITY();
+
+        DECLARE @Result BIT;
+
+        DECLARE @BorrowId INT =
+        (
+            SELECT BorrowID
+            FROM Fines
+            WHERE FineID = @FineID
+        );
+
+        EXEC SP_DoesBorrowHasFees
+            @BorrowID = @BorrowId,
+            @HasFees = @Result OUTPUT;
+
+        IF @Result = 0
+        BEGIN
+            UPDATE Fines
+            SET
+                ClosedDate = GETDATE(),
+                RenewID = @RenewID,
+                FineStatusID = 1
+            WHERE FineID = @FineID;
+
+            IF @RenewID IS NOT NULL
+            BEGIN
+                EXEC SP_DoesRenewHasFees
+                    @RenewID = @RenewID,
+                    @HasFees = @Result OUTPUT;
+
+                IF @Result = 0
+                BEGIN
+                    UPDATE Renew
+                    SET Renew.IsPaid = 1
+                    FROM MembershipRenews AS Renew
+                    INNER JOIN Fines AS F
+                        ON F.RenewID = Renew.RenewID
+                    WHERE F.FineID = @FineID;
+                END
+            END
+        END
+
+        COMMIT TRANSACTION
+    END TRY
+
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        THROW;
+    END CATCH
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_getTotalMembershipTypeFees]
+    @MembershipTypeID INT,
+    @FinesAmount DECIMAL(10,2)
+AS
+BEGIN
+    DECLARE @MembershipFees DECIMAL(13,2);
+    DECLARE @PaidAmount DECIMAL(13,2);
+
+    SET @MembershipFees =
+    (
+        SELECT SUM(F.FineAmount)
+        FROM MembershipType AS MType
+        INNER JOIN Members AS M
+            ON M.MembershipTypeID = MType.MembershipTypeID
+        INNER JOIN BorrowTransactions AS BorrowT
+            ON BorrowT.MemberID = M.MemberID
+        INNER JOIN Fines AS F
+            ON F.BorrowID = BorrowT.BorrowID
+    );
+
+    SET @PaidAmount =
+    (
+        SELECT SUM(FineP.AmountPaid)
+        FROM MembershipType AS MType
+        INNER JOIN Members AS M
+            ON M.MembershipTypeID = MType.MembershipTypeID
+        INNER JOIN BorrowTransactions AS BorrowT
+            ON BorrowT.MemberID = M.MemberID
+        INNER JOIN Fines AS F
+            ON F.BorrowID = BorrowT.BorrowID
+        INNER JOIN FinePayments AS FineP
+            ON FineP.FineID = F.FineID
+    );
+
+    SET @FinesAmount = @MembershipFees - @PaidAmount;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_HasGeneralFees]
+    @MemberID INT,
+    @HasGeneralFees BIT OUTPUT
+AS
+BEGIN
+    IF EXISTS
+    (
+        SELECT 1
+        FROM Fines AS F
+        INNER JOIN BorrowTransactions AS Borrow
+            ON F.BorrowID = Borrow.BorrowID
+        WHERE Borrow.MemberID = @MemberID
+            AND F.ClosedDate IS NULL
+    )
+    BEGIN
+        SET @HasGeneralFees = 1;
+        RETURN;
+    END
+
+    IF EXISTS
+    (
+        SELECT 1
+        FROM Fines AS F
+        INNER JOIN MembershipRenews AS MR
+            ON MR.RenewID = F.RenewID
+        WHERE F.ClosedDate IS NULL
+            AND MR.MemberID = @MemberID
+    )
+    BEGIN
+        SET @HasGeneralFees = 1;
+        RETURN;
+    END
+
+    SET @HasGeneralFees = 0;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_HasMembershipRenewFees]
+    @RenewID INT,
+    @HasFine BIT OUTPUT
+AS
+BEGIN
+    DECLARE @PaidAmount DECIMAL(10,2) =
+    ISNULL
+    (
+        (
+            SELECT SUM(FPayment.AmountPaid)
+            FROM FinePayments AS FPayment
+            INNER JOIN Fines AS F
+                ON FPayment.FineID = F.FineID
+            WHERE F.RenewID = @RenewID
+        ),
+        0
+    );
+
+    DECLARE @FineAmount DECIMAL(10,2) =
+    (
+        SELECT FineAmount
+        FROM Fines
+        WHERE RenewID = @RenewID
+    );
+
+    DECLARE @Remainder DECIMAL(10,2) =
+        @FineAmount - @PaidAmount;
+
+    IF @Remainder <= 0
+    BEGIN
+        SET @HasFine = 0;
+        RETURN;
+    END
+
+    SET @HasFine = 1;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_HasReachedBorrowLimit]
+    @MemberID INT,
+    @LimitReached BIT OUTPUT
+AS
+BEGIN
+    IF
+    (
+        SELECT COUNT(*)
+        FROM BorrowTransactions
+        WHERE MemberID = @MemberID
+            AND ReturnDate IS NULL
+            AND LostDate IS NULL
+    )
+    >=
+    ISNULL
+    (
+        (
+            SELECT MembershipBorrowLimit
+            FROM MembershipType
+            INNER JOIN Members
+                ON Members.MembershipTypeID = MembershipType.MembershipTypeID
+            WHERE Members.MemberID = @MemberID
+        ),
+        0
+    )
+    BEGIN
+        SET @LimitReached = 1;
+        RETURN;
+    END
+
+    SET @LimitReached = 0;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_IsBookCopyBorrowed]
+    @BookCopyID INT,
+    @IsBorrowed BIT OUTPUT
+AS
+BEGIN
+    IF EXISTS
+    (
+        SELECT 1
+        FROM BorrowTransactions
+        WHERE BookCopyID = @BookCopyID
+            AND ReturnDate IS NULL
+            AND LostDate IS NULL
+    )
+    BEGIN
+        SET @IsBorrowed = 1;
+        RETURN;
+    END
+
+    SET @IsBorrowed = 0;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_IsMembershipExpired]
+    @MemberID INT,
+    @Expired BIT OUTPUT
+AS
+BEGIN
+    IF EXISTS
+    (
+        SELECT 1
+        FROM Members
+        WHERE MemberID = @MemberID
+            AND Members.MembershipExpirationDate <= SYSDATETIMEOFFSET()
+    )
+        SET @Expired = 1;
+    ELSE
+        SET @Expired = 0;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_LostBook]
+    @BookCopyID INT,
+    @BorrowID INT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        DECLARE @BookPrice DECIMAL(10,2) =
+        (
+            SELECT BookCopyPrice
+            FROM BookCopies
+            WHERE BookCopyID = @BookCopyID
+        );
+
+        INSERT INTO Fines
+        (
+            BorrowID,
+            FineStatusID,
+            FineAmount,
+            Reason,
+            CreatedDate,
+            ClosedDate,
+            RenewID
+        )
+        VALUES
+        (
+            @BorrowID,
+            2,
+            @BookPrice,
+            'Lost Book',
+            GETDATE(),
+            NULL,
+            NULL
+        );
+
+        UPDATE BookCopies
+        SET StatusID = 2
+        WHERE BookCopyID = @BookCopyID;
+
+        UPDATE BorrowTransactions
+        SET
+            BorrowStatusID = 4,
+            LostDate = GETDATE()
+        WHERE BorrowID = @BorrowID;
+
+        COMMIT TRANSACTION
+    END TRY
+
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        THROW;
+    END CATCH
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_PerformReturnLostDamaged]
+    @BookCopyID INT,
+    @BorrowId INT,
+    @NewConditionID INT,
+    @BorrowStatus INT,
+    @Result BIT OUTPUT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        IF @BorrowStatus = 2
+            EXEC SP_ReturnBook
+                @BookCopyID = @BookCopyID,
+                @BorrowID = @BorrowId;
+
+        ELSE IF @BorrowStatus = 3
+            EXEC SP_DamagedBook
+                @BookCopyID = @BookCopyID,
+                @BorrowID = @BorrowId,
+                @NewConditionID = @NewConditionID;
+
+        ELSE IF @BorrowStatus = 4
+            EXEC SP_LostBook
+                @BookCopyID = @BookCopyID,
+                @BorrowID = @BorrowId;
+
+        ELSE
+            THROW 50006, 'invalid transaction return state', 1;
+
+        COMMIT TRANSACTION
+
+        SET @Result = 1;
+    END TRY
+
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        SET @Result = 0;
+
+        THROW;
+    END CATCH
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_RenewMembership]
+    @MemberID INT,
+    @MembershipTypeID INT,
+    @RenewID INT OUTPUT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        DECLARE @RenewFees DECIMAL =
+        (
+            SELECT MembershipFees
+            FROM MembershipType
+            WHERE MembershipTypeID = @MembershipTypeID
+        );
+
+        INSERT INTO MembershipRenews
+        (
+            MemberID,
+            MembershipTypeID,
+            RenewDate,
+            RenewFees,
+            IsPaid
+        )
+        VALUES
+        (
+            @MemberID,
+            @MembershipTypeID,
+            GETDATE(),
+            @RenewFees,
+            0
+        );
+
+        SET @RenewID = SCOPE_IDENTITY();
+
+        INSERT INTO Fines
+        (
+            BorrowID,
+            FineStatusID,
+            FineAmount,
+            Reason,
+            CreatedDate,
+            ClosedDate,
+            RenewID
+        )
+        VALUES
+        (
+            NULL,
+            2,
+            @RenewFees,
+            'Membership renewal',
+            GETDATE(),
+            NULL,
+            @RenewID
+        );
+
+        UPDATE Members
+        SET MembershipExpirationDate =
+            DATEADD(MONTH, 1, MembershipExpirationDate)
+        WHERE MemberID = @MemberID;
+
+        COMMIT TRANSACTION
+    END TRY
+
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        THROW;
+    END CATCH
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_ReturnBook]
+    @BookCopyID INT,
+    @BorrowID INT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        DECLARE @DueDate DATETIME =
+        (
+            SELECT DueDate
+            FROM BorrowTransactions
+            WHERE BorrowID = @BorrowID
+        );
+
+        DECLARE @PolicyID INT =
+        (
+            SELECT PolicyID
+            FROM BorrowTransactions
+            WHERE BorrowID = @BorrowID
+        );
+
+        DECLARE @Fees DECIMAL(10,2);
+        DECLARE @Result BIT;
+
+        EXEC SP_IsBookCopyBorrowed
+            @BookCopyID,
+            @IsBorrowed = @Result OUTPUT;
+
+        IF @Result <= 0
+            THROW 50004, 'book copy is not borrowed', 1;
+
+        EXEC SP_CalculateBorrowFines
+            @BookCopyID = @BookCopyID,
+            @DueDate = @DueDate,
+            @PolicyID = @PolicyID,
+            @TotalFees = @Fees OUTPUT;
+
+        IF @Fees > 0
+        BEGIN
+            INSERT INTO Fines
+            (
+                BorrowID,
+                FineStatusID,
+                FineAmount,
+                Reason,
+                CreatedDate,
+                ClosedDate,
+                RenewID
+            )
+            VALUES
+            (
+                @BorrowID,
+                2,
+                @Fees,
+                'Late return',
+                GETDATE(),
+                NULL,
+                NULL
+            );
+        END
+
+        UPDATE BorrowTransactions
+        SET
+            BorrowStatusID = 2,
+            ReturnDate = GETDATE()
+        WHERE BorrowID = @BorrowID;
+
+        UPDATE BookCopies
+        SET StatusID = 1
+        WHERE BookCopyID = @BookCopyID;
+
+        COMMIT TRANSACTION;
+    END TRY
+
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        THROW;
+    END CATCH
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_TotalUnpaidFees]
+    @MemberID INT,
+    @TotalUnpaidFees DECIMAL OUTPUT
+AS
+BEGIN
+    DECLARE @TotalBorrowFees DECIMAL(10,2) =
+    (
+        SELECT ISNULL(SUM(FineAmount), 0)
+        FROM Fines AS F
+        INNER JOIN BorrowTransactions AS Borrow
+            ON Borrow.BorrowID = F.BorrowID
+        WHERE Borrow.MemberID = @MemberID
+            AND ClosedDate IS NULL
+    );
+
+    DECLARE @TotalRenewFees DECIMAL(10,2) =
+    (
+        SELECT ISNULL(SUM(FineAmount), 0)
+        FROM Fines AS F
+        INNER JOIN MembershipRenews AS Renews
+            ON Renews.RenewID = F.RenewID
+        WHERE F.RenewID IS NOT NULL
+            AND Renews.MemberID = @MemberID
+            AND IsPaid = 0
+    );
+
+    SET @TotalUnpaidFees =
+        @TotalBorrowFees + @TotalRenewFees;
+END
+GO
+
+
+CREATE PROCEDURE [dbo].[SP_UpdateMemberMembership]
+    @MemberID INT,
+    @MembershipTypeID INT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION
+
+        DECLARE @RenewFees DECIMAL(10,2) =
+        (
+            SELECT MembershipFees
+            FROM MembershipType
+            WHERE MembershipTypeID = @MembershipTypeID
+        );
+
+        DECLARE @RenewID INT;
+
+        INSERT INTO MembershipRenews
+        (
+            MemberID,
+            MembershipTypeID,
+            RenewDate,
+            RenewFees,
+            IsPaid
+        )
+        VALUES
+        (
+            @MemberID,
+            @MembershipTypeID,
+            GETDATE(),
+            @RenewFees,
+            0
+        );
+
+        SET @RenewID = SCOPE_IDENTITY();
+
+        IF @RenewFees > 0
+        BEGIN
+            INSERT INTO Fines
+            (
+                BorrowID,
+                FineStatusID,
+                FineAmount,
+                Reason,
+                CreatedDate,
+                ClosedDate,
+                RenewID
+            )
+            VALUES
+            (
+                NULL,
+                2,
+                @RenewFees,
+                'Membership renewal',
+                GETDATE(),
+                NULL,
+                @RenewID
+            );
+        END
+        ELSE
+            UPDATE MembershipRenews
+            SET IsPaid = 1
+            WHERE RenewID = @RenewID;
+
+        UPDATE Members
+        SET
+            MembershipExpirationDate = DATEADD(MONTH, 1, GETDATE()),
+            MembershipTypeID = @MembershipTypeID
+        WHERE MemberID = @MemberID;
+
+        COMMIT TRANSACTION
+    END TRY
+
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+            ROLLBACK;
+
+        THROW;
+    END CATCH
+END
+GO
