@@ -368,41 +368,28 @@ GO
 
 
 CREATE PROCEDURE [dbo].[SP_getTotalMembershipTypeFees]
-    @MembershipTypeID INT,
-    @FinesAmount DECIMAL(10,2)
-AS
-BEGIN
-    DECLARE @MembershipFees DECIMAL(13,2);
-    DECLARE @PaidAmount DECIMAL(13,2);
-
-    SET @MembershipFees =
-    (
-        SELECT SUM(F.FineAmount)
-        FROM MembershipType AS MType
-        INNER JOIN Members AS M
-            ON M.MembershipTypeID = MType.MembershipTypeID
-        INNER JOIN BorrowTransactions AS BorrowT
-            ON BorrowT.MemberID = M.MemberID
-        INNER JOIN Fines AS F
-            ON F.BorrowID = BorrowT.BorrowID
-    );
-
-    SET @PaidAmount =
-    (
-        SELECT SUM(FineP.AmountPaid)
-        FROM MembershipType AS MType
-        INNER JOIN Members AS M
-            ON M.MembershipTypeID = MType.MembershipTypeID
-        INNER JOIN BorrowTransactions AS BorrowT
-            ON BorrowT.MemberID = M.MemberID
-        INNER JOIN Fines AS F
-            ON F.BorrowID = BorrowT.BorrowID
-        INNER JOIN FinePayments AS FineP
-            ON FineP.FineID = F.FineID
-    );
-
-    SET @FinesAmount = @MembershipFees - @PaidAmount;
-END
+    @MembershipTypeID int,    
+    @FinesAmount decimal(10, 2) output  
+    as     
+begin    
+    declare @MembershipFees decimal(13,2);    
+    declare @PaidAmount decimal(13,2);    
+    
+    set @MembershipFees = (IsNull((select Sum(f.FineAmount) from MembershipType as mtype    
+                    inner join Members as m on m.MembershipTypeID = mtype.MembershipTypeID    
+                    inner join BorrowTransactions as borrowT on borrowT.MemberID = m.MemberID    
+                    inner join Fines as f on f.BorrowID = borrowT.BorrowID WHERE mtype.MembershipTypeID = @MembershipTypeID), 0));    
+    
+     set @PaidAmount = (ISNULL((select Sum(fineP.AmountPaid) from MembershipType as mtype    
+                    inner join Members as m on m.MembershipTypeID = mtype.MembershipTypeID    
+                    inner join BorrowTransactions as borrowT on borrowT.MemberID = m.MemberID    
+                    inner join Fines as f on f.BorrowID = borrowT.BorrowID    
+                    inner join FinePayments fineP on fineP.FineID = f.FineID WHERE mtype.MembershipTypeID = @MembershipTypeID), 0))    
+    
+    
+        set @FinesAmount = @MembershipFees - @PaidAmount;    
+    
+End
 GO
 
 
