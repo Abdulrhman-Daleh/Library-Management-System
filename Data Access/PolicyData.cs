@@ -135,7 +135,7 @@ namespace DataAccess
         public static PolicyDTO GetCurrentActivePolicy()
         {
             PolicyDTO policyDto = null;
-            string query = @"SELECT TOP 1 * FROM LibraryPolicy WHERE EffectiveTo >= @CurrentTime";
+            string query = @"SELECT TOP 1 * FROM LibraryPolicy WHERE EffectiveFrom <= @CurrentTime and EffectiveTo >= @CurrentTime ORDER BY EffectiveFrom DESC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
