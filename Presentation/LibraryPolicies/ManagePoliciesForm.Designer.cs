@@ -61,14 +61,15 @@
             this.DeleteToolStripMenuItem,
             this.AddToolStripMenuItem});
             this.CmsPolicies.Name = "CmsPolicies";
-            this.CmsPolicies.Size = new System.Drawing.Size(167, 156);
+            this.CmsPolicies.Size = new System.Drawing.Size(227, 184);
+            this.CmsPolicies.Opening += new System.ComponentModel.CancelEventHandler(this.CmsPolicies_Opening);
             // 
             // ViewToolStripMenuItem
             // 
             this.ViewToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.View_32;
             this.ViewToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.ViewToolStripMenuItem.Name = "ViewToolStripMenuItem";
-            this.ViewToolStripMenuItem.Size = new System.Drawing.Size(166, 38);
+            this.ViewToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
             this.ViewToolStripMenuItem.Text = "View";
             this.ViewToolStripMenuItem.Click += new System.EventHandler(this.ViewToolStripMenuItem_Click);
             // 
@@ -77,7 +78,7 @@
             this.UpdateToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.Update_Policy_32;
             this.UpdateToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem";
-            this.UpdateToolStripMenuItem.Size = new System.Drawing.Size(166, 38);
+            this.UpdateToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
             this.UpdateToolStripMenuItem.Text = "Update";
             this.UpdateToolStripMenuItem.Click += new System.EventHandler(this.UpdateToolStripMenuItem_Click);
             // 
@@ -86,7 +87,7 @@
             this.DeleteToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.Delete_Policy_32;
             this.DeleteToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(166, 38);
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
             this.DeleteToolStripMenuItem.Text = "Delete";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
@@ -95,7 +96,7 @@
             this.AddToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.Policy_32;
             this.AddToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.AddToolStripMenuItem.Name = "AddToolStripMenuItem";
-            this.AddToolStripMenuItem.Size = new System.Drawing.Size(166, 38);
+            this.AddToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
             this.AddToolStripMenuItem.Text = "Add New";
             this.AddToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem_Click);
             // 

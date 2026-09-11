@@ -142,5 +142,16 @@ namespace LibrarySystem.LibraryPolicies
             viewPolicyForm.ShowDialog();
             ReloadRecords(policyId);
         }
+
+        private void CmsPolicies_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (DgvPolicies.RowCount < 1)
+            {
+                CmsPolicies.Enabled = false;
+                return;
+            }
+
+            CmsPolicies.Enabled = true;
+        }
     }
 }

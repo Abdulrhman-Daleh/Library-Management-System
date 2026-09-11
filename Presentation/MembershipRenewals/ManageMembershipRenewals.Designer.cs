@@ -36,14 +36,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.CbFilterBy = new System.Windows.Forms.ComboBox();
             this.DgvMembershipRenewals = new System.Windows.Forms.DataGridView();
+            this.msRenewals = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewRenewalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.BtnClose = new System.Windows.Forms.Button();
             this.CbIsPaid = new System.Windows.Forms.ComboBox();
-            this.msRenewals = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.viewRenewalInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMembershipRenewals)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.msRenewals.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // TxtFilter
@@ -126,6 +126,24 @@
             this.DgvMembershipRenewals.TabIndex = 26;
             this.DgvMembershipRenewals.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMembers_CellDoubleClick);
             // 
+            // msRenewals
+            // 
+            this.msRenewals.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.msRenewals.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewRenewalInfoToolStripMenuItem});
+            this.msRenewals.Name = "msRenewals";
+            this.msRenewals.Size = new System.Drawing.Size(236, 70);
+            this.msRenewals.Opening += new System.ComponentModel.CancelEventHandler(this.msRenewals_Opening);
+            // 
+            // viewRenewalInfoToolStripMenuItem
+            // 
+            this.viewRenewalInfoToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.View_32;
+            this.viewRenewalInfoToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.viewRenewalInfoToolStripMenuItem.Name = "viewRenewalInfoToolStripMenuItem";
+            this.viewRenewalInfoToolStripMenuItem.Size = new System.Drawing.Size(235, 38);
+            this.viewRenewalInfoToolStripMenuItem.Text = "View Renewal Info";
+            this.viewRenewalInfoToolStripMenuItem.Click += new System.EventHandler(this.viewRenewalInfoToolStripMenuItem_Click);
+            // 
             // pictureBox4
             // 
             this.pictureBox4.Image = global::WindowsFormsApp1.Properties.Resources.Membership_Renewal_512;
@@ -164,23 +182,6 @@
             this.CbIsPaid.SelectedIndexChanged += new System.EventHandler(this.CbIsPaid_SelectedIndexChanged);
             this.CbIsPaid.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CbIsPaid_KeyPress);
             // 
-            // msRenewals
-            // 
-            this.msRenewals.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.msRenewals.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewRenewalInfoToolStripMenuItem});
-            this.msRenewals.Name = "msRenewals";
-            this.msRenewals.Size = new System.Drawing.Size(236, 70);
-            // 
-            // viewRenewalInfoToolStripMenuItem
-            // 
-            this.viewRenewalInfoToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.View_32;
-            this.viewRenewalInfoToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.viewRenewalInfoToolStripMenuItem.Name = "viewRenewalInfoToolStripMenuItem";
-            this.viewRenewalInfoToolStripMenuItem.Size = new System.Drawing.Size(235, 38);
-            this.viewRenewalInfoToolStripMenuItem.Text = "View Renewal Info";
-            this.viewRenewalInfoToolStripMenuItem.Click += new System.EventHandler(this.viewRenewalInfoToolStripMenuItem_Click);
-            // 
             // ManageMembershipRenewals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 29F);
@@ -200,8 +201,8 @@
             this.Text = "Manage Membership Renewals";
             this.Load += new System.EventHandler(this.ManageMembershipRenewals_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DgvMembershipRenewals)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.msRenewals.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

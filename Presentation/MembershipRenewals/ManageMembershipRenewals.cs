@@ -86,5 +86,16 @@ namespace WindowsFormsApp1.MembershipRenewals
             ViewMembershipRenewalInfo viewRenewal = new ViewMembershipRenewalInfo(renewId);
             viewRenewal.ShowDialog();
         }
+
+        private void msRenewals_Opening(object sender, CancelEventArgs e)
+        {
+            if(DgvMembershipRenewals.RowCount < 1)
+            {
+                msRenewals.Enabled = false;
+                return;
+            }
+
+            msRenewals.Enabled = true;
+        }
     }
 }

@@ -154,5 +154,16 @@ namespace LibrarySystem.Memberships
             viewMembershipDetailsForm.ShowDialog();
             ReloadRecords(membershipId);
         }
+
+        private void CmsMemberships_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (DgvMemberships.RowCount < 1)
+            {
+                CmsMemberships.Enabled = false;
+                return;
+            }
+
+            CmsMemberships.Enabled = true;
+        }
     }
 }

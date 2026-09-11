@@ -61,14 +61,15 @@
             this.UpdateToolStripMenuItem,
             this.DeleteToolStripMenuItem});
             this.CmsMemberships.Name = "CmsMemberships";
-            this.CmsMemberships.Size = new System.Drawing.Size(167, 156);
+            this.CmsMemberships.Size = new System.Drawing.Size(227, 184);
+            this.CmsMemberships.Opening += new System.ComponentModel.CancelEventHandler(this.CmsMemberships_Opening);
             // 
             // ViewMemberInfoToolStripMenuItem
             // 
             this.ViewMemberInfoToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.View_32;
             this.ViewMemberInfoToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.ViewMemberInfoToolStripMenuItem.Name = "ViewMemberInfoToolStripMenuItem";
-            this.ViewMemberInfoToolStripMenuItem.Size = new System.Drawing.Size(166, 38);
+            this.ViewMemberInfoToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
             this.ViewMemberInfoToolStripMenuItem.Text = "View";
             this.ViewMemberInfoToolStripMenuItem.Click += new System.EventHandler(this.ViewMemberInfoToolStripMenuItem_Click);
             // 
@@ -77,7 +78,7 @@
             this.AddNewPersonToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.Add_Membership_32;
             this.AddNewPersonToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.AddNewPersonToolStripMenuItem.Name = "AddNewPersonToolStripMenuItem";
-            this.AddNewPersonToolStripMenuItem.Size = new System.Drawing.Size(166, 38);
+            this.AddNewPersonToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
             this.AddNewPersonToolStripMenuItem.Text = "Add New";
             this.AddNewPersonToolStripMenuItem.Click += new System.EventHandler(this.AddNewPersonToolStripMenuItem_Click);
             // 
@@ -86,7 +87,7 @@
             this.UpdateToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.Update_Membership_32;
             this.UpdateToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem";
-            this.UpdateToolStripMenuItem.Size = new System.Drawing.Size(166, 38);
+            this.UpdateToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
             this.UpdateToolStripMenuItem.Text = "Update";
             this.UpdateToolStripMenuItem.Click += new System.EventHandler(this.UpdateToolStripMenuItem_Click);
             // 
@@ -95,7 +96,7 @@
             this.DeleteToolStripMenuItem.Image = global::WindowsFormsApp1.Properties.Resources.Delete_Membership_32;
             this.DeleteToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem";
-            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(166, 38);
+            this.DeleteToolStripMenuItem.Size = new System.Drawing.Size(226, 38);
             this.DeleteToolStripMenuItem.Text = "Delete";
             this.DeleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
