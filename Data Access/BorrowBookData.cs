@@ -193,7 +193,7 @@ namespace DataAccess
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
 
-                        SqlParameter isBorrowedParam = new SqlParameter("IsBorrowed", SqlDbType.Bit)
+                        SqlParameter isBorrowedParam = new SqlParameter("@IsBorrowed", SqlDbType.Bit)
                         {
                             Direction = ParameterDirection.Output
                         };
@@ -201,7 +201,7 @@ namespace DataAccess
                         command.Parameters.Add(isBorrowedParam);
                         command.ExecuteNonQuery();
 
-                        isBorrowed = (bool)command.Parameters["IsBorrowed"].Value;
+                        isBorrowed = (bool)command.Parameters["@IsBorrowed"].Value;
                     }
                 }
                 catch (Exception ex)
