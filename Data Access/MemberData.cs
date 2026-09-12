@@ -126,7 +126,7 @@ namespace DataAccess
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
-                    throw new Exception("Member cannot be deleted because it is linked to other data", ex.InnerException);
+                    throw new Exception("Member cannot be deleted because it is linked to other data", ex);
                 }
             }
 
