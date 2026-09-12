@@ -98,7 +98,7 @@ namespace DataAccess
         public static BorrowTransactionDTO GetBorrowTransactionByCopyId(int bookCopyId)
         {
             BorrowTransactionDTO transactionDto = null;
-            string query = @"SELECT * FROM BorrowTransactions WHERE BookCopyID = @BookCopyID ORDER BY BorrowID DESC";
+            string query = @"SELECT * FROM BorrowTransactions WHERE BookCopyID = @BookCopyID and ReturnDate IS NULL ORDER BY BorrowID DESC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -150,48 +150,6 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@BorrowID", borrowId);
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                transactionDto = new BorrowTransactionDTO
-                                {
-                                    BorrowId = (int)reader["BorrowID"],
-                                    BookCopyId = (int)reader["BookCopyID"],
-                                    MemberId = (int)reader["MemberID"],
-                                    PolicyId = (int)reader["PolicyID"],
-                                    BorrowStatusId = (int)reader["BorrowStatusID"],
-                                    BorrowDate = (DateTime)reader["BorrowDate"],
-                                    DueDate = (DateTime)reader["DueDate"],
-                                    ReturnDate = reader["ReturnDate"] == DBNull.Value ? null : (DateTime?)reader["ReturnDate"],
-                                    LostDate = reader["LostDate"] == DBNull.Value ? null : (DateTime?)reader["LostDate"]
-                                };
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    DataLogger.LogError(_sourceName, ex.Message);
-                }
-            }
-
-            return transactionDto;
-        }
-
-        public static BorrowTransactionDTO GetActiveBorrowByBookCopyId(int bookCopyId)
-        {
-            BorrowTransactionDTO transactionDto = null;
-            string query = @"SELECT TOP 1 * FROM BorrowTransactions WHERE BookCopyID = @BookCopyID";
-
-            using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
-            {
-                try
-                {
-                    connection.Open();
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
