@@ -125,7 +125,7 @@ namespace BusinessLogic
             return BookData.IsIsbnAlreadyUsed(isbn);
         }
 
-        public int TotalCopies()
+        public int? TotalCopies()
         {
             return BookData.TotalCopies(BookId);
         }

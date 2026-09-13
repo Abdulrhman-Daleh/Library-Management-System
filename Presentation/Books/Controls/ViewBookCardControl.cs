@@ -39,10 +39,12 @@ namespace LibrarySystem.Books.Controls
 
         private void PopulateBookInfo()
         {
+            int? totalCopies = _selectedBook.TotalCopies();
             LblBookId.Text = _selectedBook.BookId.ToString();
             LblIsbn.Text = _selectedBook.Isbn;
             LblPublicationDate.Text = _selectedBook.PublicationDate.ToShortDateString();
-            LblTotalCopies.Text = _selectedBook.TotalCopies().ToString();
+
+            LblTotalCopies.Text = totalCopies != null ? totalCopies.ToString() : "Error";
             LblAuthor.Text = _selectedBook.AuthorName;
         }
 

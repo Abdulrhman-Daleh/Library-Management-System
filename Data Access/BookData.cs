@@ -260,7 +260,7 @@ namespace DataAccess
             return isUsed;
         }
 
-        public static int TotalCopies(int bookId)
+        public static int? TotalCopies(int bookId)
         {
             string query = @"select count (*) from BookCopies as bc
             inner join books as b on b.BookID = bc.BookID
@@ -283,10 +283,9 @@ namespace DataAccess
                 catch(Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return null;
                 }
             }
-
-            return -1;
         }
     }
 }
