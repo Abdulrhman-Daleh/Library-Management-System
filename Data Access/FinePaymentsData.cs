@@ -39,13 +39,12 @@ namespace DataAccess
         public static async Task<DataTable> GetAllFinePaymentsByMemberIdAsync(int memberId)
         {
             DataTable dataTable = new DataTable();
-            string query = @"
-                SELECT PaymentID FROM FinePayments AS fp
+            string query = @"SELECT fp.PaymentID , fp.FineID, fp.AmountPaid, fp.PaymentDate, fp.PaymentMethod from FinePayments AS fp
                 INNER JOIN Fines AS f ON fp.FineID = f.FineID
                 INNER JOIN BorrowTransactions AS bt ON bt.BorrowID = f.BorrowID
                 WHERE MemberID = @MemberID
                 UNION
-                SELECT PaymentID FROM FinePayments AS fp
+                SELECT fp.PaymentID , fp.FineID, fp.AmountPaid, fp.PaymentDate, fp.PaymentMethod FROM FinePayments AS fp
                 INNER JOIN Fines AS f ON fp.FineID = f.FineID
                 INNER JOIN MembershipRenews AS mr ON mr.RenewID = f.RenewID
                 WHERE MemberID = @MemberID";
