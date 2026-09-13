@@ -20,27 +20,35 @@ namespace DataAccess
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    if (renewId.HasValue)
+                    try
+                    {
+                        if (renewId.HasValue)
                         command.Parameters.AddWithValue("@RenewID", renewId);
-                    else
+                        else
                         command.Parameters.AddWithValue("@RenewID", DBNull.Value);
 
-                    connection.Open();
+                        connection.Open();
 
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            renewDto = new MembershipRenewDTO
+                            if (reader.Read())
                             {
-                                RenewId = (int)reader["RenewID"],
-                                MemberId = (int)reader["MemberID"],
-                                MembershipTypeId = (int)reader["MembershipTypeID"],
-                                RenewDate = (DateTime)reader["RenewDate"],
-                                RenewFees = (decimal)reader["RenewFees"],
-                                IsPaid = (bool)reader["IsPaid"]
-                            };
+                                renewDto = new MembershipRenewDTO
+                                {
+                                    RenewId = (int)reader["RenewID"],
+                                    MemberId = (int)reader["MemberID"],
+                                    MembershipTypeId = (int)reader["MembershipTypeID"],
+                                    RenewDate = (DateTime)reader["RenewDate"],
+                                    RenewFees = (decimal)reader["RenewFees"],
+                                    IsPaid = (bool)reader["IsPaid"]
+                                };
+                            }
                         }
+                    }
+                    catch(Exception ex)
+                    {
+                        DataLogger.LogError("MembershipRenewData", ex.Message);
+                        return null;
                     }
                 }
             }
