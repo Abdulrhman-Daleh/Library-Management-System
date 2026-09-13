@@ -538,7 +538,7 @@ BEGIN
         SELECT 1
         FROM Members
         WHERE MemberID = @MemberID
-            AND Members.MembershipExpirationDate <= SYSDATETIMEOFFSET()
+            AND Members.MembershipExpirationDate <= GetDate()
     )
         SET @Expired = 1;
     ELSE
