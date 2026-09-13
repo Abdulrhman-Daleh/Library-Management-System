@@ -388,8 +388,7 @@ namespace BusinessLogic
             if (LastLoginDate == null)
                 return "did not login yet!";
 
-            TimeSpan span = new TimeSpan(LastLoginDate.Value.Ticks);
-            TimeSpan different = new TimeSpan(DateTime.Now.Ticks).Subtract(span);
+            TimeSpan different = DateTime.Now - LastLoginDate.Value;
 
             int days = different.Days;
             int hours = different.Hours;    
@@ -399,21 +398,23 @@ namespace BusinessLogic
             StringBuilder result = new StringBuilder();
 
             if (BuildLastLoginDate(result, days))
-                result.Append("dys ");
+                result.Append("days ");
 
             if (BuildLastLoginDate(result, hours))
                 result.Append("hrs ");
 
 
             if (BuildLastLoginDate(result, minutes))
-                result.Append("minu ");
+                result.Append("min ");
 
 
             if (BuildLastLoginDate(result, seconds))
                 result.Append("sec ");
 
-
-            return result.ToString() + "only";
+            if (string.IsNullOrEmpty(result.ToString()))
+                return "just now";
+            else
+                return result.ToString() + "ago";
         }
     }
 }
