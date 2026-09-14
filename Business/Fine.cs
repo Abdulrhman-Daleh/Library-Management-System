@@ -159,10 +159,10 @@ namespace BusinessLogic
             if (currentUser.HasPermission(User.Permissions.All))
                 return await FinesData.GetAllFinesAsync();
 
-            if (currentUser.HasPermission(User.Permissions.None))
-                return null;
-
+            if (currentUser.HasPermission(User.Permissions.ManageFinePayments))
             return await FinesData.GetAllFinesByMemberIdAsync(memberId);
+
+            return null;
         }
 
         public static bool HasReturnFees(int borrowId)
