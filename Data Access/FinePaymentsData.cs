@@ -240,11 +240,11 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PaymentID", paymentDto.PaymentId);
-                        command.Parameters.AddWithValue("@FineID", paymentDto.FineId);
-                        command.Parameters.AddWithValue("@AmountPaid", paymentDto.AmountPaid);
-                        command.Parameters.AddWithValue("@PaymentDate", paymentDto.PaymentDate);
-                        command.Parameters.AddWithValue("@PaymentMethod", paymentDto.PaymentMethod);
+                        command.Parameters.Add("@PaymentID", SqlDbType.Int).Value = paymentDto.PaymentId;
+                        command.Parameters.Add("@FineID", SqlDbType.Int).Value = paymentDto.FineId;
+                        command.Parameters.Add("@AmountPaid", SqlDbType.Int).Value = paymentDto.AmountPaid;
+                        command.Parameters.Add("@PaymentDate", SqlDbType.Int).Value = paymentDto.PaymentDate;
+                        command.Parameters.Add("@PaymentMethod", SqlDbType.Int).Value = paymentDto.PaymentMethod;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

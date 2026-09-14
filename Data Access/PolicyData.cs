@@ -88,12 +88,12 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PolicyID", policyDto.PolicyId);
-                        command.Parameters.AddWithValue("@FeesPerLateDay", policyDto.FeesPerLateDay);
-                        command.Parameters.AddWithValue("@GracePeriodDays", policyDto.GracePeriodDays);
-                        command.Parameters.AddWithValue("@LostBookFeeMultiplier", policyDto.LostBookFeeMultiplier);
-                        command.Parameters.AddWithValue("@EffectiveFrom", policyDto.EffectiveFrom);
-                        command.Parameters.AddWithValue("@EffectiveTo", policyDto.EffectiveTo);
+                        command.Parameters.Add("@PolicyID", SqlDbType.Int).Value = policyDto.PolicyId;
+                        command.Parameters.Add("@FeesPerLateDay", SqlDbType.Decimal).Value = policyDto.FeesPerLateDay;
+                        command.Parameters.Add("@GracePeriodDays", SqlDbType.Int).Value = policyDto.GracePeriodDays;
+                        command.Parameters.Add("@LostBookFeeMultiplier", SqlDbType.Decimal).Value = policyDto.LostBookFeeMultiplier;
+                        command.Parameters.Add("@EffectiveFrom", SqlDbType.DateTime).Value = policyDto.EffectiveFrom;
+                        command.Parameters.Add("@EffectiveTo", SqlDbType.DateTime).Value = (object)policyDto.EffectiveTo ?? DBNull.Value;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

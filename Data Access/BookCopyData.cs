@@ -116,10 +116,10 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyDto.BookCopyId);
-                        command.Parameters.AddWithValue("@StatusID", bookCopyDto.StatusId);
-                        command.Parameters.AddWithValue("@ConditionID", bookCopyDto.ConditionId);
-                        command.Parameters.AddWithValue("@BookCopyPrice", bookCopyDto.BookCopyPrice);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyDto.BookCopyId;
+                        command.Parameters.Add("@StatusID", SqlDbType.Int).Value = bookCopyDto.StatusId;
+                        command.Parameters.Add("@ConditionID", SqlDbType.Int).Value = bookCopyDto.ConditionId;
+                        command.Parameters.Add("@BookCopyPrice", SqlDbType.Int).Value = bookCopyDto.BookCopyPrice;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

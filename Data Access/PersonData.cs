@@ -253,18 +253,20 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PersonID", personDto.PersonId);
-                        command.Parameters.AddWithValue("@NationalNo", personDto.NationalNo);
-                        command.Parameters.AddWithValue("@FirstName", personDto.FirstName);
-                        command.Parameters.AddWithValue("@SecondName", personDto.SecondName);
-                        command.Parameters.AddWithValue("@ThirdName", string.IsNullOrEmpty(personDto.ThirdName) ? DBNull.Value : (object)personDto.ThirdName);
-                        command.Parameters.AddWithValue("@LastName", personDto.LastName);
-                        command.Parameters.AddWithValue("@DateOfBirth", personDto.DateOfBirth);
-                        command.Parameters.AddWithValue("@Gender", personDto.Gender);
-                        command.Parameters.AddWithValue("@Phone", personDto.Phone);
-                        command.Parameters.AddWithValue("@Address", personDto.Address);
-                        command.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(personDto.Email) ? DBNull.Value : (object)personDto.Email);
-                        command.Parameters.AddWithValue("@ImagePath", string.IsNullOrEmpty(personDto.ImagePath) ? DBNull.Value : (object)personDto.ImagePath);
+                        command.Parameters.Add("@PersonID", SqlDbType.Int).Value = personDto.PersonId;
+                        command.Parameters.Add("@NationalNo", SqlDbType.NVarChar, 30).Value = personDto.NationalNo;
+                        command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 30).Value = personDto.FirstName;
+                        command.Parameters.Add("@SecondName", SqlDbType.NVarChar, 30).Value = personDto.SecondName;
+                        command.Parameters.Add("@ThirdName", SqlDbType.Variant, 30).Value = (object)personDto.ThirdName ?? DBNull.Value;
+
+                        command.Parameters.Add("@LastName", SqlDbType.NVarChar, 30).Value = personDto.LastName;
+                        command.Parameters.Add("@DateOfBirth", SqlDbType.DateTime).Value = personDto.DateOfBirth;
+                        command.Parameters.Add("@Gender", SqlDbType.Bit).Value = personDto.Gender;
+                        command.Parameters.Add("@Phone", SqlDbType.NVarChar, 15).Value = personDto.Phone;
+                        command.Parameters.Add("@Address", SqlDbType.NVarChar, 500).Value = personDto.Address;
+
+                        command.Parameters.Add("@ImagePath", SqlDbType.NVarChar, 500).Value = (object)personDto.ImagePath ?? DBNull.Value;
+                        command.Parameters.Add("@Email", SqlDbType.NVarChar, 40).Value = (object)personDto.Email ?? DBNull.Value;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

@@ -111,13 +111,10 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@CategoryID", categoryDto.CategoryId);
-                        command.Parameters.AddWithValue("@CategoryName", categoryDto.CategoryName);
+                        command.Parameters.Add("@CategoryID", SqlDbType.Int).Value = categoryDto.CategoryId;
+                        command.Parameters.Add("@CategoryName", SqlDbType.Int).Value = categoryDto.CategoryName;
 
-                        if (string.IsNullOrEmpty(categoryDto.CategoryDescription))
-                            command.Parameters.AddWithValue("@CategoryDescription", DBNull.Value);
-                        else
-                            command.Parameters.AddWithValue("@CategoryDescription", categoryDto.CategoryDescription);
+                        command.Parameters.Add("@CategoryDescription", SqlDbType.Int).Value = (object)categoryDto.CategoryDescription ?? DBNull.Value;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

@@ -206,17 +206,19 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userDto.UserId);
-                        command.Parameters.AddWithValue("@PersonID", userDto.PersonId);
-                        command.Parameters.AddWithValue("@Username", userDto.Username);
-                        command.Parameters.AddWithValue("@HashedPassword", userDto.HashedPassword);
-                        command.Parameters.AddWithValue("@IsActive", userDto.IsActive);
-                        command.Parameters.AddWithValue("@Permissions", userDto.Permission);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userDto.UserId;
+                        command.Parameters.Add("@PersonID", SqlDbType.Int).Value = userDto.PersonId;
+                        command.Parameters.Add("@Username", SqlDbType.VarChar, 40).Value = userDto.UserId;
+                        command.Parameters.Add("@HashedPassword", SqlDbType.VarChar, 350).Value = userDto.HashedPassword;
+                        command.Parameters.Add("@IsActive", SqlDbType.Bit).Value = userDto.IsActive;
+                        command.Parameters.Add("@Permission", SqlDbType.Int).Value = userDto.Permission;
+                        command.Parameters.Add("@FailedLoginAttempts", SqlDbType.Int).Value = (object)userDto.FailedLoginAttempts ?? DBNull.Value;
 
-                        command.Parameters.AddWithValue("@FailedLoginAttempts", (object)userDto.FailedLoginAttempts ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@AccountLockExpirationDate", (object)userDto.AccountLockExpirationDate ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@LastLoginDate", (object)userDto.LastLoginDate ?? DBNull.Value);
-                        command.Parameters.AddWithValue("@LastPasswordChangeDate", (object)userDto.LastPasswordChangeDate ?? DBNull.Value);
+                        command.Parameters.Add("@AccountLockExpirationDate", SqlDbType.DateTime).Value = (object)userDto.AccountLockExpirationDate ?? DBNull.Value;
+
+                        command.Parameters.Add("@LastLoginDate", SqlDbType.DateTime).Value = (object)userDto.LastLoginDate ?? DBNull.Value;
+
+                        command.Parameters.Add("@LastPasswordChangeDate", SqlDbType.DateTime).Value = (object)userDto.LastPasswordChangeDate ?? DBNull.Value;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

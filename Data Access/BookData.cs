@@ -50,7 +50,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@CategoryID", categoryId);
+                        command.Parameters.Add("@CategoryID", SqlDbType.Int).Value = categoryId;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             dataTable.Load(reader);
@@ -117,11 +117,11 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookID", bookDto.BookId);
-                        command.Parameters.AddWithValue("@ISBN", bookDto.Isbn);
-                        command.Parameters.AddWithValue("@PublicationDate", bookDto.PublicationDate);
-                        command.Parameters.AddWithValue("@CategoryID", bookDto.CategoryId);
-                        command.Parameters.AddWithValue("@AuthorName", bookDto.AuthorName);
+                        command.Parameters.Add("@BookID", SqlDbType.Int).Value = bookDto.BookId;
+                        command.Parameters.Add("@ISBN", SqlDbType.Int).Value = bookDto.Isbn;
+                        command.Parameters.Add("@PublicationDate", SqlDbType.Int).Value = bookDto.PublicationDate;
+                        command.Parameters.Add("@CategoryID", SqlDbType.Int).Value = bookDto.CategoryId;
+                        command.Parameters.Add("@AuthorName", SqlDbType.Int).Value = bookDto.AuthorName;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

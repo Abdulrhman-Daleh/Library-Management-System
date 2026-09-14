@@ -54,8 +54,8 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_UpdateMemberMembership", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@MemberID", memberDto.MemberId);
-                        command.Parameters.AddWithValue("@MembershipTypeID", memberDto.MembershipTypeId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberDto.MemberId;
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = memberDto.MembershipTypeId;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

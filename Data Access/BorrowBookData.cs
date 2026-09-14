@@ -67,10 +67,11 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_PerformReturnLostDamaged", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@BorrowID", borrowId);
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
-                        command.Parameters.AddWithValue("@NewConditionID", newConditionId);
-                        command.Parameters.AddWithValue("@BorrowStatus", borrowStatusId);
+                        command.Parameters.Add("@BorrowID", SqlDbType.Int).Value = borrowId;
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
+                        command.Parameters.Add("@NewConditionID", SqlDbType.Int).Value = newConditionId;
+                        command.Parameters.Add("@BorrowStatus", SqlDbType.Int).Value = borrowStatusId;
+
                         SqlParameter param = new SqlParameter("@Result", SqlDbType.Bit);
                         param.Direction = ParameterDirection.Output;
                         command.Parameters.Add(param);

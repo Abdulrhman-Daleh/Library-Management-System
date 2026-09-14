@@ -22,10 +22,7 @@ namespace DataAccess
                 {
                     try
                     {
-                        if (renewId.HasValue)
-                        command.Parameters.AddWithValue("@RenewID", renewId);
-                        else
-                        command.Parameters.AddWithValue("@RenewID", DBNull.Value);
+                        command.Parameters.Add("@RenewID", SqlDbType.Int).Value = (object)renewId ?? DBNull.Value;
 
                         connection.Open();
 
