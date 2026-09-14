@@ -147,7 +147,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookID", bookId);
+                        command.Parameters.Add("@BookID", SqlDbType.Int).Value = bookId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }

@@ -287,7 +287,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }
@@ -355,8 +355,9 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
-                        command.Parameters.AddWithValue("@IsActive", isActive);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                        command.Parameters.Add("@IsActive", SqlDbType.Int).Value = isActive;
+
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }
@@ -454,9 +455,9 @@ namespace DataAccess
                 {
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@UserID", userId);
-                        command.Parameters.AddWithValue("@FailedLoginAttempts", loginAttempts ?? (object)DBNull.Value);
+                    {   
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                        command.Parameters.Add("@FailedLoginAttempts", SqlDbType.Int).Value = loginAttempts ?? (object)DBNull.Value;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }
@@ -481,8 +482,8 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
-                        command.Parameters.AddWithValue("@LockDate", lockExpirationDate ?? (object)DBNull.Value);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                        command.Parameters.Add("@LockDate", SqlDbType.Int).Value = lockExpirationDate ?? (object)DBNull.Value;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }
@@ -507,8 +508,8 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
-                        command.Parameters.AddWithValue("@NewLoginAttempt", DBNull.Value);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                        command.Parameters.Add("@NewLoginAttempt", SqlDbType.Int).Value = DBNull.Value;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }

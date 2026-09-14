@@ -119,7 +119,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PolicyID", policyId);
+                        command.Parameters.Add("@PolicyID", SqlDbType.Int).Value = policyId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }

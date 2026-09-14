@@ -119,7 +119,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }

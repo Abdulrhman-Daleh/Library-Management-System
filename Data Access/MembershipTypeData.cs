@@ -140,7 +140,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeID", membershipTypeId);
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = membershipTypeId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }

@@ -145,7 +145,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }
@@ -239,8 +239,8 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
-                        command.Parameters.AddWithValue("@StatusID", newStatusId);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
+                        command.Parameters.Add("@StatusID", SqlDbType.Int).Value = newStatusId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }
@@ -265,8 +265,8 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
-                        command.Parameters.AddWithValue("@ConditionID", newConditionId);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
+                        command.Parameters.Add("@ConditionID", SqlDbType.Int).Value = newConditionId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }

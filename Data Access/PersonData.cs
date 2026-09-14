@@ -292,7 +292,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PersonID", personId);
+                        command.Parameters.Add("@PersonID", SqlDbType.Int).Value = personId;
                         rowsAffected = command.ExecuteNonQuery();
                     }
                 }
