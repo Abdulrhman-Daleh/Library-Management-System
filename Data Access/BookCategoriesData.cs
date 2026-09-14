@@ -140,7 +140,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@CategoryID", categoryId);
+                        command.Parameters.Add("@CategoryID", SqlDbType.Int).Value = categoryId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -176,7 +176,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@CategoryName", categoryName);
+                        command.Parameters.Add("@CategoryName", SqlDbType.Int).Value = categoryName;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())

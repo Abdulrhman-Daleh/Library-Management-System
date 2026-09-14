@@ -165,7 +165,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeID", membershipTypeId);
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = membershipTypeId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -202,7 +202,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeName", membershipTypeName);
+                        command.Parameters.Add("@MembershipTypeName", SqlDbType.Int).Value = membershipTypeName;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -242,7 +242,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeID", membershipTypeId);
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = membershipTypeId;
 
                         object result = command.ExecuteScalar();
 
@@ -275,7 +275,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeID", membershipTypeId);
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = membershipTypeId;
 
                         object result = command.ExecuteScalar();
 
@@ -301,7 +301,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand("SP_getTotalMembershipTypeFees", connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeID", membershipTypeId);
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = membershipTypeId;
 
                         command.CommandType = CommandType.StoredProcedure;
 

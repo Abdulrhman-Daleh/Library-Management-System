@@ -170,7 +170,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -212,7 +212,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
                         object result = command.ExecuteScalar();
                         if (result != null)
                             conditionFees = Convert.ToDecimal(result);

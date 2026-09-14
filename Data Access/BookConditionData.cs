@@ -1,6 +1,7 @@
 ﻿using Data_Access.DTOs;
 using DataAccess.DTOs;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DataAccess
@@ -21,7 +22,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@ConditionID", conditionId);
+                        command.Parameters.Add("@ConditionID", SqlDbType.Int).Value = conditionId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -57,7 +58,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@ConditionName", conditionName);
+                        command.Parameters.Add("@ConditionName", SqlDbType.Int).Value = conditionName;
                         object result = command.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out conditionId)) { }
                     }

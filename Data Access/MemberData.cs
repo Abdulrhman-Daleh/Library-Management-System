@@ -81,7 +81,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -200,7 +200,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -238,7 +238,7 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_IsMembershipExpired", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
 
                         SqlParameter expiredParam = new SqlParameter("@Expired", SqlDbType.Bit)
                         {
@@ -272,7 +272,7 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_HasReachedBorrowLimit", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
 
                         SqlParameter limitParam = new SqlParameter("@LimitReached", SqlDbType.Bit)
                         {
@@ -306,7 +306,7 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_HasGeneralFees", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
 
                         SqlParameter hasFeesParam = new SqlParameter("@hasGeneralFees", SqlDbType.Bit)
                         {
@@ -368,7 +368,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
                        object result =  command.ExecuteScalar();
 
                         return result != null;
@@ -405,7 +405,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PaymentID", paymentId);
+                        command.Parameters.Add("@PaymentID", SqlDbType.Int).Value = paymentId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())

@@ -244,7 +244,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -312,7 +312,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PersonID", personId);
+                        command.Parameters.Add("@PersonID", SqlDbType.Int).Value = personId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -413,7 +413,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Username", username);
+                        command.Parameters.Add("@Username", SqlDbType.Int).Value = username;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -536,7 +536,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
                         object result = command.ExecuteScalar();
                         if (result != null)
                             isMember = true;

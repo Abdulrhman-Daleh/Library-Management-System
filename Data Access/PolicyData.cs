@@ -144,7 +144,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@CurrentTime", DateTime.Now);
+                        command.Parameters.Add("@CurrentTime", SqlDbType.Int).Value = DateTime.Now;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -183,7 +183,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PolicyID", policyId);
+                        command.Parameters.Add("@PolicyID", SqlDbType.Int).Value = policyId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())

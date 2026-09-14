@@ -131,7 +131,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PaymentID", paymentId);
+                        command.Parameters.Add("@PaymentID", SqlDbType.Int).Value = paymentId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())

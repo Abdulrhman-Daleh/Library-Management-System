@@ -102,7 +102,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -144,7 +144,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BorrowID", borrowId);
+                        command.Parameters.Add("@BorrowID", SqlDbType.Int).Value = borrowId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -246,7 +246,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             dataTable.Load(reader);
@@ -278,7 +278,7 @@ namespace DataAccess
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@memberID", memberId);
+                        command.Parameters.Add("@memberID", SqlDbType.Int).Value = memberId;
                         object result = command.ExecuteScalar();
 
                         if (result is null)
@@ -312,7 +312,7 @@ namespace DataAccess
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@memberID", memberId);
+                        command.Parameters.Add("@memberID", SqlDbType.Int).Value = memberId;
                         object result = command.ExecuteScalar();
 
                         if (result is null)
