@@ -23,22 +23,16 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_BorrowBook", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@BookCopyID", transactionDto.BookCopyId);
-                        command.Parameters.AddWithValue("@MemberID", transactionDto.MemberId);
-                        command.Parameters.AddWithValue("@PolicyID", transactionDto.PolicyId);
-                        command.Parameters.AddWithValue("@BorrowStatusID", transactionDto.BorrowStatusId);
-                        command.Parameters.AddWithValue("@BorrowDate", transactionDto.BorrowDate);
-                        command.Parameters.AddWithValue("@DueDate", transactionDto.DueDate);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = transactionDto.BookCopyId;
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = transactionDto.MemberId;
+                        command.Parameters.Add("@PolicyID", SqlDbType.Int).Value = transactionDto.PolicyId;
+                        command.Parameters.Add("@BorrowStatusID", SqlDbType.Int).Value = transactionDto.BorrowStatusId;
+                        command.Parameters.Add("@BorrowDate", SqlDbType.DateTime).Value = transactionDto.BorrowDate;
+                        command.Parameters.Add("@DueDate", SqlDbType.DateTime).Value = transactionDto.DueDate;
 
-                        if (transactionDto.ReturnDate != null)
-                            command.Parameters.AddWithValue("@ReturnDate", transactionDto.ReturnDate);
-                        else
-                            command.Parameters.AddWithValue("@ReturnDate", DBNull.Value);
+                        command.Parameters.Add("@ReturnDate", SqlDbType.DateTime).Value = (object)transactionDto.ReturnDate ?? DBNull.Value;
+                        command.Parameters.Add("@LostDate", SqlDbType.DateTime).Value = (object)transactionDto.LostDate ?? DBNull.Value;
 
-                        if (transactionDto.LostDate != null)
-                            command.Parameters.AddWithValue("@LostDate", transactionDto.LostDate);
-                        else
-                            command.Parameters.AddWithValue("@LostDate", DBNull.Value);
 
                         SqlParameter outputParam = new SqlParameter("@BorrowID", SqlDbType.Int)
                         {

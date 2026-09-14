@@ -81,11 +81,13 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookID", bookCopyDto.BookId);
-                        command.Parameters.AddWithValue("@AddedDate", bookCopyDto.AddedDate);
-                        command.Parameters.AddWithValue("@StatusID", bookCopyDto.StatusId);
-                        command.Parameters.AddWithValue("@ConditionID", bookCopyDto.ConditionId);
-                        command.Parameters.AddWithValue("@BookCopyPrice", bookCopyDto.BookCopyPrice);
+
+                        command.Parameters.Add("@BookID", SqlDbType.Int).Value = bookCopyDto.BookId;
+                        command.Parameters.Add("@AddedDate", SqlDbType.DateTime).Value = bookCopyDto.AddedDate;
+                        command.Parameters.Add("@StatusID", SqlDbType.Int).Value = bookCopyDto.StatusId;
+                        command.Parameters.Add("@ConditionID", SqlDbType.Int).Value = bookCopyDto.ConditionId;
+                        command.Parameters.Add("@BookCopyPrice", SqlDbType.Decimal).Value = bookCopyDto.BookCopyPrice;
+
 
                         object result = command.ExecuteScalar();
                         if (result != null && int.TryParse(result.ToString(), out bookCopyId)) { }

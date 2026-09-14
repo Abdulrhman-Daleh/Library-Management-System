@@ -78,12 +78,12 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeName", membershipTypeDto.MembershipTypeName);
-                        command.Parameters.AddWithValue("@MembershipFees", membershipTypeDto.MembershipFees);
-                        command.Parameters.AddWithValue("@MembershipBorrowLimit", membershipTypeDto.MembershipBorrowLimit);
+                         command.Parameters.Add("@MembershipTypeName", SqlDbType.NVarChar, 50).Value = membershipTypeDto.MembershipTypeName;
+                         command.Parameters.Add("@MembershipFees", SqlDbType.Float).Value = membershipTypeDto.MembershipFees;
+                         command.Parameters.Add("@MembershipBorrowLimit", SqlDbType.Int).Value = membershipTypeDto.MembershipBorrowLimit;
 
                         object result = command.ExecuteScalar();
-                        if (result != null && int.TryParse(result.ToString(), out membershipTypeId)) { }
+                        if (result != null && int.TryParse(result.ToString(), out membershipTypeId)) ;
                     }
                 }
                 catch (Exception ex)

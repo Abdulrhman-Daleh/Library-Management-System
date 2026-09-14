@@ -24,13 +24,13 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MemberJoinDate", memberDto.MemberJoinDate);
-                        command.Parameters.AddWithValue("@UserID", memberDto.UserId);
-                        command.Parameters.AddWithValue("@MembershipTypeID", memberDto.MembershipTypeId);
-                        command.Parameters.AddWithValue("@MembershipExpirationDate", memberDto.MembershipExpirationDate);
+                        command.Parameters.Add("@MemberJoinDate", SqlDbType.DateTime).Value = memberDto.MemberJoinDate;
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = memberDto.UserId;
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = memberDto.MembershipTypeId;
+                        command.Parameters.Add("@MembershipExpirationDate", SqlDbType.DateTime).Value = memberDto.MembershipExpirationDate;
 
                         object result = command.ExecuteScalar();
-                        if (result != null && int.TryParse(result.ToString(), out memberId)) { }
+                        if (result != null && int.TryParse(result.ToString(), out memberId)) ;
                     }
                 }
                 catch (Exception ex)

@@ -78,12 +78,9 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@CategoryName", categoryDto.CategoryName);
+                        command.Parameters.Add("@CategoryName", SqlDbType.NVarChar, 60).Value = categoryDto.CategoryName;
+                        command.Parameters.Add("@CategoryDescription", SqlDbType.NVarChar, 500).Value = (object)categoryDto.CategoryDescription ?? DBNull.Value;
 
-                        if (string.IsNullOrEmpty(categoryDto.CategoryDescription))
-                            command.Parameters.AddWithValue("@CategoryDescription", DBNull.Value);
-                        else
-                            command.Parameters.AddWithValue("@CategoryDescription", categoryDto.CategoryDescription);
 
                         object result = command.ExecuteScalar();
                         if (result != null)

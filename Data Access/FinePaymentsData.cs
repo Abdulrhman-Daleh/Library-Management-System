@@ -196,14 +196,10 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_FinePayment", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@FineID", paymentDto.FineId);
-                        command.Parameters.AddWithValue("@AmountPaid", paymentDto.AmountPaid);
-                        command.Parameters.AddWithValue("@PaymentMethod", paymentDto.PaymentMethod);
-
-                        if(renewId != null)
-                          command.Parameters.AddWithValue("@RenewID", renewId);
-                        else
-                           command.Parameters.AddWithValue("@RenewID", DBNull.Value);
+                        command.Parameters.Add("@FineID", SqlDbType.Int).Value = paymentDto.FineId;
+                        command.Parameters.Add("@AmountPaid", SqlDbType.Decimal).Value = paymentDto.AmountPaid;
+                        command.Parameters.Add("@PaymentMethod", SqlDbType.NVarChar, 50).Value = paymentDto.PaymentMethod;
+                        command.Parameters.Add("@RenewID", SqlDbType.Int).Value = (object)renewId ?? DBNull.Value;
 
 
                         SqlParameter outputParam = new SqlParameter("@PaymentID", SqlDbType.Int)

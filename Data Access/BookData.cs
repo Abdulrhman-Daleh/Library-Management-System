@@ -81,10 +81,12 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@ISBN", bookDto.Isbn);
-                        command.Parameters.AddWithValue("@PublicationDate", bookDto.PublicationDate);
-                        command.Parameters.AddWithValue("@CategoryID", bookDto.CategoryId);
-                        command.Parameters.AddWithValue("@AuthorName", bookDto.AuthorName);
+
+
+                        command.Parameters.Add("@ISBN",SqlDbType.NVarChar, 20).Value = bookDto.Isbn;
+                        command.Parameters.Add("@PublicationDate", SqlDbType.DateTime).Value = bookDto.PublicationDate;
+                        command.Parameters.Add("@CategoryID",SqlDbType.Int).Value = bookDto.CategoryId;
+                        command.Parameters.Add("@AuthorName", SqlDbType.NVarChar, 50).Value = bookDto.AuthorName;
 
                         object result = command.ExecuteScalar();
                         if (result != null)
