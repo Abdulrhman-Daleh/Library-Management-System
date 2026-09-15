@@ -296,13 +296,11 @@ namespace DataAccess
             return borrowedCount;
         }
 
-        public static short GetTotalOverdueTransactionForMember(int memberId)
+        public static int GetTotalOverdueTransactionForMember(int memberId)
         {
             string query = @"select count(*) from BorrowTransactions as bt
 
 	where bt.DueDate < Getdate() and bt.ReturnDate is null and MemberID = @memberID;";
-
-            short overdueCount = 0;
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -315,19 +313,18 @@ namespace DataAccess
                         command.Parameters.Add("@memberID", SqlDbType.Int).Value = memberId;
                         object result = command.ExecuteScalar();
 
-                        if (result is null)
-                            return default(int);
-                        else
-                            overdueCount = (short)result;
+                        if (result != null && int.TryParse(result.ToString(), out int overdueCount))
+                            return overdueCount;
+
+                        return 0;
                     }
                 }
                 catch (Exception ex)
                 {
                     DataLogger.LogError(_sourceName, ex.Message);
+                    return 0;
                 }
             }
-
-            return overdueCount;
         }
     }
 }

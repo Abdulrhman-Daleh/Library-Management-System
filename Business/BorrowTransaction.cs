@@ -255,7 +255,7 @@ namespace BusinessLogic
             return BorrowBookData.GetTotalBorrowedTransactionForMember(memberId);
         }
 
-        public static short GetTotalOverdueTransactionForMember(int memberId)
+        public static int GetTotalOverdueTransactionForMember(int memberId)
         {
             return BorrowBookData.GetTotalOverdueTransactionForMember(memberId);
         }
