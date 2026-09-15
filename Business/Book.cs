@@ -99,20 +99,24 @@ namespace BusinessLogic
             return BookData.UpdateBook(_bookDto);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == Mode.Add)
             {
                 if (AddNew())
                 {
                     _currentMode = Mode.Update;
-                    return true;
+                    return new OperationResult("Book added successfully.", true);
                 }
 
-                return false;
+                return new OperationResult("Failed to add book.", false);
+
             }
 
-            return Update();
+            if ( Update())
+                return new OperationResult("Book updated successfully.", true);
+
+            return new OperationResult("Failed to update book.", false);
         }
 
         public static bool DeleteBook(int bookId)

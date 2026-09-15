@@ -138,7 +138,6 @@ namespace LibrarySystem.Books
         private void SaveBookInfoSuccess()
         {
             _saved = true;
-            MessageBox.Show("Data saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LblBookId.Text = _currentBook.BookId.ToString();
             this.Text = "Update Book Info";
             LblTitle.Text = "Update Book";
@@ -154,14 +153,17 @@ namespace LibrarySystem.Books
 
             PopulateBookInfo();
 
-            if (_currentBook.Save())
+            OperationResult result = _currentBook.Save();
+
+            if (result.Success)
             {
+                MessageBox.Show(result.Message, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 SaveBookInfoSuccess();
                 RaiseSendBookInfoEvent(_currentBook);
             }
             else
             {
-                MessageBox.Show("Save failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
