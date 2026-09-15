@@ -237,7 +237,7 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_DoesBorrowHasFees", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@BorrowID", borrowId);
+                        command.Parameters.Add("@BorrowID", SqlDbType.Int).Value = borrowId;
 
                         SqlParameter hasFeesParam = new SqlParameter("@HasFees", SqlDbType.Bit)
                         {
@@ -271,7 +271,7 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_HasMembershipRenewFees", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@RenewID", renewId);
+                        command.Parameters.Add("@RenewID", SqlDbType.Int).Value = renewId;
 
                         SqlParameter hasFeesParam = new SqlParameter("@hasFine", SqlDbType.Bit)
                         {
@@ -306,7 +306,7 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_TotalUnpaidFees", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue(@"MemberID", memberID);
+                        command.Parameters.Add(@"MemberID", SqlDbType.Int).Value = memberID;
 
                         SqlParameter param = new SqlParameter("@TotalUnpaidFees", SqlDbType.Decimal)
                         {

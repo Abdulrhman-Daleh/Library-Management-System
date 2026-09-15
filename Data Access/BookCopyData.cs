@@ -50,7 +50,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookID", bookId);
+                        command.Parameters.Add("@BookID", SqlDbType.Int).Value = bookId;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                                 dataTable.Load(reader);
@@ -291,7 +291,7 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_CheckCopyIfAvailable", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
 
                         SqlParameter availableParam = new SqlParameter("@IsAvailable", SqlDbType.Bit)
                         {

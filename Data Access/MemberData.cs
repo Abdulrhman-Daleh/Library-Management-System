@@ -171,7 +171,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             dataTable.Load(reader);
@@ -340,7 +340,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
                             object result = command.ExecuteScalar();
 
                         if (result != null && int.TryParse(result.ToString(), out int memberId))

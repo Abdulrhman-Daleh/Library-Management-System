@@ -186,7 +186,7 @@ namespace DataAccess
                     using (SqlCommand command = new SqlCommand("SP_IsBookCopyBorrowed", connection))
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@BookCopyID", bookCopyId);
+                        command.Parameters.Add("@BookCopyID", SqlDbType.Int).Value = bookCopyId;
 
                         SqlParameter isBorrowedParam = new SqlParameter("@IsBorrowed", SqlDbType.Bit)
                         {

@@ -52,7 +52,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@PersonID", personId);
+                        command.Parameters.Add("@PersonID", SqlDbType.Int).Value = personId;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                                 peopleDataTable.Load(reader);

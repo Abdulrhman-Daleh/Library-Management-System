@@ -275,7 +275,7 @@ namespace DataAccess
                 {
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BookID", bookId);
+                        command.Parameters.Add("@BookID", SqlDbType.Int).Value = bookId;
                         object result = command.ExecuteScalar();
 
                         int.TryParse(result.ToString(), out int total);

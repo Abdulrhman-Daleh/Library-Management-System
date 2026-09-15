@@ -54,7 +54,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId         ;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                                 dataTable.Load(reader);
@@ -88,7 +88,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeID", membershipTypeId);
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = membershipTypeId;
 
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
@@ -123,8 +123,8 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MembershipTypeID", membershipTypeId);
-                        command.Parameters.AddWithValue("@UserID", userId);
+                        command.Parameters.Add("@MembershipTypeID", SqlDbType.Int).Value = membershipTypeId;
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
 
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
@@ -385,9 +385,9 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@UserID", userId);
-                        command.Parameters.AddWithValue("@NewPassword", newHashedPassword);
-                        command.Parameters.AddWithValue("@LastPasswordChangeDate", DateTime.Now);
+                        command.Parameters.Add("@UserID", SqlDbType.Int).Value = userId;
+                        command.Parameters.Add("@NewPassword", SqlDbType.Int).Value = newHashedPassword;
+                        command.Parameters.Add("@LastPasswordChangeDate", SqlDbType.Int).Value = DateTime.Now;
 
                         rowsAffected = command.ExecuteNonQuery();
                     }

@@ -56,7 +56,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                                 dataTable.Load(reader);
@@ -89,7 +89,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@BorrowID", borrowId);
+                        command.Parameters.Add("@BorrowID", SqlDbType.Int).Value = borrowId;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -169,7 +169,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@FineID", fineId);
+                        command.Parameters.Add("@FineID",SqlDbType.Int).Value = fineId;
                         object result = command.ExecuteScalar();
                         if (result != null && decimal.TryParse(result.ToString(), out decimal amount))
                             totalAmountPaid = amount;

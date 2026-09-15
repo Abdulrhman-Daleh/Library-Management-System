@@ -96,7 +96,7 @@ namespace DataAccess
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@MemberID", memberId);
+                        command.Parameters.Add("@MemberID", SqlDbType.Int).Value = memberId;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
                             dataTable.Load(reader);
