@@ -93,14 +93,8 @@ namespace BusinessLogic
         }
 
         public BorrowTransaction BorrowTransaction { get; set; }
-        public MembershipRenew MembershipRenewDetails { get; set; }
 
-        public Fine()
-        {
-            _fineDto = new FineDTO();
-            _currentMode = ModeType.Add;
-            FineStatus = StatusType.Pending;
-        }
+        public MembershipRenew MembershipRenewDetails { get; set; }
 
         private Fine(FineDTO fineDto)
         {
@@ -125,33 +119,6 @@ namespace BusinessLogic
         {
             FineDTO fineDto = FinesData.GetFineById(fineId);
             return fineDto == null ? null : new Fine(fineDto);
-        }
-
-        private bool Add()
-        {
-            FineId = FinesData.CreateFine(_fineDto);
-            return FineId > 0;
-        }
-
-        private bool Update()
-        {
-            return FinesData.UpdateFine(_fineDto);
-        }
-
-        public bool Save()
-        {
-            if (_currentMode == ModeType.Add)
-            {
-                if (Add())
-                {
-                    _currentMode = ModeType.Update;
-                    return true;
-                }
-
-                return false;
-            }
-
-            return Update();
         }
 
         public static async Task<DataTable> GetAllAsync(User currentUser, int memberId)
