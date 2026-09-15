@@ -49,7 +49,7 @@ namespace DataAccess
         public static int GetConditionIdByName(string conditionName)
         {
             int conditionId = -1;
-            string query = @"SELECT ConditionID FROM BookConditions WHERE ConditionTitle LIKE @ConditionName";
+            string query = @"SELECT ConditionID FROM BookConditions WHERE ConditionTitle = @ConditionName";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
