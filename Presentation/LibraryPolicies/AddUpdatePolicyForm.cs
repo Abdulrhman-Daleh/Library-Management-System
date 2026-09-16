@@ -63,7 +63,6 @@ namespace LibrarySystem.LibraryPolicies
 
         private void ShowSaveSuccess()
         {
-            MessageBox.Show("Policy saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LblPolicyId.Text = _currentPolicy.PolicyId.ToString();
             LblTitle.Text = "Update Policy";
             this.Text = "Update Policy";
@@ -87,11 +86,15 @@ namespace LibrarySystem.LibraryPolicies
             }
 
             MapPolicyDataFromUi();
+            OperationResult result = _currentPolicy.Save();
 
-            if (_currentPolicy.Save())
+            if (result.Success)
+            {
+                MessageBox.Show(result.Message, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowSaveSuccess();
+            }
             else
-                MessageBox.Show("Failed to save policy", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void BtnClose_Click(object sender, EventArgs e) => Close();

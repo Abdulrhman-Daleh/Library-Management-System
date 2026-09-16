@@ -97,20 +97,22 @@ namespace BusinessLogic
             return PolicyData.UpdatePolicy(_policyDto);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == ModeType.Add)
             {
                 if (Add())
                 {
                     _currentMode = ModeType.Update;
-                    return true;
+                    return new OperationResult("Policy added successfully.", true);
                 }
-
-                return false;
+                return new OperationResult("Failed to add policy.", false);
             }
 
-            return Update();
+            if (Update())
+                return new OperationResult("Policy updated successfully.", true);
+
+            return new OperationResult("Failed to update policy.", false);
         }
 
         public bool IsActive()
