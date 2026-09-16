@@ -143,7 +143,6 @@ namespace LibrarySystem.Members
 
         private void ShowSaveSuccess()
         {
-            MessageBox.Show("Data saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LblMemberId.Text = _currentMember.MemberId.ToString();
             this.Text = "Update Member Info";
             LblTitle.Text = "Update Member";
@@ -173,17 +172,19 @@ namespace LibrarySystem.Members
                 MessageBox.Show("Membership type is required", "Not Allowed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            OperationResult result = _currentMember.Save();
 
-            if (_currentMember.Save())
+            if (result.Success)
             {
                 RaiseEvent(_currentMember.MemberId);
+                MessageBox.Show(result.Message, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowSaveSuccess();
                 _SetCurrentMemberAccount();
                 Close();
             }
             else
             {
-                MessageBox.Show("Failed to save", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

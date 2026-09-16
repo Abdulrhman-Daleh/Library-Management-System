@@ -94,20 +94,24 @@ namespace BusinessLogic
             return MemberData.UpdateMember(_memberDto);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == ModeType.Add)
             {
                 if (Add())
                 {
                     _currentMode = ModeType.Update;
-                    return true;
+                    return new OperationResult("Member added successfully.", true);
                 }
 
-                return false;
+                return new OperationResult("Failed to add member.", false);
+
             }
 
-            return Update();
+            if (Update())
+                return new OperationResult("member updated successfully.", true);
+
+            return new OperationResult("Failed to update member.", false);
         }
 
         public static bool Delete(int memberId)
