@@ -65,7 +65,6 @@ namespace LibrarySystem.Categories
 
         private void ShowSuccessMessage()
         {
-            MessageBox.Show("Data saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LblCategoryId.Text = _category.CategoryId.ToString();
             LblTitle.Text = "Update Book Category";
             this.Text = "Update Category";
@@ -83,15 +82,16 @@ namespace LibrarySystem.Categories
 
             BindCategoryInfo();
 
-            if (_category.Save())
+            OperationResult result = _category.Save();
+
+            if (result.Success)
             {
+                MessageBox.Show(result.Message, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowSuccessMessage();
                 RaiseEvent(_category.CategoryId);
             }
             else
-            {
-                MessageBox.Show("Failed to save", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void BtnClose_Click(object sender, EventArgs e) => Close();

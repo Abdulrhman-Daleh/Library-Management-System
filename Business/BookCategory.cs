@@ -74,20 +74,25 @@ namespace BusinessLogic
             return BookCategoriesData.UpdateCategory(_categoryDto);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == Mode.Add)
             {
                 if (AddNew())
                 {
                     _currentMode = Mode.Update;
-                    return true;
+                    return new OperationResult("Book category added successfully.", true);
                 }
 
-                return false;
+                return new OperationResult("Failed to add book category.", false);
             }
 
-            return Update();
+            if (Update())
+               return new OperationResult("Book category updated successfully.", true);
+
+
+                return new OperationResult("Failed to update book category.", false);
+
         }
 
         public static BookCategory FindCategory(int categoryId)
