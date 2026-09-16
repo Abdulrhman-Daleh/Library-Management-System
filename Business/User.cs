@@ -229,20 +229,23 @@ namespace BusinessLogic
             return UserData.UpdateUser(_userDto);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == ModeType.Add)
             {
                 if (Add())
                 {
                     _currentMode = ModeType.Update;
-                    return true;
+                    return new OperationResult("User added successfully.", true);
                 }
 
-                return false;
+                return new OperationResult("Failed to add user.", false);
             }
 
-            return Update();
+            if( Update())
+                return new OperationResult("User updated successfully.", true);
+
+            return new OperationResult("Failed to update user.", false);
         }
 
         public static bool DeleteUser(int userId)
@@ -331,10 +334,10 @@ namespace BusinessLogic
             return FindByUsername("Admin") != null;
         }
 
-        public bool AddAdminAccount()
+        public OperationResult AddAdminAccount()
         {
             if (AdminAccountExists())
-                return false;
+                return new OperationResult("Admin account already exists", false);
 
             Person adminPerson = Person.GetAdminPerson();
             adminPerson.Save();

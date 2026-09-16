@@ -88,9 +88,6 @@ namespace LibrarySystem.Login
 
             LoadSavedLoginInfo();
             FocusUsername();
-            //  Console.WriteLine(PasswordHasher.HashPassword("Admin12345"));
-            //100000.mZjoTlHRolr408N81cGZUQ==.SjHDUtGwU/7rXSlex+tIDm5WZvTYpPvM544GlMiz8hk=
-
         }
 
         private void ChkShowPassword_CheckedChanged(object sender, EventArgs e)
@@ -98,7 +95,7 @@ namespace LibrarySystem.Login
             TxtPassword.UseSystemPasswordChar = !ChkShowPassword.Checked;
         }
 
-        private bool SaveLoginInfo()
+        private OperationResult SaveLoginInfo()
         {
             if (ChkRememberMe.Checked)
             {
@@ -113,7 +110,7 @@ namespace LibrarySystem.Login
             else
                 File.WriteAllText(_loginFilePath, null);
 
-                return true;
+            return new OperationResult("login info saved", true);
         }
 
         private void PerformLogin()
