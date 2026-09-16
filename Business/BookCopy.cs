@@ -146,20 +146,24 @@ namespace BusinessLogic
             return BookCopyData.UpdateBookCopy(_bookCopyDto);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == Mode.AddNew)
             {
                 if (AddNew())
                 {
                     _currentMode = Mode.Update;
-                    return true;
+                    return new OperationResult("Book copy added successfully.", true);
                 }
 
-                return false;
+                return new OperationResult("Failed to add Book copy.", false);
             }
 
-            return Update();
+            if(Update())
+               return new OperationResult("Book copy updated successfully.", true);
+
+            return new OperationResult("Failed to update book copy.", false);
+
         }
 
         public static async Task<DataTable> GetAllBookCopiesAsync()

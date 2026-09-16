@@ -96,7 +96,6 @@ namespace LibrarySystem.BookCopies
         private void ShowSaveSuccess()
         {
             FindBookWithFilterControl.AllowSearchSection = false;
-            MessageBox.Show("Data saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             LblBookCopyId.Text = _bookCopy.BookCopyId.ToString();
             LblTitle.Text = "Update Book Copy";
@@ -115,10 +114,15 @@ namespace LibrarySystem.BookCopies
 
             BindFormToBookCopy();
 
-            if (_bookCopy.Save())
+            OperationResult result = _bookCopy.Save();
+
+            if (result.Success)
+            {
+                MessageBox.Show(result.Message, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowSaveSuccess();
+            }
             else
-                MessageBox.Show("Save failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void CbCondition_Validating(object sender, CancelEventArgs e)
