@@ -157,20 +157,23 @@ namespace BusinessLogic
             return PersonData.UpdatePerson(_personDto);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == ModeType.Add)
             {
                 if (Add())
                 {
                     _currentMode = ModeType.Update;
-                    return true;
+                    return new OperationResult("Person added successfully.", true);
                 }
 
-                return false;
+                return new OperationResult("Failed to add person.", false);
             }
 
-            return Update();
+            if (Update())
+                return new OperationResult("person updated successfully.", true);
+
+            return new OperationResult("Failed to update person.", false);
         }
 
         public static bool Delete(int personId)

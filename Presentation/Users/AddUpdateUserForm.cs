@@ -297,10 +297,12 @@ namespace LibrarySystem.Users
             }
 
             MapFormToUser();
+            OperationResult result = _selectedUser.Save();
 
-            if (_selectedUser.Save())
+
+            if (result.Success)
             {
-                MessageBox.Show("Data saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LblUserId.Text = _selectedUser.UserId.ToString();
                 LblTitle.Text = "Update User Info";
                  findPersonWithFilterControl.AllowSearchSection = false;
@@ -309,7 +311,7 @@ namespace LibrarySystem.Users
             }
             else
             {
-                MessageBox.Show("Failed to save", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

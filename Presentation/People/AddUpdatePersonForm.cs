@@ -161,7 +161,6 @@ namespace LibrarySystem.People
         private void SaveSuccess()
         {
             LblPersonId.Text = _person.PersonId.ToString();
-            MessageBox.Show("Data saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LblTitle.Text = "Update Person Info";
             RaiseAddedPersonEvent();
         }
@@ -176,10 +175,15 @@ namespace LibrarySystem.People
 
             MapFormToPerson();
 
-            if (_person.Save())
+            OperationResult result = _person.Save();
+
+            if (result.Success)
+            {
+                MessageBox.Show(result.Message, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 SaveSuccess();
+            }
             else
-                MessageBox.Show("Failed to save", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void BtnClose_Click(object sender, EventArgs e) => Close();
