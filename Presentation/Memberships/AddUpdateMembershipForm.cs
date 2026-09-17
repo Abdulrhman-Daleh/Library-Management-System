@@ -57,7 +57,6 @@ namespace LibrarySystem.Memberships
 
         private void ShowSaveSuccess()
         {
-            MessageBox.Show("Data saved successfully", "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LblMembershipTypeId.Text = _currentMembershipType.MembershipTypeId.ToString();
             LblTitle.Text = "Update Membership Type";
             this.Text = "Update Membership Type";
@@ -82,10 +81,15 @@ namespace LibrarySystem.Memberships
 
             MapMembershipTypeDataFromUi();
 
-            if (_currentMembershipType.Save())
+            OperationResult result = _currentMembershipType.Save();
+
+            if (result.Success)
+            {
+                MessageBox.Show(result.Message, "Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ShowSaveSuccess();
+            }
             else
-                MessageBox.Show("Failed to save", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void BtnClose_Click(object sender, EventArgs e) => Close();

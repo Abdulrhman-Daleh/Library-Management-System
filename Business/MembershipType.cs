@@ -83,20 +83,23 @@ namespace BusinessLogic
             return MembershipTypeData.UpdateMembershipType(_membershipTypeDto);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == ModeType.Add)
             {
                 if (Add())
                 {
                     _currentMode = ModeType.Update;
-                    return true;
+                    return new OperationResult("Membership added successfully.", true);
                 }
 
-                return false;
+                return new OperationResult("Failed to add membership.", false);
             }
 
-            return Update();
+            if (Update())
+                return new OperationResult("membership updated successfully.", true);
+
+            return new OperationResult("Failed to update membership.", false);
         }
 
         public static async Task<DataTable> GetAllAsync()
