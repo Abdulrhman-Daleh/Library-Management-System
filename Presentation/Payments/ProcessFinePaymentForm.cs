@@ -79,15 +79,15 @@ namespace LibrarySystem.FinePayments
                 FineInfo = _fine
             };
 
-            if (finePayment.Save())
+            OperationResult result = finePayment.Save();
+
+            if (result.Success)
             {
-                MessageBox.Show($"Payment of {finePayment.AmountPaid} processed for Fine #{_fine.FineId}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
             else
-            {
-                MessageBox.Show("Payment failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void TxtPayAmount_KeyPress(object sender, KeyPressEventArgs e)

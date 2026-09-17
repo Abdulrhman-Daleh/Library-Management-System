@@ -101,20 +101,23 @@ namespace BusinessLogic
             return null;
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (_currentMode == ModeType.Add)
             {
                 if (Add())
                 {
                     _currentMode = ModeType.Update;
-                    return true;
+                    return new OperationResult($"Payment of {AmountPaid} processed for Fine #{FineId}", true);
                 }
-
-                return false;
+                return new OperationResult("Failed to add payment.", false);
             }
 
-            return Update();
+            if (Update())
+                return new OperationResult("payment updated successfully.", true);
+
+            return new OperationResult("Failed to update payment.", false);
+
         }
     }
 }
