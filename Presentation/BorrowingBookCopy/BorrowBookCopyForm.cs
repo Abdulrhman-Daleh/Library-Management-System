@@ -113,13 +113,16 @@ namespace LibrarySystem.BorrowingBookCopy
             _currentTransaction.BorrowStatus = _borrowStatus;
             _currentTransaction.ApplyDate();
             _currentTransaction.BookCopyInfo.ConditionId = (byte)_NewCopyCondition;
-            if (_currentTransaction.Save())
+
+            OperationResult result = _currentTransaction.Save();
+
+            if (result.Success)
             {
-                MessageBox.Show("transaction done successfully", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
             else
-                MessageBox.Show("Failed to save transaction", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

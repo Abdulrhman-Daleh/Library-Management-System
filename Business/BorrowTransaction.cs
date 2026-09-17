@@ -155,15 +155,23 @@ namespace BusinessLogic
             return new OperationResult(null, true);
         }
 
-        public bool Save()
+        public OperationResult Save()
         {
             if (CurrentMode == ModeType.Add)
             {
                 CurrentMode = ModeType.Update;
-                return Add();
+                if( Add())
+                {
+                    return new OperationResult("Book copy added successfully.", true);
+                }
+                return new OperationResult("Failed to add Book copy.", false);
+
             }
 
-            return Update();
+            if(Update())
+                return new OperationResult("Book copy updated successfully.", true);
+
+            return new OperationResult("Failed to update book copy.", false);
         }
 
         public void ApplyDate()
