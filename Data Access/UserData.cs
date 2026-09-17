@@ -413,7 +413,7 @@ namespace DataAccess
                     connection.Open();
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        command.Parameters.Add("@Username", SqlDbType.Int).Value = username;
+                        command.Parameters.Add("@Username", SqlDbType.NVarChar, 60).Value = username;
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
