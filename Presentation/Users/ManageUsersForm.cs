@@ -238,15 +238,14 @@ namespace LibrarySystem.Users
             if (!CommonValidation.HandlePermissions(User.Permissions.ManageUsers))
                 return;
 
-            if (User.DeleteUser(userId))
+            OperationResult result = User.DeleteUser(userId);
+            if (result.Success)
             {
-                MessageBox.Show("User deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 GenericOperations.DeleteRecord(_usersDataTable, DgvUsers, LblRecords, userId, "UserID");
             }
             else
-            {
-                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void UpdateUserToolStripMenuItem_Click(object sender, EventArgs e)

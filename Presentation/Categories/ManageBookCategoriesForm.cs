@@ -122,15 +122,14 @@ namespace LibrarySystem.BookCategories
             if (MessageBox.Show("Delete this category?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            if (BusinessLogic.BookCategory.DeleteCategory(categoryId))
+            OperationResult result = BookCategory.DeleteCategory(categoryId);
+            if (result.Success)
             {
-                MessageBox.Show("Category deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 GenericOperations.DeleteRecord(_categoriesDataTable, DgvCategories, LblRecords, categoryId, "CategoryID");
             }
             else
-            {
-                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ViewUserInfoToolStripMenuItem_Click(object sender, EventArgs e)

@@ -125,15 +125,15 @@ namespace LibrarySystem.Memberships
             if (MessageBox.Show("Delete this membership type?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            if (MembershipType.DeleteMembershipType(membershipId))
+            OperationResult result = MembershipType.DeleteMembershipType(membershipId);
+            if (result.Success)
             {
-                MessageBox.Show("Membership type deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 GenericOperations.DeleteRecord(_membershipsDataTable, DgvMemberships, LblRecords, membershipId, "MembershipTypeID");
             }
             else
-            {
-                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
 
         private void TxtFilter_KeyPress(object sender, KeyPressEventArgs e)

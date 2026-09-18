@@ -112,9 +112,13 @@ namespace BusinessLogic
             return MembershipTypeData.GetAllMembershipTypeNames();
         }
 
-        public static bool DeleteMembershipType(int membershipTypeId)
+        public static OperationResult DeleteMembershipType(int membershipTypeId)
         {
-            return MembershipTypeData.DeleteMembershipType(membershipTypeId);
+
+            if (MembershipTypeData.DeleteMembershipType(membershipTypeId))
+                return OperationResult.Create("Membership deleted successfully.", true);
+
+            return OperationResult.Create("Failed to delete membership.", false);
         }
 
         public int GetAllMembersCountInType()

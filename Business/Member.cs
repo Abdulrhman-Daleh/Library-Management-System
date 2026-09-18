@@ -114,9 +114,12 @@ namespace BusinessLogic
             return new OperationResult("Failed to update member.", false);
         }
 
-        public static bool Delete(int memberId)
+        public static OperationResult DeleteMember(int memberId)
         {
-            return MemberData.DeleteMember(memberId);
+            if (MemberData.DeleteMember(memberId))
+                return OperationResult.Create("Member deleted successfully.", true);
+
+            return OperationResult.Create("Failed to delete member.", false);
         }
 
         public static async Task<DataTable> GetAllAsync(User currentUser)

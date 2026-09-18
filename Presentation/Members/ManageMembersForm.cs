@@ -137,14 +137,18 @@ namespace LibrarySystem.Members
 
             try
             {
-                if (Member.Delete(memberId))
+                OperationResult result = Member.DeleteMember(memberId);
+                if (result.Success)
                 {
                     MessageBox.Show("Member deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     GenericOperations.DeleteRecord(_membersDataTable, DgvMembers, LblRecords, memberId, "MemberID");
                 }
+                else
+                    MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             catch (Exception ex)
-            {
+            { 
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

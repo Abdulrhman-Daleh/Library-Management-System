@@ -182,15 +182,14 @@ namespace LibrarySystem.BookCopies
             if (MessageBox.Show($"Delete copy {bookCopyId}?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            if (BookCopy.DeleteBookCopy(bookCopyId))
+            OperationResult result = BookCopy.DeleteBookCopy(bookCopyId);
+            if (result.Success)
             {
-                MessageBox.Show("Book copy deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 GenericOperations.DeleteRecord(_bookCopiesDataTable, DgvBookCopies, LblRecords, bookCopyId, "BookCopyID");
             }
             else
-            {
-                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void DgvBookCopies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

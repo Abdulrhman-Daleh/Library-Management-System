@@ -184,10 +184,11 @@ namespace LibrarySystem.Users
             if (!CommonValidation.HandlePermissions(User.Permissions.ManageUsers))
                 return;
 
-            if (User.DeleteUser(_userId))
-                MessageBox.Show("User deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            OperationResult result = User.DeleteUser(_userId);
+            if (result.Success)
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
-                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 
         }

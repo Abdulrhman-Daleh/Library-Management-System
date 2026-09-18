@@ -108,15 +108,14 @@ namespace LibrarySystem.LibraryPolicies
             if (MessageBox.Show("Delete this policy?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            if (Policy.DeletePolicy(policyId))
+            OperationResult result = Policy.DeletePolicy(policyId);
+            if (result.Success)
             {
-                MessageBox.Show("Policy deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 GenericOperations.DeleteRecord(_policiesDataTable, DgvPolicies, LblRecords, policyId, "PolicyID");
             }
             else
-            {
-                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)

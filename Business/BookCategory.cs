@@ -3,6 +3,7 @@ using DataAccess.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace BusinessLogic
@@ -107,9 +108,12 @@ namespace BusinessLogic
             return categoryDto == null ? null : new BookCategory(categoryDto);
         }
 
-        public static bool DeleteCategory(int categoryId)
+        public static OperationResult DeleteCategory(int categoryId)
         {
-            return BookCategoriesData.DeleteCategoryById(categoryId);
+            if (BookCategoriesData.DeleteCategoryById(categoryId))
+                return OperationResult.Create("Category deleted successfully.", true);
+
+            return OperationResult.Create("Failed to delete category.", false);
         }
 
         public string GetCategoryDescription()

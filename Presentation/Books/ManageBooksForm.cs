@@ -126,15 +126,15 @@ namespace LibrarySystem.Books
             if (MessageBox.Show("Delete this book?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            if (Book.DeleteBook(bookId))
+            OperationResult result = Book.DeleteBook(bookId);
+            if (result.Success)
             {
-                MessageBox.Show("Book deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 GenericOperations.DeleteRecord(_booksDataTable, DgvBooks, LblRecords, bookId, "BookID");
             }
             else
-            {
-                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show(result.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
         }
 
         private void ViewUserInfoToolStripMenuItem_Click(object sender, EventArgs e)

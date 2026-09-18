@@ -125,9 +125,12 @@ namespace BusinessLogic
             return await PolicyData.GetAllPoliciesAsync();
         }
 
-        public static bool DeletePolicy(int policyId)
+        public static OperationResult DeletePolicy(int policyId)
         {
-            return PolicyData.DeletePolicy(policyId);
+            if (PolicyData.DeletePolicy(policyId))
+                return OperationResult.Create("Policy deleted successfully.", true);
+
+            return OperationResult.Create("Failed to delete policy.", false);
         }
     }
 }

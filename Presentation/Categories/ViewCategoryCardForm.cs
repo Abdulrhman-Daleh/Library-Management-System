@@ -45,7 +45,8 @@ namespace LibrarySystem.Categories
             if (MessageBox.Show("Delete this category y/n", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            if (BusinessLogic.BookCategory.DeleteCategory(_categoryId))
+            OperationResult result = BookCategory.DeleteCategory(_categoryId);
+            if (result.Success)
                 MessageBox.Show("Category deleted", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

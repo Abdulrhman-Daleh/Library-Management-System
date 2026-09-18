@@ -119,9 +119,13 @@ namespace BusinessLogic
             return new OperationResult("Failed to update book.", false);
         }
 
-        public static bool DeleteBook(int bookId)
+        public static OperationResult DeleteBook(int bookId)
         {
-            return BookData.DeleteBook(bookId);
+
+            if (BookData.DeleteBook(bookId))
+                return OperationResult.Create("Book deleted successfully.", true);
+
+            return OperationResult.Create("Failed to delete book.", false);
         }
 
         public static bool IsIsbnAlreadyUsed(string isbn)

@@ -1,7 +1,8 @@
-﻿using DataAccess.DTOs;
-using DataAccess;
+﻿using DataAccess;
+using DataAccess.DTOs;
 using System;
 using System.Data;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using static BusinessLogic.BookConditions;
 
@@ -186,9 +187,12 @@ namespace BusinessLogic
             return BookCopyData.ChangeBookCopyStatus(bookCopyId, newStatusId);
         }
 
-        public static bool DeleteBookCopy(int bookCopyId)
+        public static OperationResult DeleteBookCopy(int bookCopyId)
         {
-            return BookCopyData.DeleteBookCopy(bookCopyId);
+            if (BookCopyData.DeleteBookCopy(bookCopyId))
+                return OperationResult.Create("Book copy deleted successfully.", true);
+
+            return OperationResult.Create("Failed to delete book copy.", false);
         }
 
         private static bool IsAvailable(int bookCopyId)

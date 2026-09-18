@@ -69,13 +69,14 @@ namespace LibrarySystem.Memberships
 
             try
             {
-                if (MembershipType.DeleteMembershipType(_membershipTypeId))
+                OperationResult result = MembershipType.DeleteMembershipType(_membershipTypeId);
+                if (result.Success)
                 {
-                    MessageBox.Show("Membership got deleted successfuly", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(result.Message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }
                 else
-                    MessageBox.Show("Failed to delete membership", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(result.Message, "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch(Exception ex)
             {

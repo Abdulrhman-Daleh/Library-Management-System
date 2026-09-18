@@ -4,6 +4,7 @@ using LibrarySystem.Common;
 using Microsoft.Win32;
 using System;
 using System.Data;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -248,9 +249,12 @@ namespace BusinessLogic
             return new OperationResult("Failed to update user.", false);
         }
 
-        public static bool DeleteUser(int userId)
+        public static OperationResult DeleteUser(int userId)
         {
-            return UserData.DeleteUser(userId);
+            if (UserData.DeleteUser(userId))
+                return OperationResult.Create("User deleted successfully.", true);
+
+            return OperationResult.Create("Failed to delete user.", false);
         }
 
         public static bool IsPersonAlreadyUser(int personId)
