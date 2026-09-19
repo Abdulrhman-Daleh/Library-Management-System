@@ -119,7 +119,11 @@ namespace DataAccess
         {
             FinePaymentDTO paymentDto = null;
             string query = @"
-                SELECT fp.*
+                SELECT PaymentID,
+                    fp.FineID,
+                    AmountPaid,
+                    PaymentDate,
+                    PaymentMethod
                 FROM FinePayments fp
                 INNER JOIN Fines f ON f.FineID = fp.FineID
                 WHERE fp.PaymentID = @PaymentID;";

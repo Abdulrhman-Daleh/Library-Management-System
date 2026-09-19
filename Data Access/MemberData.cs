@@ -72,7 +72,11 @@ namespace DataAccess
         public static MemberDTO GetMemberById(int memberId)
         {
             MemberDTO memberDto = null;
-            string query = @"SELECT TOP 1 * FROM Members WHERE MemberID = @MemberID";
+            string query = @"SELECT TOP 1 MemberID,
+                            MemberJoinDate,
+                            UserID,
+                            MembershipTypeID,
+                            MembershipExpirationDate FROM Members WHERE MemberID = @MemberID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -191,7 +195,11 @@ namespace DataAccess
         public static MemberDTO GetMemberByUserId(int userId)
         {
             MemberDTO memberDto = null;
-            string query = @"SELECT TOP 1 * FROM Members WHERE UserID = @UserID";
+            string query = @"SELECT TOP 1 MemberID,
+                            MemberJoinDate,
+                            UserID,
+                            MembershipTypeID,
+                            MembershipExpirationDate FROM Members WHERE UserID = @UserID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

@@ -15,7 +15,9 @@ namespace DataAccess
         public static async Task<DataTable> GetAllCategoriesAsync()
         {
             DataTable dataTable = new DataTable();
-            string query = "SELECT * FROM BookCategories ORDER BY CategoryID ASC;";
+            string query = @"SELECT CategoryID,
+                        CategoryDescription,
+                        CategoryName FROM BookCategories ORDER BY CategoryID ASC;";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -131,7 +133,9 @@ namespace DataAccess
         public static BookCategoriesDTO GetCategoryById(int categoryId)
         {
             BookCategoriesDTO categoryDto = null;
-            string query = @"SELECT TOP 1 * FROM BookCategories WHERE CategoryID = @CategoryID";
+            string query = @"SELECT TOP 1 CategoryID,
+                        CategoryDescription,
+                        CategoryName FROM BookCategories WHERE CategoryID = @CategoryID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -167,7 +171,9 @@ namespace DataAccess
         public static BookCategoriesDTO GetCategoryByName(string categoryName)
         {
             BookCategoriesDTO categoryDto = null;
-            string query = @"SELECT TOP 1 * FROM BookCategories WHERE CategoryName = @CategoryName";
+            string query = @"SELECT TOP 1 CategoryID,
+                        CategoryDescription,
+                        CategoryName FROM BookCategories WHERE CategoryName = @CategoryName";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

@@ -13,7 +13,12 @@ namespace DataAccess
         public static async Task<DataTable> GetAllPoliciesAsync()
         {
             DataTable dataTable = new DataTable();
-            string query = "SELECT * FROM LibraryPolicy";
+            string query = @"SELECT PolicyID,
+                            FeesPerLateDay,
+                            GracePeriodDays,
+                            LostBookFeeMultiplier,
+                            EffectiveFrom,
+                            EffectiveTo FROM LibraryPolicy";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -135,7 +140,12 @@ namespace DataAccess
         public static PolicyDTO GetCurrentActivePolicy()
         {
             PolicyDTO policyDto = null;
-            string query = @"SELECT TOP 1 * FROM LibraryPolicy WHERE EffectiveFrom <= @CurrentTime and EffectiveTo >= @CurrentTime ORDER BY EffectiveFrom DESC";
+            string query = @"SELECT TOP 1 PolicyID,
+                            FeesPerLateDay,
+                            GracePeriodDays,
+                            LostBookFeeMultiplier,
+                            EffectiveFrom,
+                            EffectiveTo FROM LibraryPolicy WHERE EffectiveFrom <= @CurrentTime and EffectiveTo >= @CurrentTime ORDER BY EffectiveFrom DESC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -174,7 +184,12 @@ namespace DataAccess
         public static PolicyDTO GetPolicyById(int policyId)
         {
             PolicyDTO policyDto = null;
-            string query = @"SELECT TOP 1 * FROM LibraryPolicy WHERE PolicyID = @PolicyID";
+            string query = @"SELECT TOP 1 PolicyID,
+                            FeesPerLateDay,
+                            GracePeriodDays,
+                            LostBookFeeMultiplier,
+                            EffectiveFrom,
+                            EffectiveTo FROM LibraryPolicy WHERE PolicyID = @PolicyID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

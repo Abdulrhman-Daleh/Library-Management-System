@@ -72,7 +72,18 @@ namespace DataAccess
         public static PersonDTO GetPersonById(int personId)
         {
             PersonDTO personDto = null;
-            string query = @"SELECT * FROM People WHERE PersonID = @PersonID";
+            string query = @"SELECT PersonID,
+                            NationalNo,
+                            FirstName,
+                            SecondName,
+                            ThirdName,
+                            LastName,
+                            DateOfBirth,
+                            Gender,
+                            Phone,
+                            Address,
+                            Email,
+                            ImagePath FROM People WHERE PersonID = @PersonID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -117,7 +128,18 @@ namespace DataAccess
         public static PersonDTO GetPersonByNationalNo(string nationalNo)
         {
             PersonDTO personDto = null;
-            string query = @"SELECT * FROM People WHERE NationalNo = @NationalNo";
+            string query = @"SELECT PersonID,
+                            NationalNo,
+                            FirstName,
+                            SecondName,
+                            ThirdName,
+                            LastName,
+                            DateOfBirth,
+                            Gender,
+                            Phone,
+                            Address,
+                            Email,
+                            ImagePath FROM People WHERE NationalNo = @NationalNo";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

@@ -14,7 +14,14 @@ namespace DataAccess
         public static FineDTO GetFineByBorrowId(int borrowId)
         {
             FineDTO fineDto = null;
-            string query = @"SELECT TOP 1 * FROM Fines WHERE BorrowID = @BorrowID;";
+            string query = @"SELECT TOP 1 FineID,
+                            BorrowID,
+                            FineStatusID,
+                            FineAmount,
+                            Reason,
+                            CreatedDate,
+                            ClosedDate,
+                            RenewID FROM Fines WHERE BorrowID = @BorrowID;";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -54,7 +61,14 @@ namespace DataAccess
         public static FineDTO GetFineById(int fineId)
         {
             FineDTO fineDto = null;
-            string query = @"SELECT TOP 1 * FROM Fines WHERE FineID = @FineID;";
+            string query = @"SELECT TOP 1 FineID,
+                            BorrowID,
+                            FineStatusID,
+                            FineAmount,
+                            Reason,
+                            CreatedDate,
+                            ClosedDate,
+                            RenewID FROM Fines WHERE FineID = @FineID;";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -95,7 +109,14 @@ namespace DataAccess
         public static async Task<DataTable> GetAllFinesAsync()
         {
             DataTable dataTable = new DataTable();
-            string query = @"SELECT * FROM Fines ORDER BY FineID ASC";
+            string query = @"SELECT FineID,
+                    BorrowID,
+                    FineStatusID,
+                    FineAmount,
+                    Reason,
+                    CreatedDate,
+                    ClosedDate,
+                    RenewID FROM Fines ORDER BY FineID ASC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

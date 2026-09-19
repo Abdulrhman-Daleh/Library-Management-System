@@ -16,7 +16,12 @@ namespace DataAccess
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
-                string query = @"SELECT * FROM MembershipRenews WHERE RenewID = @RenewID";
+                string query = @"SELECT RenewID,
+                                     MemberID,
+                                     MembershipTypeID,
+                                     RenewDate,
+                                     RenewFees,
+                                     IsPaid FROM MembershipRenews WHERE RenewID = @RenewID";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -61,7 +66,12 @@ namespace DataAccess
             {
                 try
                 {
-                    string query = @"SELECT * FROM MembershipRenews";
+                    string query = @"SELECT RenewID,
+                                     MemberID,
+                                     MembershipTypeID,
+                                     RenewDate,
+                                     RenewFees,
+                                     IsPaid FROM MembershipRenews";
 
                     using (SqlCommand command = new SqlCommand(query, connection))
                     {
@@ -91,7 +101,12 @@ namespace DataAccess
             {
                 try
                 {
-                    string query = @"SELECT * FROM MembershipRenews WHERE MemberID = @MemberID";
+                    string query = @"SELECT RenewID,
+                                     MemberID,
+                                     MembershipTypeID,
+                                     RenewDate,
+                                     RenewFees,
+                                     IsPaid FROM MembershipRenews WHERE MemberID = @MemberID";
 
                     await connection.OpenAsync();
                     using (SqlCommand command = new SqlCommand(query, connection))

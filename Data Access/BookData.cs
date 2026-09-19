@@ -13,7 +13,11 @@ namespace DataAccess
         public static async Task<DataTable> GetAllBooksAsync()
         {
             DataTable dataTable = new DataTable();
-            string query = "SELECT * FROM Books ORDER BY BookID ASC";
+            string query = @"SELECT BookID,
+                            ISBN,
+                            PublicationDate,
+                            CategoryID,
+                            AuthorName FROM Books ORDER BY BookID ASC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -163,7 +167,11 @@ namespace DataAccess
         public static bool FindBookById(int bookId, out BookDTO bookDto)
         {
             bookDto = null;
-            string query = @"SELECT TOP 1 * FROM Books WHERE BookID = @BookID";
+            string query = @"SELECT TOP 1 BookID,
+                        ISBN,
+                        PublicationDate,
+                        CategoryID,
+                        AuthorName FROM Books WHERE BookID = @BookID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -201,7 +209,11 @@ namespace DataAccess
         public static bool FindBookByCategoryId(int categoryId, out BookDTO bookDto)
         {
             bookDto = null;
-            string query = @"SELECT TOP 1 * FROM Books WHERE CategoryID = @CategoryID";
+            string query = @"SELECT TOP 1 BookID,
+                        ISBN,
+                        PublicationDate,
+                        CategoryID,
+                        AuthorName FROM Books WHERE CategoryID = @CategoryID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

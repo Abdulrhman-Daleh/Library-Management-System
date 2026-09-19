@@ -235,7 +235,16 @@ namespace DataAccess
         public static UserDTO GetUserById(int userId)
         {
             UserDTO userDto = null;
-            string query = @"SELECT TOP 1 * FROM Users WHERE UserID = @UserID";
+            string query = @"SELECT TOP 1 UserID,
+                            PersonID,
+                            Username,
+                            HashedPassword,
+                            IsActive,
+                            FailedLoginAttempts,
+                            AccountLockExpirationDate,
+                            LastLoginDate,
+                            LastPasswordChangeDate,
+                            Permission FROM Users WHERE UserID = @UserID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -303,7 +312,16 @@ namespace DataAccess
         public static UserDTO GetUserByPersonId(int personId)
         {
             UserDTO userDto = null;
-            string query = @"SELECT TOP 1 * FROM Users WHERE PersonID = @PersonID";
+            string query = @"SELECT TOP 1 UserID,
+                            PersonID,
+                            Username,
+                            HashedPassword,
+                            IsActive,
+                            FailedLoginAttempts,
+                            AccountLockExpirationDate,
+                            LastLoginDate,
+                            LastPasswordChangeDate,
+                            Permission FROM Users WHERE PersonID = @PersonID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -404,7 +422,16 @@ namespace DataAccess
         public static UserDTO GetUserByUsername(string username)
         {
             UserDTO userDto = null;
-            string query = @"SELECT TOP 1 * FROM Users WHERE Username = @Username";
+            string query = @"SELECT TOP 1 UserID,
+                            PersonID,
+                            Username,
+                            HashedPassword,
+                            IsActive,
+                            FailedLoginAttempts,
+                            AccountLockExpirationDate,
+                            LastLoginDate,
+                            LastPasswordChangeDate,
+                            Permission FROM Users WHERE Username = @Username";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

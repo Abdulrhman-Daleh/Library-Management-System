@@ -93,7 +93,15 @@ namespace DataAccess
         public static BorrowTransactionDTO GetBorrowTransactionByCopyId(int bookCopyId)
         {
             BorrowTransactionDTO transactionDto = null;
-            string query = @"SELECT * FROM BorrowTransactions WHERE BookCopyID = @BookCopyID and ReturnDate IS NULL ORDER BY BorrowID DESC";
+            string query = @"SELECT BorrowID,
+                            BookCopyID,
+                            MemberID,
+                            PolicyID,
+                            BorrowStatusID,
+                            BorrowDate,
+                            DueDate,
+                            ReturnDate,
+                            LostDate FROM BorrowTransactions WHERE BookCopyID = @BookCopyID and ReturnDate IS NULL ORDER BY BorrowID DESC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -135,7 +143,15 @@ namespace DataAccess
         public static BorrowTransactionDTO GetBorrowTransactionById(int? borrowId)
         {
             BorrowTransactionDTO transactionDto = null;
-            string query = @"SELECT * FROM BorrowTransactions WHERE BorrowID = @BorrowID";
+            string query = @"SELECT BorrowID,
+                            BookCopyID,
+                            MemberID,
+                            PolicyID,
+                            BorrowStatusID,
+                            BorrowDate,
+                            DueDate,
+                            ReturnDate,
+                            LostDate FROM BorrowTransactions WHERE BorrowID = @BorrowID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -211,7 +227,15 @@ namespace DataAccess
         public static async Task<DataTable> GetBorrowTransactionsAsync()
         {
             DataTable dataTable = new DataTable();
-            string query = @"SELECT * FROM BorrowTransactions ORDER BY BorrowID ASC";
+            string query = @"SELECT BorrowID,
+                            BookCopyID,
+                            MemberID,
+                            PolicyID,
+                            BorrowStatusID,
+                            BorrowDate,
+                            DueDate,
+                            ReturnDate,
+                            LostDate FROM BorrowTransactions ORDER BY BorrowID ASC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -237,7 +261,15 @@ namespace DataAccess
         public static async Task<DataTable> GetBorrowTransactionsByMemberIdAsync(int memberId)
         {
             DataTable dataTable = new DataTable();
-            string query = @"SELECT * FROM BorrowTransactions WHERE MemberID = @MemberID ORDER BY BorrowID ASC";
+            string query = @"SELECT BorrowID,
+                            BookCopyID,
+                            MemberID,
+                            PolicyID,
+                            BorrowStatusID,
+                            BorrowDate,
+                            DueDate,
+                            ReturnDate,
+                            LostDate FROM BorrowTransactions WHERE MemberID = @MemberID ORDER BY BorrowID ASC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

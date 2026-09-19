@@ -161,7 +161,12 @@ namespace DataAccess
         public static bool FindBookCopyById(int bookCopyId, out BookCopyDTO bookCopyDto)
         {
             bookCopyDto = null;
-            string query = @"SELECT TOP 1 * FROM BookCopies WHERE BookCopyID = @BookCopyID";
+            string query = @"SELECT TOP 1 BookCopyID,
+                            BookID,
+                            StatusID,
+                            AddedDate,
+                            ConditionID,
+                            BookCopyPrice FROM BookCopies WHERE BookCopyID = @BookCopyID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

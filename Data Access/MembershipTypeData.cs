@@ -15,7 +15,10 @@ namespace DataAccess
         public static async Task<DataTable> GetAllMembershipTypesAsync()
         {
             DataTable dataTable = new DataTable();
-            string query = "SELECT * FROM MembershipType ORDER BY MembershipTypeID ASC";
+            string query = @"SELECT MembershipTypeID,
+                            MembershipTypeName,
+                            MembershipFees,
+                            MembershipBorrowLimit FROM MembershipType ORDER BY MembershipTypeID ASC";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -156,7 +159,10 @@ namespace DataAccess
         public static MembershipTypeDTO GetMembershipTypeById(int membershipTypeId)
         {
             MembershipTypeDTO membershipTypeDto = null;
-            string query = @"SELECT * FROM MembershipType WHERE MembershipTypeID = @MembershipTypeID";
+            string query = @"SELECT MembershipTypeID,
+                                MembershipTypeName,
+                                MembershipFees,
+                                MembershipBorrowLimit FROM MembershipType WHERE MembershipTypeID = @MembershipTypeID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
@@ -193,7 +199,10 @@ namespace DataAccess
         public static MembershipTypeDTO GetMembershipTypeByName(string membershipTypeName)
         {
             MembershipTypeDTO membershipTypeDto = null;
-            string query = @"SELECT * FROM MembershipType WHERE MembershipTypeName = @MembershipTypeName";
+            string query = @"SELECT MembershipTypeID,
+                                MembershipTypeName,
+                                MembershipFees,
+                                MembershipBorrowLimit FROM MembershipType WHERE MembershipTypeName = @MembershipTypeName";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {

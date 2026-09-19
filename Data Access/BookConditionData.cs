@@ -13,7 +13,9 @@ namespace DataAccess
         public static BookConditionDTO GetBookConditionById(int conditionId)
         {
             BookConditionDTO conditionDto = null;
-            string query = @"SELECT TOP 1 * FROM BookConditions WHERE ConditionID = @ConditionID";
+            string query = @"SELECT TOP 1 ConditionID,
+                            ConditionFees,
+                            ConditionTitle FROM BookConditions WHERE ConditionID = @ConditionID";
 
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
