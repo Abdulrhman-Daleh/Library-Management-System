@@ -14,9 +14,6 @@ namespace DataAccess
         {
             MembershipRenewDTO renewDto = null;
 
-            if (!renewId.HasValue)
-                return null;
-
             using (SqlConnection connection = new SqlConnection(ConnectionAccess.GetConnectionString()))
             {
                 string query = @"SELECT RenewID,
@@ -30,7 +27,7 @@ namespace DataAccess
                 {
                     try
                     {
-                        command.Parameters.Add("@RenewID", SqlDbType.Int).Value = renewId.Value;
+                        command.Parameters.Add("@RenewID", SqlDbType.Int).Value = (object)renewId ?? DBNull.Value;
 
                         connection.Open();
 
