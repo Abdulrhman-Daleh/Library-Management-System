@@ -81,6 +81,7 @@
             this.TxtPassword.Name = "TxtPassword";
             this.TxtPassword.Size = new System.Drawing.Size(223, 35);
             this.TxtPassword.TabIndex = 14;
+            this.TxtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.TxtPassword_Validating);
             // 
             // pictureBox4
             // 
